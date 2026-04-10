@@ -1,8 +1,9 @@
-saveName=open_world_profile
-currentRegion=village
-playerPosition=0.0,1.5,8.0
-playerHealth=100
-playerMaxHealth=100
+region=village
+health=100
+maxHealth=100
+pos=-3.33972,0.9,4.11622
 gold=25
-equippedWeapon=starter_staff
-equippedArmor=traveler_clothes
+weapon=starter_staff
+armor=traveler_clothes
+inventoryCount=0
+questCount=0

@@ -1,0 +1,4 @@
+name=crate_red
+base=dynamic_crate
+tag=dynamic_crate
+color=230,100,90,255
