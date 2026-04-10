@@ -1,0 +1,9 @@
+region=village
+health=100
+maxHealth=100
+pos=-3.33972,0.9,4.11622
+gold=25
+weapon=starter_staff
+armor=traveler_clothes
+inventoryCount=0
+questCount=0
