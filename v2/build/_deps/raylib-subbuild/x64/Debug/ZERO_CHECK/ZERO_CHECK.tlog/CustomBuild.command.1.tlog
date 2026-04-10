@@ -1,0 +1,10 @@
+^C:\DEV\3D_GAME_ENGINE\BUILD\_DEPS\RAYLIB-SUBBUILD\CMAKEFILES\D3AD19C297C4083458251EBBF649ED48\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/dev/3D_GAME_ENGINE/build/_deps/raylib-subbuild -BC:/dev/3D_GAME_ENGINE/build/_deps/raylib-subbuild --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/dev/3D_GAME_ENGINE/build/_deps/raylib-subbuild/raylib-populate.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
