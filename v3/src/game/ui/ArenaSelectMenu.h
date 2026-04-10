@@ -4,7 +4,7 @@
 
 namespace fw {
 
-class MainMenu {
+class ArenaSelectMenu {
 public:
     void Draw(const ArenaGameState& state) const;
 };

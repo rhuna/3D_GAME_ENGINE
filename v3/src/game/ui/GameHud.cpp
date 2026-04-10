@@ -23,12 +23,13 @@ void GameHud::Draw(const World& world, const ArenaGameState& state) const {
     }
 
     if (state.phase == ArenaPhase::WaitingToStart) {
-        m_mainMenu.Draw();
+        m_mainMenu.Draw(state);
+        m_arenaSelectMenu.Draw(state);
     }
 
     DrawRectangle(18, 18, 380, 198, Fade(BLACK, 0.58f));
     DrawRectangleLines(18, 18, 380, 198, SKYBLUE);
-    DrawText("Wizard Arena v12", 30, 28, 26, RAYWHITE);
+    DrawText("Wizard Arena v13", 30, 28, 26, RAYWHITE);
     DrawText(state.levelName.c_str(), 30, 56, 18, SKYBLUE);
     DrawText(TextFormat("Wave: %d", state.wave), 30, 82, 20, GOLD);
     DrawText(TextFormat("Enemies: %d", state.enemiesRemaining), 30, 106, 20, RAYWHITE);
@@ -36,6 +37,7 @@ void GameHud::Draw(const World& world, const ArenaGameState& state) const {
     DrawText(TextFormat("Pickups: %d", state.pickupsCollected), 30, 130, 20, GREEN);
     DrawText(TextFormat("Score: %d", state.score), 205, 130, 20, GOLD);
     DrawText(TextFormat("Time: %.1fs", state.timeSeconds), 30, 154, 20, RAYWHITE);
+    DrawText(TextFormat("Difficulty: %d", state.difficultyTier), 205, 154, 20, ORANGE);
 
     const int barX = 30;
     const int barY = 184;
@@ -57,6 +59,12 @@ void GameHud::Draw(const World& world, const ArenaGameState& state) const {
         DrawRectangle(boostX, boostY, static_cast<int>(boostW * (r > 1.0f ? 1.0f : r)), boostH, VIOLET);
         DrawRectangleLines(boostX, boostY, boostW, boostH, PURPLE);
         DrawText(TextFormat("Damage boost %.1fs", state.playerDamageBoostRemaining), boostX, boostY + 16, 18, VIOLET);
+    }
+
+
+    if (state.comboCount > 1 && state.comboTimer > 0.0f) {
+        DrawText(TextFormat("Combo x%d", state.comboCount), 420, 28, 24, ORANGE);
+        DrawText(TextFormat("Multiplier %.2fx", state.scoreMultiplier), 420, 56, 20, GOLD);
     }
 
     const int centerX = GetScreenWidth() / 2;

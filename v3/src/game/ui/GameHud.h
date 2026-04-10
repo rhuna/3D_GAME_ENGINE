@@ -1,6 +1,7 @@
 #pragma once
 
 #include "game/state/ArenaGameState.h"
+#include "game/ui/ArenaSelectMenu.h"
 #include "game/ui/EndScreen.h"
 #include "game/ui/MainMenu.h"
 
@@ -14,6 +15,7 @@ public:
 
 private:
     MainMenu m_mainMenu {};
+    ArenaSelectMenu m_arenaSelectMenu {};
     EndScreen m_endScreen {};
 };
 

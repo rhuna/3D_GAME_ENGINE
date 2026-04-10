@@ -1,26 +1,24 @@
-# 3D_GAME_ENGINE v12
+# 3D_GAME_ENGINE v13
 
-v12 pushes the project from a functional prototype into a more complete game slice.
+v13 upgrades the working v12 game slice into a more campaign-like prototype.
 
-## Highlights
-- combat polish pass
-- third enemy archetype: ranged arcanist
-- health and damage-boost pickups
-- title/start screen and end screen overlays
-- score tracking
-- boost timer HUD
-- team-aware projectile damage
-- richer arena scene: `arena_game_02.scene`
+## Main additions
+- arena rotation on the start screen
+- difficulty selection on the start screen
+- campaign profile scaffolding
+- best score and arenas cleared tracking
+- combo / multiplier HUD hooks
+- third arena scene: `arena_game_03`
+- tank enemy prefab scaffold: `enemy_tank.prefab`
 
 ## Controls
-- `Enter` start or replay
-- `WASD` move
-- `LMB` cast
-- `P` pause
-- `F5` reload arena
-- `F11` fullscreen
-- `F1` debug overlay
-- `Tab` inspector
+- Enter: start / replay
+- [ / ]: change arena from the start screen
+- - / =: change difficulty from the start screen
+- WASD: move
+- LMB: cast
+- P: pause
+- F11: fullscreen
 
 ## Build
 ```powershell
@@ -30,4 +28,4 @@ cmake --build build --config Release
 ```
 
 ## Notes
-Audio hooks are stubbed through `AudioBus` so the gameplay code is ready for real sound effects later without forcing an audio asset pipeline first.
+This version is intended as the next full repo step after v12. It focuses on progression and replay structure instead of raw engine plumbing.

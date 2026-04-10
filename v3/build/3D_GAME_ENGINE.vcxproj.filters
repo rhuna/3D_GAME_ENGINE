@@ -82,10 +82,16 @@
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\v3\src\game\rules\WaveDirector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\v3\src\game\progression\CampaignProfile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\v3\src\game\audio\AudioBus.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\v3\src\game\ui\MainMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\v3\src\game\ui\ArenaSelectMenu.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\v3\src\game\ui\EndScreen.cpp">

@@ -46,8 +46,10 @@ set(ENGINE_SOURCES
   src/gameplay/systems/ProjectileCleanupSystem.cpp
 
   src/game/rules/WaveDirector.cpp
+  src/game/progression/CampaignProfile.cpp
   src/game/audio/AudioBus.cpp
   src/game/ui/MainMenu.cpp
+  src/game/ui/ArenaSelectMenu.cpp
   src/game/ui/EndScreen.cpp
   src/game/ui/GameHud.cpp
   src/game/systems/PickupSystem.cpp

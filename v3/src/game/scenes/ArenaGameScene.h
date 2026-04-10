@@ -1,5 +1,6 @@
 #pragma once
 
+#include "game/progression/CampaignProfile.h"
 #include "game/rules/WaveDirector.h"
 #include "game/ui/GameHud.h"
 #include "scene/Scene.h"
@@ -17,8 +18,12 @@ public:
     const char* Name() const override { return "ArenaGameScene"; }
 
 private:
+    const char* ResolveSceneName() const;
+    void AdvanceArenaSelection(int delta);
+
     GameHud m_hud {};
     WaveDirector m_waveDirector {};
+    CampaignProfile m_campaignProfile {};
 };
 
 } // namespace fw
