@@ -1,7 +1,7 @@
 #include "scene/SceneManager.h"
 
-#include "scene/Scene.h"
 #include "core/Application.h"
+#include "scene/Scene.h"
 
 namespace fw {
 
@@ -32,6 +32,12 @@ void SceneManager::FixedUpdate(Application& app, float fixedDeltaTime) {
 void SceneManager::Render(Application& app) {
     if (m_currentScene) {
         m_currentScene->Render(app);
+    }
+}
+
+void SceneManager::DrawUi(Application& app) {
+    if (m_currentScene) {
+        m_currentScene->DrawUi(app);
     }
 }
 

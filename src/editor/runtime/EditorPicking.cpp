@@ -42,11 +42,7 @@ BoundingBox BuildBoundingBox(const TransformComponent& transform, const BoxColli
     };
 }
 
-} // namespace
-
-Entity EditorPicking::PickEntity(const World& world, const ::Camera3D& camera) {
-    const Ray ray = GetScreenToWorldRay(GetMousePosition(), camera);
-
+Entity PickEntityFromRay(const World& world, const Ray& ray) {
     Entity bestEntity = 0;
     float bestDistance = std::numeric_limits<float>::max();
 
@@ -65,6 +61,17 @@ Entity EditorPicking::PickEntity(const World& world, const ::Camera3D& camera) {
     }
 
     return bestEntity;
+}
+
+} // namespace
+
+Entity EditorPicking::PickEntity(const World& world, const Camera3D& camera) {
+    return PickEntityAtScreenPoint(world, camera, GetMousePosition());
+}
+
+Entity EditorPicking::PickEntityAtScreenPoint(const World& world, const Camera3D& camera, Vector2 screenPoint) {
+    const Ray ray = GetMouseRay(screenPoint, camera);
+    return PickEntityFromRay(world, ray);
 }
 
 } // namespace fw

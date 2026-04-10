@@ -4,11 +4,19 @@
 
 namespace fw {
 
-void EditorSelection::Clear() { m_selected = 0; }
+void EditorSelection::Clear() {
+    m_selected = 0;
+    m_hovered = 0;
+}
+
 void EditorSelection::Select(Entity entity) { m_selected = entity; }
 
 bool EditorSelection::HasSelection(const World& world) const {
     return m_selected != 0 && world.IsAlive(m_selected);
+}
+
+bool EditorSelection::HasHovered(const World& world) const {
+    return m_hovered != 0 && world.IsAlive(m_hovered);
 }
 
 void EditorSelection::SelectNext(const World& world) {

@@ -8,6 +8,7 @@ public:
 
     [[nodiscard]] float DeltaTime() const { return m_deltaTime; }
     [[nodiscard]] float UnscaledDeltaTime() const { return m_unscaledDeltaTime; }
+    [[nodiscard]] float FixedDeltaTime() const { return 1.0f / 60.0f; }
     [[nodiscard]] double TotalTime() const { return m_totalTime; }
     [[nodiscard]] unsigned long long FrameCount() const { return m_frameCount; }
 

@@ -1,0 +1,18 @@
+# 3D_GAME_ENGINE v10 playable arena
+scene=arena_game
+
+spawn=prefab=ground; position=0.0,-0.5,0.0; scale=24.0,1.0,24.0; color=70,95,70,255
+spawn=prefab=player; position=0.0,2.0,0.0
+spawn=prefab=arena_wall; tag=wall_north; position=0.0,1.5,-12.0; scale=24.0,3.0,1.0; color=70,80,120,255
+spawn=prefab=arena_wall; tag=wall_south; position=0.0,1.5,12.0; scale=24.0,3.0,1.0; color=70,80,120,255
+spawn=prefab=arena_wall; tag=wall_west; position=-12.0,1.5,0.0; scale=1.0,3.0,24.0; color=70,80,120,255
+spawn=prefab=arena_wall; tag=wall_east; position=12.0,1.5,0.0; scale=1.0,3.0,24.0; color=70,80,120,255
+
+spawn=variant=crate_blue; position=-4.0,1.0,-1.5
+spawn=variant=crate_red; position=3.0,1.0,2.5
+spawn=variant=crate_tall; position=0.0,1.5,5.0
+
+spawn=prefab=enemy_spawner_marker; position=-9.0,1.0,-9.0
+spawn=prefab=enemy_spawner_marker; position=9.0,1.0,-9.0
+spawn=prefab=enemy_spawner_marker; position=-9.0,1.0,9.0
+spawn=prefab=enemy_spawner_marker; position=9.0,1.0,9.0

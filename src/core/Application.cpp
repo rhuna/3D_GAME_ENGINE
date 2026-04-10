@@ -3,12 +3,11 @@
 #include <cmath>
 #include <memory>
 
-#include "raylib.h"
 #include "raymath.h"
 
 #include "core/Logger.h"
 #include "editor/serialization/SceneExporter.h"
-#include "scene/scenes/SandboxScene.h"
+#include "game/scenes/ArenaGameScene.h"
 #include "serialization/WorldSerializer.h"
 
 namespace fw {
@@ -30,8 +29,8 @@ int Application::Run() {
         if (m_input.IsKeyPressed(KEY_F3)) ExportCurrentScene();
         if (m_input.IsKeyPressed(KEY_F4)) RunContentValidation();
         if (m_input.IsKeyPressed(KEY_F5)) ReloadStartScene();
-        if (m_input.IsKeyPressed(KEY_F6)) WorldSerializer::SaveToFile(m_world, "assets/saves/sandbox_world.txt");
-        if (m_input.IsKeyPressed(KEY_F7)) WorldSerializer::LoadFromFile(m_world, "assets/saves/sandbox_world.txt");
+        if (m_input.IsKeyPressed(KEY_F6)) WorldSerializer::SaveToFile(m_world, "assets/saves/arena_world.txt");
+        if (m_input.IsKeyPressed(KEY_F7)) WorldSerializer::LoadFromFile(m_world, "assets/saves/arena_world.txt");
         if (m_input.IsKeyPressed(KEY_TAB)) m_showInspector = !m_showInspector;
 
         UpdateCameraController(m_time.DeltaTime());
@@ -50,6 +49,7 @@ int Application::Run() {
         m_renderer.Begin3D(m_camera);
         m_sceneManager.Render(*this);
         m_renderer.End3D();
+        m_sceneManager.DrawUi(*this);
 
         if (m_showDebugOverlay) {
             m_debugOverlay.Draw(m_time, m_world, m_camera, m_sceneManager.CurrentSceneName(), m_editorSelection.Selected(), m_validationMessages, m_lastExportPath, m_showInspector);
@@ -59,6 +59,11 @@ int Application::Run() {
             m_inspectorPanel.Draw(m_world, m_editorSelection);
         }
 
+        if (!m_mouseLookActive) {
+            DrawCircleV(GetMousePosition(), 4.0f, SKYBLUE);
+            DrawCircleLines(static_cast<int>(GetMousePosition().x), static_cast<int>(GetMousePosition().y), 10.0f, Fade(SKYBLUE, 0.75f));
+        }
+
         m_renderer.EndFrame();
     }
 
@@ -66,7 +71,7 @@ int Application::Run() {
 }
 
 void Application::ReloadStartScene() {
-    m_sceneManager.ChangeScene(*this, std::make_unique<SandboxScene>());
+    m_sceneManager.ChangeScene(*this, std::make_unique<ArenaGameScene>());
     m_editorSelection.Clear();
     Logger::Info("Reloaded start scene.");
 }
@@ -95,9 +100,9 @@ void Application::Initialize() {
 
     InitWindow(m_config.windowWidth, m_config.windowHeight, m_config.windowTitle.c_str());
     SetTargetFPS(m_config.targetFps);
-    DisableCursor();
+    EnableCursor();
 
-    m_camera.position = Vector3{5.0f, 6.0f, 10.0f};
+    m_camera.position = Vector3{0.0f, 8.0f, 12.0f};
     m_camera.target = Vector3{0.0f, 1.0f, 0.0f};
     m_camera.up = Vector3{0.0f, 1.0f, 0.0f};
     m_camera.fovy = 60.0f;
@@ -122,17 +127,26 @@ void Application::Shutdown() {
 }
 
 void Application::UpdateCameraController(float deltaTime) {
+    const bool activateLook = m_input.IsMouseButtonDown(MOUSE_BUTTON_RIGHT);
+    if (activateLook && !m_mouseLookActive) {
+        DisableCursor();
+        m_mouseLookActive = true;
+    } else if (!activateLook && m_mouseLookActive) {
+        EnableCursor();
+        m_mouseLookActive = false;
+    }
+
     const float distance = Vector3Distance(m_camera.position, m_camera.target);
     const float safeDistance = distance > 0.0001f ? distance : 0.0001f;
 
     float yaw = std::atan2f(m_camera.target.x - m_camera.position.x, m_camera.target.z - m_camera.position.z);
     float pitch = std::asinf((m_camera.target.y - m_camera.position.y) / safeDistance);
 
-    if (m_input.IsMouseButtonDown(MOUSE_BUTTON_RIGHT)) {
+    if (m_mouseLookActive) {
         const Vector2 delta = GetMouseDelta();
         yaw -= delta.x * m_config.cameraLookSensitivity;
-        pitch -= delta.y * m_config.cameraLookSensitivity;
-        const float limit = 1.5f;
+        pitch += delta.y * m_config.cameraLookSensitivity;
+        const float limit = 1.2f;
         if (pitch > limit) pitch = limit;
         if (pitch < -limit) pitch = -limit;
     }
@@ -142,22 +156,21 @@ void Application::UpdateCameraController(float deltaTime) {
         std::sinf(pitch),
         std::cosf(yaw) * std::cosf(pitch)
     });
-    const Vector3 right = Vector3Normalize(Vector3CrossProduct(forward, Vector3{0.0f, 1.0f, 0.0f}));
-    const Vector3 up = Vector3{0.0f, 1.0f, 0.0f};
-
-    Vector3 move{0.0f, 0.0f, 0.0f};
-    if (m_input.IsKeyDown(KEY_W)) move = Vector3Add(move, forward);
-    if (m_input.IsKeyDown(KEY_S)) move = Vector3Subtract(move, forward);
-    if (m_input.IsKeyDown(KEY_D)) move = Vector3Add(move, right);
-    if (m_input.IsKeyDown(KEY_A)) move = Vector3Subtract(move, right);
-    if (m_input.IsKeyDown(KEY_E)) move = Vector3Add(move, up);
-    if (m_input.IsKeyDown(KEY_Q)) move = Vector3Subtract(move, up);
-    if (Vector3Length(move) > 0.0f) move = Vector3Normalize(move);
-
-    const float speed = m_input.IsKeyDown(KEY_LEFT_SHIFT) ? m_config.cameraFastSpeed : m_config.cameraMoveSpeed;
-    const Vector3 deltaMove = Vector3Scale(move, speed * deltaTime);
-    m_camera.position = Vector3Add(m_camera.position, deltaMove);
     m_camera.target = Vector3Add(m_camera.position, forward);
+
+    if (m_mouseLookActive && m_input.IsKeyDown(KEY_E)) {
+        const Vector3 up = Vector3{0.0f, 1.0f, 0.0f};
+        const Vector3 deltaMove = Vector3Scale(up, m_config.cameraMoveSpeed * deltaTime);
+        m_camera.position = Vector3Add(m_camera.position, deltaMove);
+        m_camera.target = Vector3Add(m_camera.target, deltaMove);
+    }
+
+    if (m_mouseLookActive && m_input.IsKeyDown(KEY_Q)) {
+        const Vector3 up = Vector3{0.0f, -1.0f, 0.0f};
+        const Vector3 deltaMove = Vector3Scale(up, m_config.cameraMoveSpeed * deltaTime);
+        m_camera.position = Vector3Add(m_camera.position, deltaMove);
+        m_camera.target = Vector3Add(m_camera.target, deltaMove);
+    }
 }
 
 } // namespace fw

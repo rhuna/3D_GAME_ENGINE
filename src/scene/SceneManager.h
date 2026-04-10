@@ -14,6 +14,7 @@ public:
     void Update(Application& app, float deltaTime);
     void FixedUpdate(Application& app, float fixedDeltaTime);
     void Render(Application& app);
+    void DrawUi(Application& app);
 
     [[nodiscard]] Scene* CurrentScene() const { return m_currentScene.get(); }
     [[nodiscard]] std::string CurrentSceneName() const;

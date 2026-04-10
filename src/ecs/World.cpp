@@ -13,6 +13,12 @@ void World::Clear() {
     m_colliders.Clear();
     m_lifetimes.Clear();
     m_editorMetadata.Clear();
+    m_players.Clear();
+    m_health.Clear();
+    m_enemies.Clear();
+    m_projectiles.Clear();
+    m_teams.Clear();
+    m_spawners.Clear();
 }
 
 Entity World::CreateEntity() {
@@ -37,6 +43,12 @@ bool World::DestroyEntity(Entity entity) {
     RemoveComponent<BoxColliderComponent>(entity);
     RemoveComponent<LifetimeComponent>(entity);
     RemoveComponent<EditorMetadataComponent>(entity);
+    RemoveComponent<PlayerComponent>(entity);
+    RemoveComponent<HealthComponent>(entity);
+    RemoveComponent<EnemyComponent>(entity);
+    RemoveComponent<ProjectileComponent>(entity);
+    RemoveComponent<TeamComponent>(entity);
+    RemoveComponent<SpawnerComponent>(entity);
 
     m_entities.erase(std::remove(m_entities.begin(), m_entities.end(), entity), m_entities.end());
     m_collisions.erase(std::remove_if(m_collisions.begin(), m_collisions.end(), [entity](const CollisionInfo& info) {

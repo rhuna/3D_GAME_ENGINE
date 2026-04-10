@@ -84,7 +84,7 @@ events:
       The output was:
       0
       MSBuild version 17.14.40+3e7442088 for .NET Framework
-      Build started 4/10/2026 11:35:11 AM.
+      Build started 4/10/2026 12:19:07 PM.
       
       Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\4.1.1\\CompilerIdCXX\\CompilerIdCXX.vcxproj" on node 1 (default targets).
       PrepareForBuild:
@@ -1014,8 +1014,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-739we8"
-      binary: "C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-739we8"
+      source: "C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-mkl22q"
+      binary: "C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-mkl22q"
     cmakeVariables:
       CMAKE_CXX_FLAGS: "/DWIN32 /D_WINDOWS /EHsc"
       CMAKE_CXX_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -1025,40 +1025,40 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-739we8'
+        Change Dir: 'C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-mkl22q'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_8ac69.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_3833f.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         MSBuild version 17.14.40+3e7442088 for .NET Framework
-        Build started 4/10/2026 11:35:12 AM.
+        Build started 4/10/2026 12:19:07 PM.
         
-        Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-739we8\\cmTC_8ac69.vcxproj" on node 1 (default targets).
+        Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-mkl22q\\cmTC_3833f.vcxproj" on node 1 (default targets).
         PrepareForBuild:
-          Creating directory "cmTC_8ac69.dir\\Debug\\".
+          Creating directory "cmTC_3833f.dir\\Debug\\".
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Creating directory "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-739we8\\Debug\\".
-          Creating directory "cmTC_8ac69.dir\\Debug\\cmTC_8ac69.tlog\\".
+          Creating directory "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-mkl22q\\Debug\\".
+          Creating directory "cmTC_3833f.dir\\Debug\\cmTC_3833f.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_8ac69.dir\\Debug\\cmTC_8ac69.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-          Touching "cmTC_8ac69.dir\\Debug\\cmTC_8ac69.tlog\\unsuccessfulbuild".
+          Creating "cmTC_3833f.dir\\Debug\\cmTC_3833f.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_3833f.dir\\Debug\\cmTC_3833f.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Fo"cmTC_8ac69.dir\\Debug\\\\" /Fd"cmTC_8ac69.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCXXCompilerABI.cpp"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Fo"cmTC_3833f.dir\\Debug\\\\" /Fd"cmTC_3833f.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCXXCompilerABI.cpp"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35225 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Fo"cmTC_8ac69.dir\\Debug\\\\" /Fd"cmTC_8ac69.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCXXCompilerABI.cpp"
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /EHsc /RTC1 /MDd /GS /fp:precise /Fo"cmTC_3833f.dir\\Debug\\\\" /Fd"cmTC_3833f.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TP /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCXXCompilerABI.cpp"
           CMakeCXXCompilerABI.cpp
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-739we8\\Debug\\cmTC_8ac69.exe" /INCREMENTAL /ILK:"cmTC_8ac69.dir\\Debug\\cmTC_8ac69.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-739we8/Debug/cmTC_8ac69.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-739we8/Debug/cmTC_8ac69.lib" /MACHINE:X64  /machine:x64 cmTC_8ac69.dir\\Debug\\CMakeCXXCompilerABI.obj
-          cmTC_8ac69.vcxproj -> C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-739we8\\Debug\\cmTC_8ac69.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-mkl22q\\Debug\\cmTC_3833f.exe" /INCREMENTAL /ILK:"cmTC_3833f.dir\\Debug\\cmTC_3833f.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-mkl22q/Debug/cmTC_3833f.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-mkl22q/Debug/cmTC_3833f.lib" /MACHINE:X64  /machine:x64 cmTC_3833f.dir\\Debug\\CMakeCXXCompilerABI.obj
+          cmTC_3833f.vcxproj -> C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-mkl22q\\Debug\\cmTC_3833f.exe
         FinalizeBuildStatus:
-          Deleting file "cmTC_8ac69.dir\\Debug\\cmTC_8ac69.tlog\\unsuccessfulbuild".
-          Touching "cmTC_8ac69.dir\\Debug\\cmTC_8ac69.tlog\\cmTC_8ac69.lastbuildstate".
-        Done Building Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-739we8\\cmTC_8ac69.vcxproj" (default targets).
+          Deleting file "cmTC_3833f.dir\\Debug\\cmTC_3833f.tlog\\unsuccessfulbuild".
+          Touching "cmTC_3833f.dir\\Debug\\cmTC_3833f.tlog\\cmTC_3833f.lastbuildstate".
+        Done Building Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-mkl22q\\cmTC_3833f.vcxproj" (default targets).
         
         Build succeeded.
             0 Warning(s)
             0 Error(s)
         
-        Time Elapsed 00:00:00.34
+        Time Elapsed 00:00:00.35
         
       exitCode: 0
   -
@@ -1452,7 +1452,7 @@ events:
       The output was:
       0
       MSBuild version 17.14.40+3e7442088 for .NET Framework
-      Build started 4/10/2026 11:35:26 AM.
+      Build started 4/10/2026 12:19:23 PM.
       
       Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\4.1.1\\CompilerIdC\\CompilerIdC.vcxproj" on node 1 (default targets).
       PrepareForBuild:
@@ -1741,8 +1741,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-oxrmdx"
-      binary: "C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-oxrmdx"
+      source: "C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-rc3cqc"
+      binary: "C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-rc3cqc"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
       CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
@@ -1750,40 +1750,40 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: 'C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-oxrmdx'
+        Change Dir: 'C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-rc3cqc'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_425f9.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_fd323.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         MSBuild version 17.14.40+3e7442088 for .NET Framework
-        Build started 4/10/2026 11:35:26 AM.
+        Build started 4/10/2026 12:19:23 PM.
         
-        Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-oxrmdx\\cmTC_425f9.vcxproj" on node 1 (default targets).
+        Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-rc3cqc\\cmTC_fd323.vcxproj" on node 1 (default targets).
         PrepareForBuild:
-          Creating directory "cmTC_425f9.dir\\Debug\\".
+          Creating directory "cmTC_fd323.dir\\Debug\\".
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Creating directory "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-oxrmdx\\Debug\\".
-          Creating directory "cmTC_425f9.dir\\Debug\\cmTC_425f9.tlog\\".
+          Creating directory "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-rc3cqc\\Debug\\".
+          Creating directory "cmTC_fd323.dir\\Debug\\cmTC_fd323.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_425f9.dir\\Debug\\cmTC_425f9.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-          Touching "cmTC_425f9.dir\\Debug\\cmTC_425f9.tlog\\unsuccessfulbuild".
+          Creating "cmTC_fd323.dir\\Debug\\cmTC_fd323.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_fd323.dir\\Debug\\cmTC_fd323.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_425f9.dir\\Debug\\\\" /Fd"cmTC_425f9.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCCompilerABI.c"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_fd323.dir\\Debug\\\\" /Fd"cmTC_fd323.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCCompilerABI.c"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35225 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_425f9.dir\\Debug\\\\" /Fd"cmTC_425f9.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCCompilerABI.c"
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_fd323.dir\\Debug\\\\" /Fd"cmTC_fd323.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\Program Files\\CMake\\share\\cmake-4.1\\Modules\\CMakeCCompilerABI.c"
           CMakeCCompilerABI.c
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-oxrmdx\\Debug\\cmTC_425f9.exe" /INCREMENTAL /ILK:"cmTC_425f9.dir\\Debug\\cmTC_425f9.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-oxrmdx/Debug/cmTC_425f9.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-oxrmdx/Debug/cmTC_425f9.lib" /MACHINE:X64  /machine:x64 cmTC_425f9.dir\\Debug\\CMakeCCompilerABI.obj
-          cmTC_425f9.vcxproj -> C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-oxrmdx\\Debug\\cmTC_425f9.exe
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-rc3cqc\\Debug\\cmTC_fd323.exe" /INCREMENTAL /ILK:"cmTC_fd323.dir\\Debug\\cmTC_fd323.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-rc3cqc/Debug/cmTC_fd323.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-rc3cqc/Debug/cmTC_fd323.lib" /MACHINE:X64  /machine:x64 cmTC_fd323.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_fd323.vcxproj -> C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-rc3cqc\\Debug\\cmTC_fd323.exe
         FinalizeBuildStatus:
-          Deleting file "cmTC_425f9.dir\\Debug\\cmTC_425f9.tlog\\unsuccessfulbuild".
-          Touching "cmTC_425f9.dir\\Debug\\cmTC_425f9.tlog\\cmTC_425f9.lastbuildstate".
-        Done Building Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-oxrmdx\\cmTC_425f9.vcxproj" (default targets).
+          Deleting file "cmTC_fd323.dir\\Debug\\cmTC_fd323.tlog\\unsuccessfulbuild".
+          Touching "cmTC_fd323.dir\\Debug\\cmTC_fd323.tlog\\cmTC_fd323.lastbuildstate".
+        Done Building Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-rc3cqc\\cmTC_fd323.vcxproj" (default targets).
         
         Build succeeded.
             0 Warning(s)
             0 Error(s)
         
-        Time Elapsed 00:00:00.35
+        Time Elapsed 00:00:00.36
         
       exitCode: 0
   -
@@ -1826,8 +1826,8 @@ events:
     checks:
       - "Performing Test COMPILER_HAS_THOSE_TOGGLES"
     directories:
-      source: "C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-zbht67"
-      binary: "C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-zbht67"
+      source: "C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-j54390"
+      binary: "C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-j54390"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
       CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
@@ -1836,34 +1836,34 @@ events:
       variable: "COMPILER_HAS_THOSE_TOGGLES"
       cached: true
       stdout: |
-        Change Dir: 'C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-zbht67'
+        Change Dir: 'C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-j54390'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_8db04.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_7433b.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         MSBuild version 17.14.40+3e7442088 for .NET Framework
-        Build started 4/10/2026 11:35:27 AM.
+        Build started 4/10/2026 12:19:24 PM.
         
-        Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zbht67\\cmTC_8db04.vcxproj" on node 1 (default targets).
+        Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-j54390\\cmTC_7433b.vcxproj" on node 1 (default targets).
         PrepareForBuild:
-          Creating directory "cmTC_8db04.dir\\Debug\\".
+          Creating directory "cmTC_7433b.dir\\Debug\\".
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Creating directory "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zbht67\\Debug\\".
-          Creating directory "cmTC_8db04.dir\\Debug\\cmTC_8db04.tlog\\".
+          Creating directory "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-j54390\\Debug\\".
+          Creating directory "cmTC_7433b.dir\\Debug\\cmTC_7433b.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_8db04.dir\\Debug\\cmTC_8db04.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-          Touching "cmTC_8db04.dir\\Debug\\cmTC_8db04.tlog\\unsuccessfulbuild".
+          Creating "cmTC_7433b.dir\\Debug\\cmTC_7433b.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_7433b.dir\\Debug\\cmTC_7433b.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D COMPILER_HAS_THOSE_TOGGLES /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_8db04.dir\\Debug\\\\" /Fd"cmTC_8db04.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue  -Werror=pointer-arith "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zbht67\\src.c"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D COMPILER_HAS_THOSE_TOGGLES /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_7433b.dir\\Debug\\\\" /Fd"cmTC_7433b.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue  -Werror=pointer-arith "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-j54390\\src.c"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35225 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D COMPILER_HAS_THOSE_TOGGLES /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_8db04.dir\\Debug\\\\" /Fd"cmTC_8db04.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue  -Werror=pointer-arith "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zbht67\\src.c"
-        cl : command line  error D8021: invalid numeric argument '/Werror=pointer-arith' [C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zbht67\\cmTC_8db04.vcxproj]
-        Done Building Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zbht67\\cmTC_8db04.vcxproj" (default targets) -- FAILED.
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D COMPILER_HAS_THOSE_TOGGLES /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_7433b.dir\\Debug\\\\" /Fd"cmTC_7433b.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue  -Werror=pointer-arith "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-j54390\\src.c"
+        cl : command line  error D8021: invalid numeric argument '/Werror=pointer-arith' [C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-j54390\\cmTC_7433b.vcxproj]
+        Done Building Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-j54390\\cmTC_7433b.vcxproj" (default targets) -- FAILED.
         
         Build FAILED.
         
-        "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zbht67\\cmTC_8db04.vcxproj" (default target) (1) ->
+        "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-j54390\\cmTC_7433b.vcxproj" (default target) (1) ->
         (ClCompile target) -> 
-          cl : command line  error D8021: invalid numeric argument '/Werror=pointer-arith' [C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-zbht67\\cmTC_8db04.vcxproj]
+          cl : command line  error D8021: invalid numeric argument '/Werror=pointer-arith' [C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-j54390\\cmTC_7433b.vcxproj]
         
             0 Warning(s)
             1 Error(s)
@@ -1882,8 +1882,8 @@ events:
     checks:
       - "Performing Test CMAKE_HAVE_LIBC_PTHREAD"
     directories:
-      source: "C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-qww4q7"
-      binary: "C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-qww4q7"
+      source: "C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-hzth49"
+      binary: "C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-hzth49"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
       CMAKE_EXE_LINKER_FLAGS: "/machine:x64"
@@ -1892,35 +1892,35 @@ events:
       variable: "CMAKE_HAVE_LIBC_PTHREAD"
       cached: true
       stdout: |
-        Change Dir: 'C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-qww4q7'
+        Change Dir: 'C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-hzth49'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_26eca.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_bf116.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         MSBuild version 17.14.40+3e7442088 for .NET Framework
-        Build started 4/10/2026 11:35:27 AM.
+        Build started 4/10/2026 12:19:24 PM.
         
-        Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-qww4q7\\cmTC_26eca.vcxproj" on node 1 (default targets).
+        Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hzth49\\cmTC_bf116.vcxproj" on node 1 (default targets).
         PrepareForBuild:
-          Creating directory "cmTC_26eca.dir\\Debug\\".
+          Creating directory "cmTC_bf116.dir\\Debug\\".
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Creating directory "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-qww4q7\\Debug\\".
-          Creating directory "cmTC_26eca.dir\\Debug\\cmTC_26eca.tlog\\".
+          Creating directory "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hzth49\\Debug\\".
+          Creating directory "cmTC_bf116.dir\\Debug\\cmTC_bf116.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_26eca.dir\\Debug\\cmTC_26eca.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-          Touching "cmTC_26eca.dir\\Debug\\cmTC_26eca.tlog\\unsuccessfulbuild".
+          Creating "cmTC_bf116.dir\\Debug\\cmTC_bf116.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_bf116.dir\\Debug\\cmTC_bf116.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CMAKE_HAVE_LIBC_PTHREAD /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_26eca.dir\\Debug\\\\" /Fd"cmTC_26eca.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-qww4q7\\src.c"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CMAKE_HAVE_LIBC_PTHREAD /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_bf116.dir\\Debug\\\\" /Fd"cmTC_bf116.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hzth49\\src.c"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35225 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CMAKE_HAVE_LIBC_PTHREAD /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_26eca.dir\\Debug\\\\" /Fd"cmTC_26eca.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-qww4q7\\src.c"
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CMAKE_HAVE_LIBC_PTHREAD /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_bf116.dir\\Debug\\\\" /Fd"cmTC_bf116.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hzth49\\src.c"
           src.c
-        C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-qww4q7\\src.c(1,10): error C1083: Cannot open include file: 'pthread.h': No such file or directory [C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-qww4q7\\cmTC_26eca.vcxproj]
-        Done Building Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-qww4q7\\cmTC_26eca.vcxproj" (default targets) -- FAILED.
+        C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hzth49\\src.c(1,10): error C1083: Cannot open include file: 'pthread.h': No such file or directory [C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hzth49\\cmTC_bf116.vcxproj]
+        Done Building Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hzth49\\cmTC_bf116.vcxproj" (default targets) -- FAILED.
         
         Build FAILED.
         
-        "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-qww4q7\\cmTC_26eca.vcxproj" (default target) (1) ->
+        "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hzth49\\cmTC_bf116.vcxproj" (default target) (1) ->
         (ClCompile target) -> 
-          C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-qww4q7\\src.c(1,10): error C1083: Cannot open include file: 'pthread.h': No such file or directory [C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-qww4q7\\cmTC_26eca.vcxproj]
+          C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hzth49\\src.c(1,10): error C1083: Cannot open include file: 'pthread.h': No such file or directory [C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-hzth49\\cmTC_bf116.vcxproj]
         
             0 Warning(s)
             1 Error(s)
@@ -1938,8 +1938,8 @@ events:
     checks:
       - "Looking for pthread_create in pthreads"
     directories:
-      source: "C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-u3mdue"
-      binary: "C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-u3mdue"
+      source: "C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-d48r6m"
+      binary: "C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-d48r6m"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
       CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -1949,37 +1949,37 @@ events:
       variable: "CMAKE_HAVE_PTHREADS_CREATE"
       cached: true
       stdout: |
-        Change Dir: 'C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-u3mdue'
+        Change Dir: 'C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-d48r6m'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_5f14f.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_99a6b.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         MSBuild version 17.14.40+3e7442088 for .NET Framework
-        Build started 4/10/2026 11:35:28 AM.
+        Build started 4/10/2026 12:19:25 PM.
         
-        Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-u3mdue\\cmTC_5f14f.vcxproj" on node 1 (default targets).
+        Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-d48r6m\\cmTC_99a6b.vcxproj" on node 1 (default targets).
         PrepareForBuild:
-          Creating directory "cmTC_5f14f.dir\\Debug\\".
+          Creating directory "cmTC_99a6b.dir\\Debug\\".
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Creating directory "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-u3mdue\\Debug\\".
-          Creating directory "cmTC_5f14f.dir\\Debug\\cmTC_5f14f.tlog\\".
+          Creating directory "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-d48r6m\\Debug\\".
+          Creating directory "cmTC_99a6b.dir\\Debug\\cmTC_99a6b.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_5f14f.dir\\Debug\\cmTC_5f14f.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-          Touching "cmTC_5f14f.dir\\Debug\\cmTC_5f14f.tlog\\unsuccessfulbuild".
+          Creating "cmTC_99a6b.dir\\Debug\\cmTC_99a6b.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_99a6b.dir\\Debug\\cmTC_99a6b.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_5f14f.dir\\Debug\\\\" /Fd"cmTC_5f14f.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-u3mdue\\CheckFunctionExists.c"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_99a6b.dir\\Debug\\\\" /Fd"cmTC_99a6b.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-d48r6m\\CheckFunctionExists.c"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35225 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_5f14f.dir\\Debug\\\\" /Fd"cmTC_5f14f.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-u3mdue\\CheckFunctionExists.c"
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_99a6b.dir\\Debug\\\\" /Fd"cmTC_99a6b.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-d48r6m\\CheckFunctionExists.c"
           CheckFunctionExists.c
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-u3mdue\\Debug\\cmTC_5f14f.exe" /INCREMENTAL /ILK:"cmTC_5f14f.dir\\Debug\\cmTC_5f14f.ilk" /NOLOGO pthreads.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-u3mdue/Debug/cmTC_5f14f.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-u3mdue/Debug/cmTC_5f14f.lib" /MACHINE:X64  /machine:x64 cmTC_5f14f.dir\\Debug\\CheckFunctionExists.obj
-        LINK : fatal error LNK1104: cannot open file 'pthreads.lib' [C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-u3mdue\\cmTC_5f14f.vcxproj]
-        Done Building Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-u3mdue\\cmTC_5f14f.vcxproj" (default targets) -- FAILED.
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-d48r6m\\Debug\\cmTC_99a6b.exe" /INCREMENTAL /ILK:"cmTC_99a6b.dir\\Debug\\cmTC_99a6b.ilk" /NOLOGO pthreads.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-d48r6m/Debug/cmTC_99a6b.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-d48r6m/Debug/cmTC_99a6b.lib" /MACHINE:X64  /machine:x64 cmTC_99a6b.dir\\Debug\\CheckFunctionExists.obj
+        LINK : fatal error LNK1104: cannot open file 'pthreads.lib' [C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-d48r6m\\cmTC_99a6b.vcxproj]
+        Done Building Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-d48r6m\\cmTC_99a6b.vcxproj" (default targets) -- FAILED.
         
         Build FAILED.
         
-        "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-u3mdue\\cmTC_5f14f.vcxproj" (default target) (1) ->
+        "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-d48r6m\\cmTC_99a6b.vcxproj" (default target) (1) ->
         (Link target) -> 
-          LINK : fatal error LNK1104: cannot open file 'pthreads.lib' [C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-u3mdue\\cmTC_5f14f.vcxproj]
+          LINK : fatal error LNK1104: cannot open file 'pthreads.lib' [C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-d48r6m\\cmTC_99a6b.vcxproj]
         
             0 Warning(s)
             1 Error(s)
@@ -1997,8 +1997,8 @@ events:
     checks:
       - "Looking for pthread_create in pthread"
     directories:
-      source: "C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-5cw1nk"
-      binary: "C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-5cw1nk"
+      source: "C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-f53jo0"
+      binary: "C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-f53jo0"
     cmakeVariables:
       CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS"
       CMAKE_C_FLAGS_DEBUG: "/Zi /Ob0 /Od /RTC1"
@@ -2008,42 +2008,42 @@ events:
       variable: "CMAKE_HAVE_PTHREAD_CREATE"
       cached: true
       stdout: |
-        Change Dir: 'C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-5cw1nk'
+        Change Dir: 'C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-f53jo0'
         
-        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_85be1.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Community/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_da494.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
         MSBuild version 17.14.40+3e7442088 for .NET Framework
-        Build started 4/10/2026 11:35:28 AM.
+        Build started 4/10/2026 12:19:25 PM.
         
-        Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5cw1nk\\cmTC_85be1.vcxproj" on node 1 (default targets).
+        Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-f53jo0\\cmTC_da494.vcxproj" on node 1 (default targets).
         PrepareForBuild:
-          Creating directory "cmTC_85be1.dir\\Debug\\".
+          Creating directory "cmTC_da494.dir\\Debug\\".
           Structured output is enabled. The formatting of compiler diagnostics will reflect the error hierarchy. See https://aka.ms/cpp/structured-output for more details.
-          Creating directory "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5cw1nk\\Debug\\".
-          Creating directory "cmTC_85be1.dir\\Debug\\cmTC_85be1.tlog\\".
+          Creating directory "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-f53jo0\\Debug\\".
+          Creating directory "cmTC_da494.dir\\Debug\\cmTC_da494.tlog\\".
         InitializeBuildStatus:
-          Creating "cmTC_85be1.dir\\Debug\\cmTC_85be1.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
-          Touching "cmTC_85be1.dir\\Debug\\cmTC_85be1.tlog\\unsuccessfulbuild".
+          Creating "cmTC_da494.dir\\Debug\\cmTC_da494.tlog\\unsuccessfulbuild" because "AlwaysCreate" was specified.
+          Touching "cmTC_da494.dir\\Debug\\cmTC_da494.tlog\\unsuccessfulbuild".
         ClCompile:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_85be1.dir\\Debug\\\\" /Fd"cmTC_85be1.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5cw1nk\\CheckFunctionExists.c"
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\CL.exe /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_da494.dir\\Debug\\\\" /Fd"cmTC_da494.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-f53jo0\\CheckFunctionExists.c"
           Microsoft (R) C/C++ Optimizing Compiler Version 19.44.35225 for x64
           Copyright (C) Microsoft Corporation.  All rights reserved.
-          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_85be1.dir\\Debug\\\\" /Fd"cmTC_85be1.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5cw1nk\\CheckFunctionExists.c"
+          cl /c /Zi /W1 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=pthread_create /D "CMAKE_INTDIR=\\"Debug\\"" /RTC1 /MDd /GS /fp:precise /Fo"cmTC_da494.dir\\Debug\\\\" /Fd"cmTC_da494.dir\\Debug\\vc143.pdb" /external:W1 /Gd /TC /errorReport:queue "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-f53jo0\\CheckFunctionExists.c"
           CheckFunctionExists.c
         Link:
-          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5cw1nk\\Debug\\cmTC_85be1.exe" /INCREMENTAL /ILK:"cmTC_85be1.dir\\Debug\\cmTC_85be1.ilk" /NOLOGO pthread.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-5cw1nk/Debug/cmTC_85be1.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-5cw1nk/Debug/cmTC_85be1.lib" /MACHINE:X64  /machine:x64 cmTC_85be1.dir\\Debug\\CheckFunctionExists.obj
-        LINK : fatal error LNK1104: cannot open file 'pthread.lib' [C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5cw1nk\\cmTC_85be1.vcxproj]
-        Done Building Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5cw1nk\\cmTC_85be1.vcxproj" (default targets) -- FAILED.
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\VC\\Tools\\MSVC\\14.44.35207\\bin\\HostX64\\x64\\link.exe /OUT:"C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-f53jo0\\Debug\\cmTC_da494.exe" /INCREMENTAL /ILK:"cmTC_da494.dir\\Debug\\cmTC_da494.ilk" /NOLOGO pthread.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-f53jo0/Debug/cmTC_da494.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /IMPLIB:"C:/dev/3D_GAME_ENGINE/build/CMakeFiles/CMakeScratch/TryCompile-f53jo0/Debug/cmTC_da494.lib" /MACHINE:X64  /machine:x64 cmTC_da494.dir\\Debug\\CheckFunctionExists.obj
+        LINK : fatal error LNK1104: cannot open file 'pthread.lib' [C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-f53jo0\\cmTC_da494.vcxproj]
+        Done Building Project "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-f53jo0\\cmTC_da494.vcxproj" (default targets) -- FAILED.
         
         Build FAILED.
         
-        "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5cw1nk\\cmTC_85be1.vcxproj" (default target) (1) ->
+        "C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-f53jo0\\cmTC_da494.vcxproj" (default target) (1) ->
         (Link target) -> 
-          LINK : fatal error LNK1104: cannot open file 'pthread.lib' [C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-5cw1nk\\cmTC_85be1.vcxproj]
+          LINK : fatal error LNK1104: cannot open file 'pthread.lib' [C:\\dev\\3D_GAME_ENGINE\\build\\CMakeFiles\\CMakeScratch\\TryCompile-f53jo0\\cmTC_da494.vcxproj]
         
             0 Warning(s)
             1 Error(s)
         
-        Time Elapsed 00:00:00.27
+        Time Elapsed 00:00:00.28
         
       exitCode: 1
 ...

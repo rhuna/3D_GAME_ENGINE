@@ -16,6 +16,7 @@ public:
     virtual void Update(Application& app, float deltaTime) = 0;
     virtual void FixedUpdate(Application& app, float fixedDeltaTime) = 0;
     virtual void Render(Application& app) = 0;
+    virtual void DrawUi(Application& app) { (void)app; }
 };
 
 } // namespace fw

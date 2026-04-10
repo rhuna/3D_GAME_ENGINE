@@ -3,6 +3,9 @@
 
 #include <array>
 
+#include "raylib.h"
+#include "raymath.h"
+
 #include "core/Application.h"
 #include "core/Logger.h"
 #include "editor/runtime/EditorPicking.h"
@@ -21,9 +24,28 @@ void EditorSceneAuthoring::Update(Application& app, World& world, EditorSelectio
         "crate_blue", "crate_red", "crate_tall", "crate_blue_large"
     };
 
-    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && !IsMouseButtonDown(MOUSE_BUTTON_RIGHT)) {
-        const Entity picked = EditorPicking::PickEntity(world, app.GetCamera());
-        if (picked != 0) selection.Select(picked);
+    const bool mouseLookActive = app.IsMouseLookActive();
+    const bool mouseOverInspector = app.IsInspectorVisible() && GetMouseX() <= 430 && GetMouseY() >= 200 && GetMouseY() <= 420;
+
+    if (!mouseLookActive && !mouseOverInspector) {
+        selection.SetHovered(EditorPicking::PickEntity(world, app.GetCamera()));
+
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+            const Entity picked = selection.Hovered();
+            if (picked != 0) selection.Select(picked);
+            else selection.Clear();
+        }
+
+        if (IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE) && selection.HasSelection(world)) {
+            if (TransformComponent* selectedTransform = world.GetComponent<TransformComponent>(selection.Selected())) {
+                Camera3D& camera = app.GetCamera();
+                const Vector3 offset = Vector3Subtract(camera.position, camera.target);
+                camera.target = selectedTransform->position;
+                camera.position = Vector3Add(camera.target, offset);
+            }
+        }
+    } else {
+        selection.SetHovered(0);
     }
 
     if (IsKeyPressed(KEY_LEFT_BRACKET) || IsKeyPressed(KEY_RIGHT_BRACKET)) {

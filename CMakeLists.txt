@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project(3D_GAME_ENGINE VERSION 0.9.0 LANGUAGES CXX)
+project(3D_GAME_ENGINE VERSION 1.0.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -44,6 +44,13 @@ set(ENGINE_SOURCES
   src/gameplay/prefabs/SpawnFactory.cpp
   src/gameplay/registry/SystemRegistry.cpp
   src/gameplay/systems/ProjectileCleanupSystem.cpp
+
+  src/game/rules/WaveDirector.cpp
+  src/game/ui/GameHud.cpp
+  src/game/systems/PlayerControllerSystem.cpp
+  src/game/systems/EnemyAISystem.cpp
+  src/game/systems/DamageSystem.cpp
+  src/game/scenes/ArenaGameScene.cpp
   src/serialization/WorldSerializer.cpp
   src/render/Renderer.cpp
   src/render/DebugOverlay.cpp

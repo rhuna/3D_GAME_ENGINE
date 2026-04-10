@@ -54,6 +54,7 @@ public:
     [[nodiscard]] const SystemRegistry& GetSystemRegistry() const { return m_systemRegistry; }
     [[nodiscard]] bool IsDebugOverlayEnabled() const { return m_showDebugOverlay; }
     [[nodiscard]] bool IsInspectorVisible() const { return m_showInspector; }
+    [[nodiscard]] bool IsMouseLookActive() const { return m_mouseLookActive; }
     [[nodiscard]] const std::vector<ValidationMessage>& GetValidationMessages() const { return m_validationMessages; }
     [[nodiscard]] const std::string& GetLastExportPath() const { return m_lastExportPath; }
     [[nodiscard]] EditorSelection& GetEditorSelection() { return m_editorSelection; }
@@ -89,6 +90,7 @@ private:
     bool m_isRunning = true;
     bool m_showDebugOverlay = true;
     bool m_showInspector = true;
+    bool m_mouseLookActive = false;
 };
 
 } // namespace fw

@@ -15,6 +15,12 @@
 #include "ecs/components/TransformComponent.h"
 #include "ecs/events/CollisionInfo.h"
 #include "ecs/storage/ComponentStorage.h"
+#include "game/components/EnemyComponent.h"
+#include "game/components/HealthComponent.h"
+#include "game/components/PlayerComponent.h"
+#include "game/components/ProjectileComponent.h"
+#include "game/components/SpawnerComponent.h"
+#include "game/components/TeamComponent.h"
 
 namespace fw {
 
@@ -67,6 +73,13 @@ private:
     ComponentStorage<BoxColliderComponent> m_colliders;
     ComponentStorage<LifetimeComponent> m_lifetimes;
     ComponentStorage<EditorMetadataComponent> m_editorMetadata;
+
+    ComponentStorage<PlayerComponent> m_players;
+    ComponentStorage<HealthComponent> m_health;
+    ComponentStorage<EnemyComponent> m_enemies;
+    ComponentStorage<ProjectileComponent> m_projectiles;
+    ComponentStorage<TeamComponent> m_teams;
+    ComponentStorage<SpawnerComponent> m_spawners;
 };
 
 // ----- template implementation -----
@@ -98,42 +111,40 @@ void World::RemoveComponent(Entity entity) {
 
 template <typename T>
 ComponentStorage<T>& World::Storage() {
-    if constexpr (std::is_same_v<T, TagComponent>) {
-        return m_tags;
-    } else if constexpr (std::is_same_v<T, TransformComponent>) {
-        return m_transforms;
-    } else if constexpr (std::is_same_v<T, RenderComponent>) {
-        return m_renders;
-    } else if constexpr (std::is_same_v<T, RigidbodyComponent>) {
-        return m_rigidbodies;
-    } else if constexpr (std::is_same_v<T, BoxColliderComponent>) {
-        return m_colliders;
-    } else if constexpr (std::is_same_v<T, LifetimeComponent>) {
-        return m_lifetimes;
-    } else if constexpr (std::is_same_v<T, EditorMetadataComponent>) {
-        return m_editorMetadata;
-    } else {
+    if constexpr (std::is_same_v<T, TagComponent>) return m_tags;
+    else if constexpr (std::is_same_v<T, TransformComponent>) return m_transforms;
+    else if constexpr (std::is_same_v<T, RenderComponent>) return m_renders;
+    else if constexpr (std::is_same_v<T, RigidbodyComponent>) return m_rigidbodies;
+    else if constexpr (std::is_same_v<T, BoxColliderComponent>) return m_colliders;
+    else if constexpr (std::is_same_v<T, LifetimeComponent>) return m_lifetimes;
+    else if constexpr (std::is_same_v<T, EditorMetadataComponent>) return m_editorMetadata;
+    else if constexpr (std::is_same_v<T, PlayerComponent>) return m_players;
+    else if constexpr (std::is_same_v<T, HealthComponent>) return m_health;
+    else if constexpr (std::is_same_v<T, EnemyComponent>) return m_enemies;
+    else if constexpr (std::is_same_v<T, ProjectileComponent>) return m_projectiles;
+    else if constexpr (std::is_same_v<T, TeamComponent>) return m_teams;
+    else if constexpr (std::is_same_v<T, SpawnerComponent>) return m_spawners;
+    else {
         static_assert(sizeof(T) == 0, "Unsupported component type");
     }
 }
 
 template <typename T>
 const ComponentStorage<T>& World::Storage() const {
-    if constexpr (std::is_same_v<T, TagComponent>) {
-        return m_tags;
-    } else if constexpr (std::is_same_v<T, TransformComponent>) {
-        return m_transforms;
-    } else if constexpr (std::is_same_v<T, RenderComponent>) {
-        return m_renders;
-    } else if constexpr (std::is_same_v<T, RigidbodyComponent>) {
-        return m_rigidbodies;
-    } else if constexpr (std::is_same_v<T, BoxColliderComponent>) {
-        return m_colliders;
-    } else if constexpr (std::is_same_v<T, LifetimeComponent>) {
-        return m_lifetimes;
-    } else if constexpr (std::is_same_v<T, EditorMetadataComponent>) {
-        return m_editorMetadata;
-    } else {
+    if constexpr (std::is_same_v<T, TagComponent>) return m_tags;
+    else if constexpr (std::is_same_v<T, TransformComponent>) return m_transforms;
+    else if constexpr (std::is_same_v<T, RenderComponent>) return m_renders;
+    else if constexpr (std::is_same_v<T, RigidbodyComponent>) return m_rigidbodies;
+    else if constexpr (std::is_same_v<T, BoxColliderComponent>) return m_colliders;
+    else if constexpr (std::is_same_v<T, LifetimeComponent>) return m_lifetimes;
+    else if constexpr (std::is_same_v<T, EditorMetadataComponent>) return m_editorMetadata;
+    else if constexpr (std::is_same_v<T, PlayerComponent>) return m_players;
+    else if constexpr (std::is_same_v<T, HealthComponent>) return m_health;
+    else if constexpr (std::is_same_v<T, EnemyComponent>) return m_enemies;
+    else if constexpr (std::is_same_v<T, ProjectileComponent>) return m_projectiles;
+    else if constexpr (std::is_same_v<T, TeamComponent>) return m_teams;
+    else if constexpr (std::is_same_v<T, SpawnerComponent>) return m_spawners;
+    else {
         static_assert(sizeof(T) == 0, "Unsupported component type");
     }
 }

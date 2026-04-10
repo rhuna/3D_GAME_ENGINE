@@ -79,6 +79,24 @@
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\gameplay\systems\ProjectileCleanupSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\game\rules\WaveDirector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\game\ui\GameHud.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\game\systems\PlayerControllerSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\game\systems\EnemyAISystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\game\systems\DamageSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\game\scenes\ArenaGameScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\serialization\WorldSerializer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

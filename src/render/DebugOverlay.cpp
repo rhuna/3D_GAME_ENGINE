@@ -14,7 +14,7 @@ void DebugOverlay::Draw(const Time& time, const World& world, const Camera3D& ca
     std::snprintf(buffer, sizeof(buffer), "FPS: %d", GetFPS());
     DrawText(buffer, 20, 45, 20, RAYWHITE);
 
-    std::snprintf(buffer, sizeof(buffer), "Delta: %.4f | Fixed: %.4f", time.DeltaTime(), 1.0f / 60.0f);
+    std::snprintf(buffer, sizeof(buffer), "Delta: %.4f | Fixed: %.4f", time.DeltaTime(), time.FixedDeltaTime());
     DrawText(buffer, 20, 70, 20, RAYWHITE);
 
     std::snprintf(buffer, sizeof(buffer), "Entities: %d | Collisions: %d | Selected: %u", static_cast<int>(world.Entities().size()), static_cast<int>(world.Collisions().size()), selectedEntity);

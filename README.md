@@ -1,72 +1,35 @@
-# 3D_GAME_ENGINE v8 Editor-Ready Content Pipeline
+# 3D_GAME_ENGINE v10 - First Real Game Layer
 
-This version adds an editor-focused data pipeline on top of the v7 scene/prefab architecture.
+This version turns the editor-first engine scaffold into a playable prototype layer.
 
-## New in v8
-- prefab inheritance chains using `baseVariant`
-- scene export to `assets/editor/exported_scenes/runtime_export.scene`
-- content validator for prefabs, variants, and scenes
-- runtime inspector panel for entity selection and transform editing
-- editor metadata stored per entity for export-friendly content authoring
+## What changed
 
-## Hotkeys
-- `F1` Toggle debug overlay
-- `F2` Cycle entity selection
-- `F3` Export current world as a scene file
-- `F4` Run content validation
-- `F5` Reload sandbox scene
-- `F6` Save world runtime snapshot
-- `F7` Load world runtime snapshot
-- `Tab` Toggle inspector
-- `Arrow Keys/PageUp/PageDown` Move selected entity
-- `+` / `-` Scale selected entity
-- `Delete` Remove selected entity
+- Added a real `src/game` layer
+- Added `ArenaGameScene` as the startup scene
+- Added game-specific components:
+  - `PlayerComponent`
+  - `HealthComponent`
+  - `EnemyComponent`
+  - `ProjectileComponent`
+  - `TeamComponent`
+  - `SpawnerComponent`
+- Added game systems:
+  - `PlayerControllerSystem`
+  - `EnemyAISystem`
+  - `DamageSystem`
+- Added `WaveDirector` and `ArenaGameState`
+- Added `GameHud`
+- Added `arena_game.scene`
+- Added `enemy_walker.prefab` and arena support prefabs
 
-## Build
-```powershell
-cmake -S . -B build -G "Visual Studio 17 2022"
-cmake --build build --config Release
-.\build\Release\3D_GAME_ENGINE.exe
-```
-# 3D_GAME_ENGINE v7 - Data-Driven Scenes + Prefab Variants
+## Play loop
 
-This version moves scene layout out of C++ and into asset files, and it upgrades prefabs with reusable variant definitions.
-
-## What's new in v7
-
-- data-driven scenes loaded from `assets/scenes`
-- prefab variants loaded from `assets/prefab_variants`
-- `SceneLibrary` and `SceneSpawner`
-- `PrefabVariantDefinition` and prefab resolution through `PrefabLibrary`
-- sandbox content now comes from scene data instead of hardcoded spawn loops
-- cleaner separation for:
-  - `src/scene/data`
-  - `src/scene/spawning`
-  - `src/gameplay/prefabs`
-
-## Data files included
-
-- `assets/scenes/sandbox.scene`
-- `assets/prefabs/ground.prefab`
-- `assets/prefabs/player.prefab`
-- `assets/prefabs/dynamic_crate.prefab`
-- `assets/prefabs/projectile.prefab`
-- `assets/prefab_variants/crate_blue.variant`
-- `assets/prefab_variants/crate_red.variant`
-- `assets/prefab_variants/crate_tall.variant`
-
-## Controls
-
-- `Right Mouse Button` + mouse: look around
-- `WASD` move camera horizontally
-- `Q / E` move camera vertically
-- `Left Shift` move faster
-- `F1` toggle debug overlay
-- `F5` reload sandbox scene
-- `F6` save world
-- `F7` load world
-- `Left Mouse Button` spawn projectile
-- `Escape` quit
+- Move with `WASD`
+- Hold `RMB` to look the camera around
+- Cast with `LMB`
+- Clear all waves to win
+- Press `F5` to restart the arena
+- Press `F1` for the debug overlay
 
 ## Build
 
@@ -76,15 +39,7 @@ cmake --build build --config Release
 .\build\Release\3D_GAME_ENGINE.exe
 ```
 
-## Note
+## Notes
 
-`raylib` is fetched by CMake. If configure/build fails before compilation, make sure Git/network access is available for FetchContent.
-
-
-## v9 editor scene authoring + gizmo tools
-
-- mouse picking with left click
-- gizmo modes: translate, rotate, scale
-- direct scene save to `assets/scenes/sandbox_edited.scene`
-- editor spawn flow for prefab variants
-- runtime scene authoring controls for selected entities
+This is the first playable game layer, not a finished commercial game.
+The editor/data-driven pipeline is still present underneath, but the startup flow now behaves like a real game prototype instead of only an engine sandbox.

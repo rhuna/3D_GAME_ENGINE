@@ -24,6 +24,12 @@ C:\dev\3D_GAME_ENGINE\src\gameplay\prefabs\PrefabLibrary.cpp;C:\dev\3D_GAME_ENGI
 C:\dev\3D_GAME_ENGINE\src\gameplay\prefabs\SpawnFactory.cpp;C:\dev\3D_GAME_ENGINE\build\3D_GAME_ENGINE.dir\Release\SpawnFactory.obj
 C:\dev\3D_GAME_ENGINE\src\gameplay\registry\SystemRegistry.cpp;C:\dev\3D_GAME_ENGINE\build\3D_GAME_ENGINE.dir\Release\SystemRegistry.obj
 C:\dev\3D_GAME_ENGINE\src\gameplay\systems\ProjectileCleanupSystem.cpp;C:\dev\3D_GAME_ENGINE\build\3D_GAME_ENGINE.dir\Release\ProjectileCleanupSystem.obj
+C:\dev\3D_GAME_ENGINE\src\game\rules\WaveDirector.cpp;C:\dev\3D_GAME_ENGINE\build\3D_GAME_ENGINE.dir\Release\WaveDirector.obj
+C:\dev\3D_GAME_ENGINE\src\game\ui\GameHud.cpp;C:\dev\3D_GAME_ENGINE\build\3D_GAME_ENGINE.dir\Release\GameHud.obj
+C:\dev\3D_GAME_ENGINE\src\game\systems\PlayerControllerSystem.cpp;C:\dev\3D_GAME_ENGINE\build\3D_GAME_ENGINE.dir\Release\PlayerControllerSystem.obj
+C:\dev\3D_GAME_ENGINE\src\game\systems\EnemyAISystem.cpp;C:\dev\3D_GAME_ENGINE\build\3D_GAME_ENGINE.dir\Release\EnemyAISystem.obj
+C:\dev\3D_GAME_ENGINE\src\game\systems\DamageSystem.cpp;C:\dev\3D_GAME_ENGINE\build\3D_GAME_ENGINE.dir\Release\DamageSystem.obj
+C:\dev\3D_GAME_ENGINE\src\game\scenes\ArenaGameScene.cpp;C:\dev\3D_GAME_ENGINE\build\3D_GAME_ENGINE.dir\Release\ArenaGameScene.obj
 C:\dev\3D_GAME_ENGINE\src\serialization\WorldSerializer.cpp;C:\dev\3D_GAME_ENGINE\build\3D_GAME_ENGINE.dir\Release\WorldSerializer.obj
 C:\dev\3D_GAME_ENGINE\src\render\Renderer.cpp;C:\dev\3D_GAME_ENGINE\build\3D_GAME_ENGINE.dir\Release\Renderer.obj
 C:\dev\3D_GAME_ENGINE\src\render\DebugOverlay.cpp;C:\dev\3D_GAME_ENGINE\build\3D_GAME_ENGINE.dir\Release\DebugOverlay.obj

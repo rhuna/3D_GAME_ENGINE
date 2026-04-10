@@ -4,6 +4,7 @@
 
 #include "core/Application.h"
 #include "ecs/World.h"
+#include "ecs/components/RenderComponent.h"
 #include "ecs/components/TransformComponent.h"
 #include "editor/runtime/EditorSelection.h"
 #include "raylib.h"
@@ -23,6 +24,15 @@ const char* GizmoModeName(GizmoMode mode) {
     case GizmoMode::Scale: return "Scale";
     }
     return "Unknown";
+}
+
+float SelectionRadius(const World& world, Entity entity) {
+    const TransformComponent* transform = world.GetComponent<TransformComponent>(entity);
+    const RenderComponent* render = world.GetComponent<RenderComponent>(entity);
+    if (!transform) return 0.75f;
+    if (render && render->drawSphere) return render->sphereRadius * transform->scale.x + 0.15f;
+    const float avgScale = (transform->scale.x + transform->scale.y + transform->scale.z) / 3.0f;
+    return avgScale * 0.75f + 0.15f;
 }
 } // namespace
 
@@ -66,6 +76,13 @@ void EditorGizmo::Update(Application& app, World& world, EditorSelection& select
 }
 
 void EditorGizmo::Draw(const World& world, const EditorSelection& selection) const {
+    if (selection.HasHovered(world) && (!selection.HasSelection(world) || selection.Hovered() != selection.Selected())) {
+        const TransformComponent* hoveredTransform = world.GetComponent<TransformComponent>(selection.Hovered());
+        if (hoveredTransform) {
+            DrawSphereWires(hoveredTransform->position, SelectionRadius(world, selection.Hovered()), 10, 10, SKYBLUE);
+        }
+    }
+
     if (!selection.HasSelection(world)) return;
 
     const TransformComponent* transform = world.GetComponent<TransformComponent>(selection.Selected());
@@ -77,15 +94,15 @@ void EditorGizmo::Draw(const World& world, const EditorSelection& selection) con
     DrawLine3D(center, Vector3Add(center, Vector3{axisLength, 0.0f, 0.0f}), RED);
     DrawLine3D(center, Vector3Add(center, Vector3{0.0f, axisLength, 0.0f}), GREEN);
     DrawLine3D(center, Vector3Add(center, Vector3{0.0f, 0.0f, axisLength}), BLUE);
-    DrawSphereWires(center, 0.1f, 8, 8, YELLOW);
+    DrawSphereWires(center, SelectionRadius(world, selection.Selected()), 10, 10, YELLOW);
 
-    DrawRectangle(10, 430, 420, 86, Color{0, 0, 0, 160});
+    DrawRectangle(10, 430, 500, 94, Color{0, 0, 0, 160});
     DrawText("Gizmo", 20, 440, 24, RAYWHITE);
 
     char buffer[256];
     std::snprintf(buffer, sizeof(buffer), "Mode: %s  (1/2/3)", GizmoModeName(m_mode));
     DrawText(buffer, 20, 470, 20, RAYWHITE);
-    DrawText("Use J/L = X, I/K = Z or X-rot, U/O = Y/Z depending on mode.", 20, 494, 18, LIGHTGRAY);
+    DrawText("LMB select, MMB focus camera, RMB hold to look, Shift+LMB fire.", 20, 494, 18, LIGHTGRAY);
 }
 
 } // namespace fw
