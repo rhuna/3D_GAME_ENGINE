@@ -6,6 +6,7 @@
 #include "raymath.h"
 
 #include "core/Logger.h"
+#include "gameplay/WorldSerializer.h"
 #include "scene/SandboxScene.h"
 
 namespace fw {
@@ -33,6 +34,12 @@ int Application::Run() {
         }
         if (m_input.IsKeyPressed(KEY_F5)) {
             ReloadStartScene();
+        }
+        if (m_input.IsKeyPressed(KEY_F6)) {
+            WorldSerializer::SaveToFile(m_world, "assets/saves/sandbox_world.txt");
+        }
+        if (m_input.IsKeyPressed(KEY_F7)) {
+            WorldSerializer::LoadFromFile(m_world, "assets/saves/sandbox_world.txt");
         }
 
         UpdateCameraController(m_time.DeltaTime());
@@ -102,15 +109,17 @@ void Application::Shutdown() {
 }
 
 void Application::UpdateCameraController(float deltaTime) {
+    const float distance = Vector3Distance(m_camera.position, m_camera.target);
+    const float safeDistance = distance > 0.0001f ? distance : 0.0001f;
+
     float yaw = std::atan2f(m_camera.target.x - m_camera.position.x,
                             m_camera.target.z - m_camera.position.z);
-    float pitch = std::asinf((m_camera.target.y - m_camera.position.y) /
-                             Vector3Distance(m_camera.position, m_camera.target));
+    float pitch = std::asinf((m_camera.target.y - m_camera.position.y) / safeDistance);
 
     if (m_input.IsMouseButtonDown(MOUSE_BUTTON_RIGHT)) {
         const Vector2 delta = GetMouseDelta();
         yaw -= delta.x * m_config.cameraLookSensitivity;
-        pitch += delta.y * m_config.cameraLookSensitivity;
+        pitch -= delta.y * m_config.cameraLookSensitivity;
 
         const float limit = 1.5f;
         if (pitch > limit) pitch = limit;

@@ -1,4 +1,3 @@
-#include "Scene.h"
 #include "scene/Scene.h"
 #include "raylib.h"
 #include "raymath.h"

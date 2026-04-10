@@ -10,7 +10,8 @@ constexpr int kTrackedKeys[] = {
     KEY_Q, KEY_E,
     KEY_LEFT_SHIFT,
     KEY_ESCAPE,
-    KEY_F1, KEY_F5
+    KEY_F1, KEY_F5,
+    KEY_F6, KEY_F7
 };
 
 constexpr int kTrackedMouseButtons[] = {

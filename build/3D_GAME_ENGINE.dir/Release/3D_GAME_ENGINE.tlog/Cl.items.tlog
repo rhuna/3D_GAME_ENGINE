@@ -7,6 +7,11 @@ C:\dev\3D_GAME_ENGINE\src\core\Logger.cpp;C:\dev\3D_GAME_ENGINE\build\3D_GAME_EN
 C:\dev\3D_GAME_ENGINE\src\core\FileSystem.cpp;C:\dev\3D_GAME_ENGINE\build\3D_GAME_ENGINE.dir\Release\FileSystem.obj
 C:\dev\3D_GAME_ENGINE\src\assets\AssetManager.cpp;C:\dev\3D_GAME_ENGINE\build\3D_GAME_ENGINE.dir\Release\AssetManager.obj
 C:\dev\3D_GAME_ENGINE\src\ecs\World.cpp;C:\dev\3D_GAME_ENGINE\build\3D_GAME_ENGINE.dir\Release\World.obj
+C:\dev\3D_GAME_ENGINE\src\gameplay\GameplayTags.cpp;C:\dev\3D_GAME_ENGINE\build\3D_GAME_ENGINE.dir\Release\GameplayTags.obj
+C:\dev\3D_GAME_ENGINE\src\gameplay\Spawn.cpp;C:\dev\3D_GAME_ENGINE\build\3D_GAME_ENGINE.dir\Release\Spawn.obj
+C:\dev\3D_GAME_ENGINE\src\gameplay\WorldSerializer.cpp;C:\dev\3D_GAME_ENGINE\build\3D_GAME_ENGINE.dir\Release\WorldSerializer.obj
+C:\dev\3D_GAME_ENGINE\src\gameplay\systems\CollisionSystem.cpp;C:\dev\3D_GAME_ENGINE\build\3D_GAME_ENGINE.dir\Release\CollisionSystem.obj
+C:\dev\3D_GAME_ENGINE\src\gameplay\systems\MovementSystem.cpp;C:\dev\3D_GAME_ENGINE\build\3D_GAME_ENGINE.dir\Release\MovementSystem.obj
 C:\dev\3D_GAME_ENGINE\src\render\Renderer.cpp;C:\dev\3D_GAME_ENGINE\build\3D_GAME_ENGINE.dir\Release\Renderer.obj
 C:\dev\3D_GAME_ENGINE\src\render\DebugOverlay.cpp;C:\dev\3D_GAME_ENGINE\build\3D_GAME_ENGINE.dir\Release\DebugOverlay.obj
 C:\dev\3D_GAME_ENGINE\src\scene\SceneManager.cpp;C:\dev\3D_GAME_ENGINE\build\3D_GAME_ENGINE.dir\Release\SceneManager.obj

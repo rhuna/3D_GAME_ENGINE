@@ -7,7 +7,7 @@ namespace fw {
 struct EngineConfig {
     int windowWidth = 1600;
     int windowHeight = 900;
-    std::string windowTitle = "FireWizard3DEngine v2 Core";
+    std::string windowTitle = "3D_GAME_ENGINE v4 Gameplay Framework";
     bool vsync = true;
     int targetFps = 144;
     float fixedTimestep = 1.0f / 60.0f;

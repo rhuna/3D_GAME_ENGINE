@@ -1,11 +1,12 @@
 cmake_minimum_required(VERSION 3.21)
-project(FireWizard3DEngine VERSION 0.2.0 LANGUAGES CXX)
+project(3D_GAME_ENGINE VERSION 0.4.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-option(FW_BUILD_TESTS "Build tests" OFF)
+set(ENGINE_TARGET 3D_GAME_ENGINE)
+option(ENGINE_BUILD_TESTS "Build tests" OFF)
 
 include(FetchContent)
 
@@ -16,7 +17,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(raylib)
 
-set(FW_SOURCES
+set(ENGINE_SOURCES
   src/main.cpp
   src/core/Application.cpp
   src/core/EngineConfig.cpp
@@ -26,6 +27,11 @@ set(FW_SOURCES
   src/core/FileSystem.cpp
   src/assets/AssetManager.cpp
   src/ecs/World.cpp
+  src/gameplay/GameplayTags.cpp
+  src/gameplay/Spawn.cpp
+  src/gameplay/WorldSerializer.cpp
+  src/gameplay/systems/CollisionSystem.cpp
+  src/gameplay/systems/MovementSystem.cpp
   src/render/Renderer.cpp
   src/render/DebugOverlay.cpp
   src/scene/SceneManager.cpp
@@ -33,15 +39,30 @@ set(FW_SOURCES
   src/util/StringUtil.cpp
 )
 
-add_executable(3D_GAME_ENGINE ${FW_SOURCES})
-target_include_directories(3D_GAME_ENGINE PRIVATE src)
-target_link_libraries(3D_GAME_ENGINE PRIVATE raylib)
+add_executable(${ENGINE_TARGET} ${ENGINE_SOURCES})
+target_include_directories(${ENGINE_TARGET} PRIVATE src)
+target_link_libraries(${ENGINE_TARGET} PRIVATE raylib)
 
-if (WIN32)
-  target_link_libraries(3D_GAME_ENGINE PRIVATE winmm)
+if (MSVC)
+  target_compile_options(${ENGINE_TARGET} PRIVATE /W4 /permissive-)
+else()
+  target_compile_options(${ENGINE_TARGET} PRIVATE -Wall -Wextra -Wpedantic)
 endif()
 
-add_custom_command(TARGET 3D_GAME_ENGINE POST_BUILD
+if (WIN32)
+  target_link_libraries(${ENGINE_TARGET} PRIVATE winmm)
+endif()
+
+set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT ${ENGINE_TARGET})
+
+set_target_properties(${ENGINE_TARGET} PROPERTIES
+  OUTPUT_NAME "3D_GAME_ENGINE"
+  RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}"
+  RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_BINARY_DIR}/Debug"
+  RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_BINARY_DIR}/Release"
+)
+
+add_custom_command(TARGET ${ENGINE_TARGET} POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy_directory
           ${CMAKE_SOURCE_DIR}/assets
-          $<TARGET_FILE_DIR:3D_GAME_ENGINE>/assets)
+          $<TARGET_FILE_DIR:${ENGINE_TARGET}>/assets)

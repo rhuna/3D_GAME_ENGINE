@@ -5,11 +5,13 @@
 
 namespace fw {
 
+class AssetManager;
+
 class Renderer {
 public:
     void BeginFrame();
     void Begin3D(const Camera3D& camera);
-    void DrawWorld(const World& world) const;
+    void DrawWorld(const World& world, AssetManager& assets) const;
     void DrawGrid(int slices, float spacing) const;
     void End3D();
     void EndFrame();

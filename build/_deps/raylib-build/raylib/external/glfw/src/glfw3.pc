@@ -1,7 +1,7 @@
-prefix=C:/Program Files (x86)/FireWizard3DEngine
+prefix=C:/Program Files (x86)/3D_GAME_ENGINE
 exec_prefix=${prefix}
-includedir=C:/Program Files (x86)/FireWizard3DEngine/include
-libdir=C:/Program Files (x86)/FireWizard3DEngine/lib
+includedir=C:/Program Files (x86)/3D_GAME_ENGINE/include
+libdir=C:/Program Files (x86)/3D_GAME_ENGINE/lib
 
 Name: GLFW
 Description: A multi-platform library for OpenGL, window and input

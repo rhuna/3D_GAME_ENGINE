@@ -1,85 +1,48 @@
-# FireWizard3DEngine v2 Core
+# 3D_GAME_ENGINE v4 Gameplay Framework
 
-A more complete **core-engine starter repo** in **C++20 + raylib + CMake**.
+This version upgrades the engine from a rendering-focused core into a gameplay-ready foundation.
 
-This version is focused on the **engine foundation**, not content. It gives you a cleaner structure you can keep upgrading into a real 3D project.
+## Added in v4
 
-## What is in v2
-
-- Application bootstrap with config loading
-- Fixed timestep main loop
-- Input manager with pressed/down/released queries
-- Time system
-- Logger
-- Simple file/path utilities
-- Asset manager with cached texture/model/shader loading
-- Minimal ECS-style world
-- Scene interface + scene manager
-- Sandbox scene for testing
-- Renderer abstraction
-- Debug overlay
-- Expandable assets folder
+- richer ECS-style entity records using optional gameplay components
+- tag, transform, render, rigidbody, collider, and lifetime components
+- spawn helper functions for player, crates, static geometry, and projectiles
+- fixed-step movement system
+- simple collision system with static-vs-dynamic grounding behavior
+- trigger-style projectile collision hooks
+- world save/load scaffolding
+- updated sandbox scene that demonstrates gameplay flow
 
 ## Controls
 
 - `W A S D` move camera
-- `Q / E` move down/up
-- Hold `Right Mouse` to freelook
+- `Q / E` down/up
+- hold `Right Mouse Button` to look around
 - `Shift` move faster
 - `F1` toggle debug overlay
 - `F5` reload sandbox scene
-- `Esc` exit
+- `F6` save world to `assets/saves/sandbox_world.txt`
+- `F7` load world from `assets/saves/sandbox_world.txt`
+- `Left Mouse Button` spawn a projectile orb
+- `Esc` quit
 
 ## Build
-
-### Visual Studio 2022
 
 ```powershell
 cmake -S . -B build -G "Visual Studio 17 2022"
 cmake --build build --config Release
-.\build\Release\FireWizard3DEngine.exe
+.uild\ReleaseD_GAME_ENGINE.exe
 ```
-
-### MinGW Makefiles
-
-```powershell
-cmake -S . -B build -G "MinGW Makefiles"
-cmake --build build
-.\build\FireWizard3DEngine.exe
-```
-
-## Folder layout
-
-```text
-firewizard3d_engine_v2_core/
-  assets/
-    engine.cfg
-    models/
-    textures/
-    shaders/
-  src/
-    assets/
-    core/
-    ecs/
-    render/
-    scene/
-    util/
-```
-
-## Next upgrades after v2 core
-
-1. Real component stores and system scheduling
-2. Model import pipeline + manifests
-3. Material system
-4. Collision and physics hooks
-5. Scene serialization
-6. Animation layer
-7. Audio system
-8. Editor mode and gizmos
-9. Save/load snapshots
-10. Headless simulation mode
 
 ## Notes
 
-- `raylib` is downloaded automatically by CMake using `FetchContent`.
-- If you add your own models/textures, put them in `assets/` and load through `AssetManager`.
+This is still intentionally lightweight. The collision and save systems are scaffolding meant to be expanded into a fuller engine architecture later.
+
+## Good next upgrade
+
+- dedicated component stores instead of optional fields on one record
+- broadphase collision and contact resolution
+- prefab/asset manifests
+- player controller + state machine
+- world partitions / chunk streaming
+- editor tooling
