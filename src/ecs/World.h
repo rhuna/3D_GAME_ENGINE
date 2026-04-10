@@ -1,93 +1,141 @@
 #pragma once
 
-#include <cstdint>
-#include <optional>
+#include <algorithm>
 #include <string>
+#include <type_traits>
 #include <vector>
 
-#include "raylib.h"
+#include "ecs/Entity.h"
+#include "ecs/components/BoxColliderComponent.h"
+#include "ecs/components/EditorMetadataComponent.h"
+#include "ecs/components/LifetimeComponent.h"
+#include "ecs/components/RenderComponent.h"
+#include "ecs/components/RigidbodyComponent.h"
+#include "ecs/components/TagComponent.h"
+#include "ecs/components/TransformComponent.h"
+#include "ecs/events/CollisionInfo.h"
+#include "ecs/storage/ComponentStorage.h"
 
 namespace fw {
-
-using Entity = std::uint32_t;
-
-struct TagComponent {
-    std::string value;
-};
-
-struct TransformComponent {
-    Vector3 position {0.0f, 0.0f, 0.0f};
-    Vector3 rotationEuler {0.0f, 0.0f, 0.0f};
-    Vector3 scale {1.0f, 1.0f, 1.0f};
-};
-
-struct RenderComponent {
-    Color tint {255, 255, 255, 255};
-    bool visible = true;
-    bool drawCube = true;
-    bool drawSphere = false;
-    float cubeSize = 1.0f;
-    float sphereRadius = 0.5f;
-    bool useModel = false;
-    std::string modelPath;
-};
-
-struct RigidbodyComponent {
-    Vector3 velocity {0.0f, 0.0f, 0.0f};
-    Vector3 acceleration {0.0f, 0.0f, 0.0f};
-    float drag = 0.0f;
-    bool useGravity = false;
-    bool kinematic = false;
-};
-
-struct BoxColliderComponent {
-    Vector3 halfExtents {0.5f, 0.5f, 0.5f};
-    bool isTrigger = false;
-    bool isStatic = false;
-};
-
-struct LifetimeComponent {
-    float secondsRemaining = 0.0f;
-};
-
-struct EntityRecord {
-    Entity id = 0;
-    bool active = true;
-
-    std::optional<TagComponent> tag;
-    std::optional<TransformComponent> transform;
-    std::optional<RenderComponent> render;
-    std::optional<RigidbodyComponent> rigidbody;
-    std::optional<BoxColliderComponent> collider;
-    std::optional<LifetimeComponent> lifetime;
-};
-
-struct CollisionInfo {
-    Entity a = 0;
-    Entity b = 0;
-};
 
 class World {
 public:
     void Clear();
     Entity CreateEntity();
-    bool DestroyEntity(Entity id);
-    EntityRecord* FindEntity(Entity id);
-    const EntityRecord* FindEntity(Entity id) const;
-    EntityRecord* FindByTag(const std::string& tag);
-    const EntityRecord* FindByTag(const std::string& tag) const;
+    bool IsAlive(Entity entity) const;
+    bool DestroyEntity(Entity entity);
+    void CollectGarbage();
+
+    const std::vector<Entity>& Entities() const { return m_entities; }
+
+    Entity FindByTag(const std::string& tag) const;
 
     void ClearTransientState();
     void AddCollision(CollisionInfo info);
-
-    const std::vector<EntityRecord>& Entities() const { return m_entities; }
-    std::vector<EntityRecord>& Entities() { return m_entities; }
     const std::vector<CollisionInfo>& Collisions() const { return m_collisions; }
 
+    template <typename T>
+    T& AddComponent(Entity entity, const T& component);
+
+    template <typename T>
+    bool HasComponent(Entity entity) const;
+
+    template <typename T>
+    T* GetComponent(Entity entity);
+
+    template <typename T>
+    const T* GetComponent(Entity entity) const;
+
+    template <typename T>
+    void RemoveComponent(Entity entity);
+
 private:
+    template <typename T>
+    ComponentStorage<T>& Storage();
+
+    template <typename T>
+    const ComponentStorage<T>& Storage() const;
+
     Entity m_nextEntity = 1;
-    std::vector<EntityRecord> m_entities;
+    std::vector<Entity> m_entities;
     std::vector<CollisionInfo> m_collisions;
+
+    ComponentStorage<TagComponent> m_tags;
+    ComponentStorage<TransformComponent> m_transforms;
+    ComponentStorage<RenderComponent> m_renders;
+    ComponentStorage<RigidbodyComponent> m_rigidbodies;
+    ComponentStorage<BoxColliderComponent> m_colliders;
+    ComponentStorage<LifetimeComponent> m_lifetimes;
+    ComponentStorage<EditorMetadataComponent> m_editorMetadata;
 };
+
+// ----- template implementation -----
+
+template <typename T>
+T& World::AddComponent(Entity entity, const T& component) {
+    return Storage<T>().AddOrReplace(entity, component);
+}
+
+template <typename T>
+bool World::HasComponent(Entity entity) const {
+    return Storage<T>().Has(entity);
+}
+
+template <typename T>
+T* World::GetComponent(Entity entity) {
+    return Storage<T>().Get(entity);
+}
+
+template <typename T>
+const T* World::GetComponent(Entity entity) const {
+    return Storage<T>().Get(entity);
+}
+
+template <typename T>
+void World::RemoveComponent(Entity entity) {
+    Storage<T>().Remove(entity);
+}
+
+template <typename T>
+ComponentStorage<T>& World::Storage() {
+    if constexpr (std::is_same_v<T, TagComponent>) {
+        return m_tags;
+    } else if constexpr (std::is_same_v<T, TransformComponent>) {
+        return m_transforms;
+    } else if constexpr (std::is_same_v<T, RenderComponent>) {
+        return m_renders;
+    } else if constexpr (std::is_same_v<T, RigidbodyComponent>) {
+        return m_rigidbodies;
+    } else if constexpr (std::is_same_v<T, BoxColliderComponent>) {
+        return m_colliders;
+    } else if constexpr (std::is_same_v<T, LifetimeComponent>) {
+        return m_lifetimes;
+    } else if constexpr (std::is_same_v<T, EditorMetadataComponent>) {
+        return m_editorMetadata;
+    } else {
+        static_assert(sizeof(T) == 0, "Unsupported component type");
+    }
+}
+
+template <typename T>
+const ComponentStorage<T>& World::Storage() const {
+    if constexpr (std::is_same_v<T, TagComponent>) {
+        return m_tags;
+    } else if constexpr (std::is_same_v<T, TransformComponent>) {
+        return m_transforms;
+    } else if constexpr (std::is_same_v<T, RenderComponent>) {
+        return m_renders;
+    } else if constexpr (std::is_same_v<T, RigidbodyComponent>) {
+        return m_rigidbodies;
+    } else if constexpr (std::is_same_v<T, BoxColliderComponent>) {
+        return m_colliders;
+    } else if constexpr (std::is_same_v<T, LifetimeComponent>) {
+        return m_lifetimes;
+    } else if constexpr (std::is_same_v<T, EditorMetadataComponent>) {
+        return m_editorMetadata;
+    } else {
+        static_assert(sizeof(T) == 0, "Unsupported component type");
+    }
+}
 
 } // namespace fw

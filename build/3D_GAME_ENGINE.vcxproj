@@ -417,15 +417,31 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\core\FileSystem.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\assets\AssetManager.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\ecs\World.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\ecs\components\EditorMetadataComponent.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\editor\runtime\EditorSelection.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\editor\runtime\EditorPicking.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\editor\runtime\EditorGizmo.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\editor\runtime\EditorSceneAuthoring.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\editor\runtime\InspectorPanel.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\editor\serialization\SceneExporter.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\editor\validation\ContentValidator.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\ecs\systems\CollisionSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\ecs\systems\MovementSystem.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\gameplay\GameplayTags.cpp" />
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\gameplay\Spawn.cpp" />
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\gameplay\WorldSerializer.cpp" />
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\gameplay\systems\CollisionSystem.cpp" />
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\gameplay\systems\MovementSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\gameplay\prefabs\PrefabDefinition.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\gameplay\prefabs\PrefabVariantDefinition.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\gameplay\prefabs\PrefabLibrary.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\gameplay\prefabs\SpawnFactory.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\gameplay\registry\SystemRegistry.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\gameplay\systems\ProjectileCleanupSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\serialization\WorldSerializer.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\render\Renderer.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\render\DebugOverlay.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\scene\SceneManager.cpp" />
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\scene\SandboxScene.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\scene\data\SceneDefinition.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\scene\data\SceneLibrary.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\scene\spawning\SceneSpawner.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\scene\scenes\SandboxScene.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\util\StringUtil.cpp" />
   </ItemGroup>
   <ItemGroup />

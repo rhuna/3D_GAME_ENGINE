@@ -2,6 +2,7 @@
 
 #include <memory>
 
+#include "raylib.h"
 #include "raymath.h"
 
 #include "core/Application.h"
@@ -59,7 +60,8 @@ void SandboxScene::Update(Application& app, float deltaTime) {
     auto& prefabs = app.GetPrefabLibrary();
 
     const Entity player = world.FindByTag(tags::kPlayer);
-    if (player != 0 && input.IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+    const bool fireProjectile = input.IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && (IsKeyDown(KEY_LEFT_SHIFT) || IsKeyDown(KEY_RIGHT_SHIFT));
+    if (player != 0 && fireProjectile) {
         const Vector3 origin = app.GetCamera().position;
         const Vector3 forward = Vector3Normalize(Vector3Subtract(app.GetCamera().target, app.GetCamera().position));
 

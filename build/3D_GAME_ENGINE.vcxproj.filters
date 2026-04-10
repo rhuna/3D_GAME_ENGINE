@@ -28,19 +28,58 @@
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\ecs\World.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\ecs\components\EditorMetadataComponent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\editor\runtime\EditorSelection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\editor\runtime\EditorPicking.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\editor\runtime\EditorGizmo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\editor\runtime\EditorSceneAuthoring.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\editor\runtime\InspectorPanel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\editor\serialization\SceneExporter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\editor\validation\ContentValidator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\ecs\systems\CollisionSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\ecs\systems\MovementSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\gameplay\GameplayTags.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\gameplay\Spawn.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\gameplay\prefabs\PrefabDefinition.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\gameplay\WorldSerializer.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\gameplay\prefabs\PrefabVariantDefinition.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\gameplay\systems\CollisionSystem.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\gameplay\prefabs\PrefabLibrary.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\gameplay\systems\MovementSystem.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\gameplay\prefabs\SpawnFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\gameplay\registry\SystemRegistry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\gameplay\systems\ProjectileCleanupSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\serialization\WorldSerializer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\render\Renderer.cpp">
@@ -52,7 +91,16 @@
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\scene\SceneManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\scene\SandboxScene.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\scene\data\SceneDefinition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\scene\data\SceneLibrary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\scene\spawning\SceneSpawner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\scene\scenes\SandboxScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\src\util\StringUtil.cpp">

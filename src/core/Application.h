@@ -1,14 +1,25 @@
 #pragma once
 
+#include <string>
+#include <vector>
+
 #include "assets/AssetManager.h"
 #include "core/EngineConfig.h"
 #include "core/Input.h"
 #include "core/Time.h"
 #include "ecs/World.h"
+#include "editor/runtime/EditorSelection.h"
+#include "editor/runtime/EditorGizmo.h"
+#include "editor/runtime/EditorSceneAuthoring.h"
+#include "editor/runtime/InspectorPanel.h"
+#include "editor/validation/ContentValidator.h"
+#include "gameplay/prefabs/PrefabLibrary.h"
+#include "gameplay/registry/SystemRegistry.h"
 #include "raylib.h"
 #include "render/DebugOverlay.h"
 #include "render/Renderer.h"
 #include "scene/SceneManager.h"
+#include "scene/data/SceneLibrary.h"
 
 namespace fw {
 
@@ -20,6 +31,8 @@ public:
     int Run();
     void RequestQuit() { m_isRunning = false; }
     void ReloadStartScene();
+    void RunContentValidation();
+    void ExportCurrentScene();
 
     [[nodiscard]] const EngineConfig& GetConfig() const { return m_config; }
     [[nodiscard]] Time& GetTime() { return m_time; }
@@ -33,7 +46,20 @@ public:
     [[nodiscard]] SceneManager& GetSceneManager() { return m_sceneManager; }
     [[nodiscard]] Camera3D& GetCamera() { return m_camera; }
     [[nodiscard]] const Camera3D& GetCamera() const { return m_camera; }
+    [[nodiscard]] PrefabLibrary& GetPrefabLibrary() { return m_prefabs; }
+    [[nodiscard]] const PrefabLibrary& GetPrefabLibrary() const { return m_prefabs; }
+    [[nodiscard]] SceneLibrary& GetSceneLibrary() { return m_sceneLibrary; }
+    [[nodiscard]] const SceneLibrary& GetSceneLibrary() const { return m_sceneLibrary; }
+    [[nodiscard]] SystemRegistry& GetSystemRegistry() { return m_systemRegistry; }
+    [[nodiscard]] const SystemRegistry& GetSystemRegistry() const { return m_systemRegistry; }
     [[nodiscard]] bool IsDebugOverlayEnabled() const { return m_showDebugOverlay; }
+    [[nodiscard]] bool IsInspectorVisible() const { return m_showInspector; }
+    [[nodiscard]] const std::vector<ValidationMessage>& GetValidationMessages() const { return m_validationMessages; }
+    [[nodiscard]] const std::string& GetLastExportPath() const { return m_lastExportPath; }
+    [[nodiscard]] EditorSelection& GetEditorSelection() { return m_editorSelection; }
+    [[nodiscard]] const EditorSelection& GetEditorSelection() const { return m_editorSelection; }
+    [[nodiscard]] const EditorGizmo& GetEditorGizmo() const { return m_editorGizmo; }
+    [[nodiscard]] const EditorSceneAuthoring& GetEditorSceneAuthoring() const { return m_editorAuthoring; }
 
 private:
     void Initialize();
@@ -48,11 +74,21 @@ private:
     World m_world {};
     AssetManager m_assets {};
     SceneManager m_sceneManager {};
+    PrefabLibrary m_prefabs {};
+    SceneLibrary m_sceneLibrary {};
+    SystemRegistry m_systemRegistry {};
+    InspectorPanel m_inspectorPanel {};
+    EditorSelection m_editorSelection {};
+    EditorGizmo m_editorGizmo {};
+    EditorSceneAuthoring m_editorAuthoring {};
+    std::vector<ValidationMessage> m_validationMessages {};
+    std::string m_lastExportPath;
     Camera3D m_camera {};
 
     bool m_initialized = false;
     bool m_isRunning = true;
     bool m_showDebugOverlay = true;
+    bool m_showInspector = true;
 };
 
 } // namespace fw

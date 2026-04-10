@@ -14,39 +14,38 @@ void Renderer::Begin3D(const Camera3D& camera) {
 }
 
 void Renderer::DrawWorld(const World& world, AssetManager& assets) const {
-    for (const auto& entity : world.Entities()) {
-        if (!entity.active || !entity.transform || !entity.render || !entity.render->visible) {
+    for (const Entity entity : world.Entities()) {
+        const TransformComponent* transform = world.GetComponent<TransformComponent>(entity);
+        const RenderComponent* render = world.GetComponent<RenderComponent>(entity);
+        if (!transform || !render || !render->visible) {
             continue;
         }
 
-        const auto& transform = *entity.transform;
-        const auto& render = *entity.render;
-
-        if (render.useModel && !render.modelPath.empty()) {
-            if (Model* model = assets.LoadModelCached(render.modelPath)) {
+        if (render->useModel && !render->modelPath.empty()) {
+            if (Model* model = assets.LoadModelCached(render->modelPath)) {
                 DrawModelEx(*model,
-                            transform.position,
+                            transform->position,
                             Vector3{0.0f, 1.0f, 0.0f},
-                            transform.rotationEuler.y,
-                            transform.scale,
-                            render.tint);
+                            transform->rotationEuler.y,
+                            transform->scale,
+                            render->tint);
                 continue;
             }
         }
 
-        if (render.drawCube) {
+        if (render->drawCube) {
             const Vector3 size {
-                transform.scale.x * render.cubeSize,
-                transform.scale.y * render.cubeSize,
-                transform.scale.z * render.cubeSize
+                transform->scale.x * render->cubeSize,
+                transform->scale.y * render->cubeSize,
+                transform->scale.z * render->cubeSize
             };
-            DrawCubeV(transform.position, size, render.tint);
-            DrawCubeWiresV(transform.position, size, BLACK);
+            DrawCubeV(transform->position, size, render->tint);
+            DrawCubeWiresV(transform->position, size, BLACK);
         }
 
-        if (render.drawSphere) {
-            DrawSphere(transform.position, render.sphereRadius * transform.scale.x, render.tint);
-            DrawSphereWires(transform.position, render.sphereRadius * transform.scale.x, 8, 8, BLACK);
+        if (render->drawSphere) {
+            DrawSphere(transform->position, render->sphereRadius * transform->scale.x, render->tint);
+            DrawSphereWires(transform->position, render->sphereRadius * transform->scale.x, 8, 8, BLACK);
         }
     }
 }

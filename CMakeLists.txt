@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project(3D_GAME_ENGINE VERSION 0.4.0 LANGUAGES CXX)
+project(3D_GAME_ENGINE VERSION 0.9.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -27,19 +27,36 @@ set(ENGINE_SOURCES
   src/core/FileSystem.cpp
   src/assets/AssetManager.cpp
   src/ecs/World.cpp
+  src/ecs/components/EditorMetadataComponent.cpp
+  src/editor/runtime/EditorSelection.cpp
+  src/editor/runtime/EditorPicking.cpp
+  src/editor/runtime/EditorGizmo.cpp
+  src/editor/runtime/EditorSceneAuthoring.cpp
+  src/editor/runtime/InspectorPanel.cpp
+  src/editor/serialization/SceneExporter.cpp
+  src/editor/validation/ContentValidator.cpp
+  src/ecs/systems/CollisionSystem.cpp
+  src/ecs/systems/MovementSystem.cpp
   src/gameplay/GameplayTags.cpp
-  src/gameplay/Spawn.cpp
-  src/gameplay/WorldSerializer.cpp
-  src/gameplay/systems/CollisionSystem.cpp
-  src/gameplay/systems/MovementSystem.cpp
+  src/gameplay/prefabs/PrefabDefinition.cpp
+  src/gameplay/prefabs/PrefabVariantDefinition.cpp
+  src/gameplay/prefabs/PrefabLibrary.cpp
+  src/gameplay/prefabs/SpawnFactory.cpp
+  src/gameplay/registry/SystemRegistry.cpp
+  src/gameplay/systems/ProjectileCleanupSystem.cpp
+  src/serialization/WorldSerializer.cpp
   src/render/Renderer.cpp
   src/render/DebugOverlay.cpp
   src/scene/SceneManager.cpp
-  src/scene/SandboxScene.cpp
+  src/scene/data/SceneDefinition.cpp
+  src/scene/data/SceneLibrary.cpp
+  src/scene/spawning/SceneSpawner.cpp
+  src/scene/scenes/SandboxScene.cpp
   src/util/StringUtil.cpp
 )
 
 add_executable(${ENGINE_TARGET} ${ENGINE_SOURCES})
+
 target_include_directories(${ENGINE_TARGET} PRIVATE src)
 target_link_libraries(${ENGINE_TARGET} PRIVATE raylib)
 

@@ -37,8 +37,7 @@ bool SceneExporter::ExportWorldAsScene(const World& world, const PrefabLibrary& 
     std::ofstream file(outputPath);
     if (!file.is_open()) return false;
 
-    file << "scene=" << sceneName << "
-";
+    file << "scene=" << sceneName << "\n";
 
     for (Entity entity : world.Entities()) {
         const TransformComponent* transform = world.GetComponent<TransformComponent>(entity);
@@ -60,8 +59,7 @@ bool SceneExporter::ExportWorldAsScene(const World& world, const PrefabLibrary& 
         file << "rotationEuler=" << transform->rotationEuler.x << ',' << transform->rotationEuler.y << ',' << transform->rotationEuler.z << ';';
         file << "scale=" << transform->scale.x << ',' << transform->scale.y << ',' << transform->scale.z << ';';
         file << "color=" << static_cast<int>(render->tint.r) << ',' << static_cast<int>(render->tint.g) << ','
-             << static_cast<int>(render->tint.b) << ',' << static_cast<int>(render->tint.a) << "
-";
+             << static_cast<int>(render->tint.b) << ',' << static_cast<int>(render->tint.a) << "\n";
     }
 
     return true;
