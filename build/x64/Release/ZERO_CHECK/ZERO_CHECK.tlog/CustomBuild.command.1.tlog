@@ -1,0 +1,10 @@
+^C:\DEV\3D_GAME_ENGINE\BUILD\CMAKEFILES\1819D4B2B973DDF7BF7A92999E2C428C\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/dev/3D_GAME_ENGINE -BC:/dev/3D_GAME_ENGINE/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/dev/3D_GAME_ENGINE/build/FireWizard3DEngine.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
