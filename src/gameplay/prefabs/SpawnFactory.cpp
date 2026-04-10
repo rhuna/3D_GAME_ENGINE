@@ -1,5 +1,7 @@
 #include "gameplay/prefabs/SpawnFactory.h"
 
+#include "ecs/components/EditorMetadataComponent.h"
+
 namespace fw::spawn {
 
 Entity SpawnFromPrefab(World& world, const PrefabDefinition& prefab) {
@@ -18,6 +20,10 @@ Entity SpawnFromPrefab(World& world, const PrefabDefinition& prefab) {
         world.AddComponent<LifetimeComponent>(id, prefab.lifetime);
     }
 
+    EditorMetadataComponent meta;
+    meta.sourcePrefab = prefab.name;
+    world.AddComponent<EditorMetadataComponent>(id, meta);
+
     return id;
 }
 
@@ -27,6 +33,20 @@ Entity SpawnFromPrefab(World& world, const PrefabLibrary& library, const std::st
         return 0;
     }
     return SpawnFromPrefab(world, *prefab);
+}
+
+Entity SpawnFromVariant(World& world, const PrefabLibrary& library, const std::string& variantName) {
+    PrefabDefinition prefab;
+    if (!library.BuildPrefabFromVariant(variantName, prefab)) {
+        return 0;
+    }
+    const Entity entity = SpawnFromPrefab(world, prefab);
+    if (entity != 0) {
+        if (EditorMetadataComponent* meta = world.GetComponent<EditorMetadataComponent>(entity)) {
+            meta->sourceVariant = variantName;
+        }
+    }
+    return entity;
 }
 
 Entity SpawnStaticBox(World& world, const std::string& tag, const Vector3& position,

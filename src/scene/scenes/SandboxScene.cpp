@@ -12,12 +12,15 @@
 #include "gameplay/prefabs/SpawnFactory.h"
 #include "gameplay/registry/SystemRegistry.h"
 #include "gameplay/systems/ProjectileCleanupSystem.h"
+#include "scene/data/SceneDefinition.h"
+#include "scene/spawning/SceneSpawner.h"
 
 namespace fw {
 
 void SandboxScene::OnEnter(Application& app) {
     auto& world = app.GetWorld();
     auto& prefabs = app.GetPrefabLibrary();
+    auto& scenes = app.GetSceneLibrary();
     auto& systems = app.GetSystemRegistry();
 
     world.Clear();
@@ -27,45 +30,21 @@ void SandboxScene::OnEnter(Application& app) {
     systems.RegisterFixed(std::make_unique<CollisionSystem>());
     systems.RegisterFixed(std::make_unique<ProjectileCleanupSystem>());
 
-    if (!spawn::SpawnFromPrefab(world, prefabs, "ground")) {
-        spawn::SpawnStaticBox(world, tags::kGround, Vector3{0.0f, -0.5f, 0.0f}, Vector3{20.0f, 1.0f, 20.0f}, Color{90, 110, 90, 255});
-    }
-
-    if (const PrefabDefinition* player = prefabs.Find("player")) {
-        PrefabDefinition instance = *player;
-        instance.transform.position = Vector3{0.0f, 2.0f, 0.0f};
-        spawn::SpawnFromPrefab(world, instance);
-    } else {
-        spawn::SpawnPlayer(world, Vector3{0.0f, 2.0f, 0.0f});
-    }
-
-    const PrefabDefinition* cratePrefab = prefabs.Find("dynamic_crate");
-    for (int z = -2; z <= 2; ++z) {
-        for (int x = -2; x <= 2; ++x) {
-            if (x == 0 && z == 0) {
-                continue;
-            }
-
-            const Vector3 pos {
-                static_cast<float>(x) * 2.2f,
-                2.5f + static_cast<float>((x + z + 4) % 3),
-                static_cast<float>(z) * 2.2f
-            };
-
-            if (cratePrefab) {
-                PrefabDefinition crate = *cratePrefab;
-                crate.transform.position = pos;
-                crate.render.tint = Color{
-                    static_cast<unsigned char>(100 + (x + 2) * 20),
-                    static_cast<unsigned char>(110 + (z + 2) * 22),
-                    200,
-                    255
-                };
-                spawn::SpawnFromPrefab(world, crate);
-            } else {
-                spawn::SpawnDynamicBox(world, tags::kDynamicCrate, pos, Vector3{1.0f, 1.0f, 1.0f}, Color{160, 160, 200, 255});
-            }
+    const SceneDefinition* scene = scenes.Find("sandbox");
+    if (!scene || !SceneSpawner::Spawn(world, prefabs, *scene)) {
+        if (!spawn::SpawnFromPrefab(world, prefabs, "ground")) {
+            spawn::SpawnStaticBox(world, tags::kGround, Vector3{0.0f, -0.5f, 0.0f}, Vector3{20.0f, 1.0f, 20.0f}, Color{90, 110, 90, 255});
         }
+
+        if (const PrefabDefinition* player = prefabs.Find("player")) {
+            PrefabDefinition instance = *player;
+            instance.transform.position = Vector3{0.0f, 2.0f, 0.0f};
+            spawn::SpawnFromPrefab(world, instance);
+        } else {
+            spawn::SpawnPlayer(world, Vector3{0.0f, 2.0f, 0.0f});
+        }
+
+        spawn::SpawnDynamicBox(world, tags::kDynamicCrate, Vector3{2.2f, 3.0f, 0.0f}, Vector3{1.0f, 1.0f, 1.0f}, Color{160, 160, 200, 255});
     }
 }
 

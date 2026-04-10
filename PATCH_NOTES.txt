@@ -1,0 +1,8 @@
+Patched from uploaded assets.zip
+
+Changes applied:
+- src/core/Application.cpp: added explicit raylib.h include before raymath.h and flipped RMB Y-axis look to non-inverted behavior (mouse up -> look up, mouse down -> look down).
+- src/scene/Scene.cpp: removed duplicate self-include and flipped scene camera Y-axis look to match.
+
+Important:
+The later build logs you pasted refer to a different repo layout (editor/, scene/scenes/, gameplay/prefabs/, ecs/components/) than the files present in assets.zip. This zip truthfully fixes the project that was actually uploaded.
