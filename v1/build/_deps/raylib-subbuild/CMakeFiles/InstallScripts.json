@@ -1,7 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"C:/dev/3D_GAME_ENGINE/build/_deps/raylib-subbuild/cmake_install.cmake"
-	],
-	"Parallel" : false
-}

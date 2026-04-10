@@ -21,6 +21,10 @@ void ApplyDamage(World& world, Entity target, int damage, std::unordered_set<Ent
 
     health->current -= damage;
     if (health->current > 0) {
+        if (state && target == world.FindByTag("player")) {
+            state->statusText = TextFormat("Player hit for %d", damage);
+            state->statusTextTimer = 0.8f;
+        }
         return;
     }
 
@@ -34,6 +38,8 @@ void ApplyDamage(World& world, Entity target, int damage, std::unordered_set<Ent
         if (state->enemiesRemaining > 0) {
             --state->enemiesRemaining;
         }
+        state->statusText = "Enemy down";
+        state->statusTextTimer = 0.7f;
     }
 }
 }
@@ -77,14 +83,14 @@ void DamageSystem::Update(Application& app, World& world, float deltaTime) {
 
         if (aEnemy && world.FindByTag("player") == b) {
             if (aEnemy->contactDamageCooldownRemaining <= 0.0f) {
-                ApplyDamage(world, b, 10, destroyedThisFrame, m_state);
+                ApplyDamage(world, b, aEnemy->contactDamage, destroyedThisFrame, m_state);
                 if (world.IsAlive(a)) {
                     aEnemy->contactDamageCooldownRemaining = aEnemy->contactDamageCooldown;
                 }
             }
         } else if (bEnemy && world.FindByTag("player") == a) {
             if (bEnemy->contactDamageCooldownRemaining <= 0.0f) {
-                ApplyDamage(world, a, 10, destroyedThisFrame, m_state);
+                ApplyDamage(world, a, bEnemy->contactDamage, destroyedThisFrame, m_state);
                 if (world.IsAlive(b)) {
                     bEnemy->contactDamageCooldownRemaining = bEnemy->contactDamageCooldown;
                 }

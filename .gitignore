@@ -1,0 +1,128 @@
+# =========================
+
+# BUILD OUTPUTS
+
+# =========================
+
+/build/
+/bin/
+/out/
+/dist/
+/Debug/
+/Release/
+
+# CMake
+
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.cmake
+/build/
+
+# =========================
+
+# VISUAL STUDIO
+
+# =========================
+
+.vs/
+*.VC.db
+*.VC.opendb
+*.sln.docstates
+*.user
+*.userosscache
+*.suo
+
+# MSBuild
+
+*.obj
+*.pdb
+*.idb
+*.ilk
+*.tlog
+*.log
+*.cache
+
+# =========================
+
+# EXECUTABLES & LIBS
+
+# =========================
+
+*.exe
+*.dll
+*.lib
+*.a
+*.so
+*.dylib
+
+# =========================
+
+# RAYLIB / FETCHCONTENT
+
+# =========================
+
+/build/_deps/
+/external/
+/third_party/build/
+
+# =========================
+
+# TEMP FILES
+
+# =========================
+
+*.tmp
+*.temp
+*.bak
+*.swp
+*.old
+
+# =========================
+
+# OS FILES
+
+# =========================
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# =========================
+
+# EDITOR FILES
+
+# =========================
+
+.vscode/
+*.code-workspace
+
+# =========================
+
+# ARCHIVES (IMPORTANT)
+
+# =========================
+
+*.zip
+*.7z
+*.rar
+
+# =========================
+
+# LOGS
+
+# =========================
+
+*.log
+
+# =========================
+
+# OPTIONAL: KEEP ASSETS
+
+# =========================
+
+# (Uncomment if you want to ignore large assets)
+
+# assets/
+

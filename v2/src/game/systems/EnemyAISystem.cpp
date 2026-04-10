@@ -1,5 +1,4 @@
 #include "game/systems/EnemyAISystem.h"
-
 #include "raylib.h"
 #include "raymath.h"
 
@@ -32,14 +31,12 @@ void EnemyAISystem::Update(Application& app, World& world, float deltaTime) {
 
         Vector3 toPlayer = Vector3Subtract(playerTransform->position, transform->position);
         toPlayer.y = 0.0f;
-        if (Vector3Length(toPlayer) > 0.001f) {
-            const Vector3 dir = Vector3Normalize(toPlayer);
-            body->velocity.x = dir.x * enemy->moveSpeed;
-            body->velocity.z = dir.z * enemy->moveSpeed;
+        const float distance = Vector3Length(toPlayer);
+        if (distance > 0.001f) {
+            const Vector3 dir = Vector3Scale(Vector3Normalize(toPlayer), enemy->moveSpeed);
+            body->velocity.x = dir.x;
+            body->velocity.z = dir.z;
             transform->rotationEuler.y = atan2f(dir.x, dir.z) * RAD2DEG;
-        } else {
-            body->velocity.x = 0.0f;
-            body->velocity.z = 0.0f;
         }
 
         if (enemy->contactDamageCooldownRemaining > 0.0f) {

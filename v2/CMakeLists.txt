@@ -47,6 +47,7 @@ set(ENGINE_SOURCES
 
   src/game/rules/WaveDirector.cpp
   src/game/ui/GameHud.cpp
+  src/game/systems/PickupSystem.cpp
   src/game/systems/PlayerControllerSystem.cpp
   src/game/systems/EnemyAISystem.cpp
   src/game/systems/DamageSystem.cpp
