@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <CustomBuild Include="C:\dev\3D_GAME_ENGINE\build\CMakeFiles\7773b3eaae9d7b0808e6b4e82dfc3a00\uninstall.rule">
+    <CustomBuild Include="C:\dev\3D_GAME_ENGINE\v2\build\CMakeFiles\b1d283365adff25ac5a81010fe4e86bb\uninstall.rule">
       <Filter>CMake Rules</Filter>
     </CustomBuild>
-    <CustomBuild Include="C:\dev\3D_GAME_ENGINE\build\_deps\raylib-src\CMakeLists.txt" />
+    <CustomBuild Include="C:\dev\3D_GAME_ENGINE\v2\build\_deps\raylib-src\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="C:\dev\3D_GAME_ENGINE\build\_deps\raylib-build\CMakeFiles\uninstall" />
+    <None Include="C:\dev\3D_GAME_ENGINE\v2\build\_deps\raylib-build\CMakeFiles\uninstall" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="CMake Rules">
-      <UniqueIdentifier>{C876E897-00C1-3AD3-8B93-BE17EFAEBFD5}</UniqueIdentifier>
+      <UniqueIdentifier>{437A61F4-7296-3F8A-9923-DBC5EC62E906}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

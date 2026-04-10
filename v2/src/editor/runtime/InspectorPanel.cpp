@@ -48,13 +48,21 @@ void InspectorPanel::Update(Application& app, World& world, EditorSelection& sel
 }
 
 void InspectorPanel::Draw(const World& world, const EditorSelection& selection) const {
-    DrawRectangle(10, 200, 420, 220, Color{0, 0, 0, 160});
-    DrawText("Inspector", 20, 210, 24, RAYWHITE);
+    const int width = 420;
+    const int x = GetScreenWidth() - width - 12;
+    const int y = 12;
+    const int height = std::min(300, GetScreenHeight() - 24);
+
+    DrawRectangle(x, y, width, height, Color{0, 0, 0, 185});
+    DrawRectangleLines(x, y, width, height, Fade(GREEN, 0.70f));
+    DrawRectangle(x, y, width, 30, Color{18, 40, 18, 220});
+    DrawText("Inspector", x + 12, y + 6, 20, RAYWHITE);
 
     if (!selection.HasSelection(world)) {
-        DrawText("No entity selected. Press F2 to cycle selection.", 20, 245, 20, LIGHTGRAY);
-        DrawText("Arrow keys/PageUp/PageDown move selection.", 20, 275, 20, LIGHTGRAY);
-        DrawText("+/- scales. Delete removes. Tab hides inspector.", 20, 305, 20, LIGHTGRAY);
+        DrawText("No entity selected.", x + 12, y + 42, 20, LIGHTGRAY);
+        DrawText("LMB selects. MMB focuses camera.", x + 12, y + 70, 18, LIGHTGRAY);
+        DrawText("Arrow keys/PageUp/PageDown move selection.", x + 12, y + 96, 18, LIGHTGRAY);
+        DrawText("+/- scales. Delete removes. Tab hides inspector.", x + 12, y + 122, 18, LIGHTGRAY);
         return;
     }
 
@@ -65,28 +73,44 @@ void InspectorPanel::Draw(const World& world, const EditorSelection& selection) 
     const EditorMetadataComponent* meta = world.GetComponent<EditorMetadataComponent>(entity);
 
     char buffer[256];
+    int drawY = y + 42;
+
     std::snprintf(buffer, sizeof(buffer), "Entity: %u", entity);
-    DrawText(buffer, 20, 245, 20, RAYWHITE);
+    DrawText(buffer, x + 12, drawY, 18, RAYWHITE);
+    drawY += 26;
 
     std::snprintf(buffer, sizeof(buffer), "Tag: %s", tag ? tag->value.c_str() : "<none>");
-    DrawText(buffer, 20, 272, 20, RAYWHITE);
+    DrawText(buffer, x + 12, drawY, 18, RAYWHITE);
+    drawY += 26;
 
     if (transform) {
-        std::snprintf(buffer, sizeof(buffer), "Position: %.2f %.2f %.2f", transform->position.x, transform->position.y, transform->position.z);
-        DrawText(buffer, 20, 299, 20, RAYWHITE);
-        std::snprintf(buffer, sizeof(buffer), "Scale: %.2f %.2f %.2f", transform->scale.x, transform->scale.y, transform->scale.z);
-        DrawText(buffer, 20, 326, 20, RAYWHITE);
+        std::snprintf(buffer, sizeof(buffer), "Position: %.2f  %.2f  %.2f", transform->position.x, transform->position.y, transform->position.z);
+        DrawText(buffer, x + 12, drawY, 18, RAYWHITE);
+        drawY += 26;
+        std::snprintf(buffer, sizeof(buffer), "Rotation: %.2f  %.2f  %.2f", transform->rotationEuler.x, transform->rotationEuler.y, transform->rotationEuler.z);
+        DrawText(buffer, x + 12, drawY, 18, RAYWHITE);
+        drawY += 26;
+        std::snprintf(buffer, sizeof(buffer), "Scale: %.2f  %.2f  %.2f", transform->scale.x, transform->scale.y, transform->scale.z);
+        DrawText(buffer, x + 12, drawY, 18, RAYWHITE);
+        drawY += 26;
     }
 
     if (meta) {
         std::snprintf(buffer, sizeof(buffer), "Prefab: %s", meta->sourcePrefab.empty() ? "<runtime>" : meta->sourcePrefab.c_str());
-        DrawText(buffer, 20, 353, 20, RAYWHITE);
+        DrawText(buffer, x + 12, drawY, 18, RAYWHITE);
+        drawY += 26;
         std::snprintf(buffer, sizeof(buffer), "Variant: %s", meta->sourceVariant.empty() ? "<none>" : meta->sourceVariant.c_str());
-        DrawText(buffer, 20, 380, 20, RAYWHITE);
+        DrawText(buffer, x + 12, drawY, 18, RAYWHITE);
+        drawY += 26;
     } else if (render) {
-        std::snprintf(buffer, sizeof(buffer), "Tint: %d,%d,%d,%d", render->tint.r, render->tint.g, render->tint.b, render->tint.a);
-        DrawText(buffer, 20, 353, 20, RAYWHITE);
+        std::snprintf(buffer, sizeof(buffer), "Tint: %d, %d, %d, %d", render->tint.r, render->tint.g, render->tint.b, render->tint.a);
+        DrawText(buffer, x + 12, drawY, 18, RAYWHITE);
+        drawY += 26;
     }
+
+    DrawText("Move: arrows / page up / page down", x + 12, y + height - 76, 18, LIGHTGRAY);
+    DrawText("Scale: + / -", x + 12, y + height - 50, 18, LIGHTGRAY);
+    DrawText("Delete: remove entity", x + 12, y + height - 24, 18, LIGHTGRAY);
 }
 
 } // namespace fw

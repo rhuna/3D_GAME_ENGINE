@@ -32,6 +32,7 @@ int Application::Run() {
         if (m_input.IsKeyPressed(KEY_F6)) WorldSerializer::SaveToFile(m_world, "assets/saves/arena_world.txt");
         if (m_input.IsKeyPressed(KEY_F7)) WorldSerializer::LoadFromFile(m_world, "assets/saves/arena_world.txt");
         if (m_input.IsKeyPressed(KEY_TAB)) m_showInspector = !m_showInspector;
+        if (m_input.IsKeyPressed(KEY_F11)) ToggleFullscreen();
 
         UpdateCameraController(m_time.DeltaTime());
         m_sceneManager.Update(*this, m_time.DeltaTime());
@@ -60,8 +61,9 @@ int Application::Run() {
         }
 
         if (!m_mouseLookActive) {
-            DrawCircleV(GetMousePosition(), 4.0f, SKYBLUE);
-            DrawCircleLines(static_cast<int>(GetMousePosition().x), static_cast<int>(GetMousePosition().y), 10.0f, Fade(SKYBLUE, 0.75f));
+            const Vector2 mousePos = GetMousePosition();
+            DrawCircleV(mousePos, 4.0f, SKYBLUE);
+            DrawCircleLines(static_cast<int>(mousePos.x), static_cast<int>(mousePos.y), 10.0f, Fade(SKYBLUE, 0.75f));
         }
 
         m_renderer.EndFrame();
@@ -96,9 +98,11 @@ void Application::Initialize() {
     m_config = EngineConfig::LoadFromFile("assets/engine.cfg");
 
     SetConfigFlags(FLAG_MSAA_4X_HINT);
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     if (m_config.vsync) SetConfigFlags(FLAG_VSYNC_HINT);
 
     InitWindow(m_config.windowWidth, m_config.windowHeight, m_config.windowTitle.c_str());
+    SetWindowMinSize(1280, 720);
     SetTargetFPS(m_config.targetFps);
     EnableCursor();
 

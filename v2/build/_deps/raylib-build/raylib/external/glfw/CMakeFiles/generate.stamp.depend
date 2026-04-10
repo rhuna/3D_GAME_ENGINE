@@ -10,5 +10,5 @@ C:/Program Files/CMake/share/cmake-4.1/Modules/FindPackageMessage.cmake
 C:/Program Files/CMake/share/cmake-4.1/Modules/FindThreads.cmake
 C:/Program Files/CMake/share/cmake-4.1/Modules/GNUInstallDirs.cmake
 C:/Program Files/CMake/share/cmake-4.1/Modules/WriteBasicConfigVersionFile.cmake
-C:/dev/3D_GAME_ENGINE/build/_deps/raylib-src/src/external/glfw/CMake/glfw3Config.cmake.in
-C:/dev/3D_GAME_ENGINE/build/_deps/raylib-src/src/external/glfw/CMakeLists.txt
+C:/dev/3D_GAME_ENGINE/v2/build/_deps/raylib-src/src/external/glfw/CMake/glfw3Config.cmake.in
+C:/dev/3D_GAME_ENGINE/v2/build/_deps/raylib-src/src/external/glfw/CMakeLists.txt
