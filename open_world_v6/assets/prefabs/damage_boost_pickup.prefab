@@ -1,0 +1,14 @@
+name=damage_boost_pickup
+tag=damage_boost_pickup
+position=0.0,1.0,0.0
+scale=0.7,0.7,0.7
+color=210,120,255,255
+drawCube=false
+drawSphere=true
+cubeSize=1.0
+sphereRadius=0.35
+useModel=false
+modelPath=
+colliderHalfExtents=0.35,0.35,0.35
+colliderIsTrigger=true
+colliderIsStatic=true

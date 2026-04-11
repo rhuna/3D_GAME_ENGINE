@@ -1,0 +1,5 @@
+name=encounter_bandit
+tag=enemy
+model=cube
+scale=1.0,1.8,1.0
+color=150,80,80,255

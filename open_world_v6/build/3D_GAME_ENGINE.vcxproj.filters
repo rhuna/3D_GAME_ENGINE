@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v6\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v6\src\game\scenes\OpenWorldFoundationScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v6\src\game\ui\OpenWorldHud.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v6\src\game\save\SaveGameProfile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v6\src\game\quests\QuestState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v6\src\game\content\QuestDatabase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v6\src\game\content\DialogueDatabase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v6\src\game\content\ItemDatabase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v6\src\game\content\NpcDatabase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v6\src\game\content\EncounterDatabase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v6\src\game\content\LootTableDatabase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v6\src\game\content\RegionDatabase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v6\src\game\content\ContentPipeline.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v6\src\game\content\validation\ContentValidator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v6\src\game\simulation\WorldClock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v6\src\game\simulation\RoutineDatabase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v6\src\game\simulation\NpcRoutineSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v6\src\game\world\RegionSimulationState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v6\src\game\world\RegionLayoutDatabase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v6\src\game\render\WorldRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v6\src\game\gameplay\InteractionSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v6\src\game\gameplay\QuestGameplaySystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v6\src\game\gameplay\GatheringSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v6\src\game\combat\EnemySystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v6\src\game\combat\CombatSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\dev\3D_GAME_ENGINE\open_world_v6\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{597EB75A-C247-3F1E-8CC0-1990330F6498}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

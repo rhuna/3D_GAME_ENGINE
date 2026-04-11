@@ -15,6 +15,23 @@ namespace fw
         return out;
     }
 
+    static int CountAlive(const std::vector<EnemyInstance>& enemies)
+    {
+        int alive = 0;
+        for (const auto& e : enemies) if (e.alive) ++alive;
+        return alive;
+    }
+
+    void OpenWorldFoundationScene::ResetEnemiesForRegion()
+    {
+        m_enemies.clear();
+        if (const RegionLayout* layout = m_layouts.Find(m_profile.currentRegion))
+        {
+            for (const auto& p : layout->enemySpawns)
+                m_enemies.push_back({p, 40, true, 0.0f});
+        }
+    }
+
     void OpenWorldFoundationScene::Load()
     {
         DisableCursor();
@@ -29,13 +46,14 @@ namespace fw
         m_clock.Reset(8.0f);
         m_clock.SetTimeScale(0.35f);
 
-        m_camera.position = {0.0f, 2.0f, -6.0f};
-        m_camera.target = {0.0f, 2.0f, 0.0f};
+        m_camera.position = {0.0f, 5.0f, -8.0f};
+        m_camera.target = {0.0f, 1.5f, 0.0f};
         m_camera.up = {0.0f, 1.0f, 0.0f};
         m_camera.fovy = 70.0f;
         m_camera.projection = CAMERA_PERSPECTIVE;
 
         RebuildRegionState();
+        ResetEnemiesForRegion();
     }
 
     void OpenWorldFoundationScene::RebuildRegionState()
@@ -46,7 +64,7 @@ namespace fw
         m_regionState.regionId = m_profile.currentRegion;
         m_regionState.safeZone = (m_profile.currentRegion == "village_region");
         m_regionState.ambientPopulation = static_cast<int>(m_activeRoutines.size());
-        m_regionState.activeEncounters = (m_profile.currentRegion == "forest_region") ? 2 : (m_profile.currentRegion == "ruins_region" ? 1 : 0);
+        m_regionState.activeEncounters = CountAlive(m_enemies);
         m_regionState.activeActivities.clear();
         for (const auto& r : m_activeRoutines)
             m_regionState.activeActivities.push_back(r.activity);
@@ -68,10 +86,19 @@ namespace fw
 
     void OpenWorldFoundationScene::Update(float dt)
     {
-        m_statusText.clear();
         m_interactionPrompt.clear();
 
-        if (IsKeyPressed(KEY_F5)) { m_profile.SaveToFile("savegame.profile"); m_statusText = "Profile saved."; }
+if (m_statusTextTimer > 0.0f)
+{
+    m_statusTextTimer -= dt;
+    if (m_statusTextTimer <= 0.0f)
+    {
+        m_statusText.clear();
+        m_statusTextTimer = 0.0f;
+    }
+}
+
+        if (IsKeyPressed(KEY_F5)) { m_profile.SaveToFile("savegame.profile"); m_statusText = "Profile saved."; m_statusTextTimer = m_statusTextDuration; }
         if (IsKeyPressed(KEY_F9)) { m_profile.LoadFromFile("savegame.profile"); m_statusText = "Profile loaded."; }
 
         bool regionChanged = false;
@@ -83,38 +110,83 @@ namespace fw
         {
             if (const RegionLayout* layout = m_layouts.Find(m_profile.currentRegion))
                 m_profile.playerPosition = layout->playerSpawn;
+            ResetEnemiesForRegion();
             RebuildRegionState();
         }
 
         Vector2 md = GetMouseDelta();
-        m_yaw += md.x * 0.003f;
-        m_pitch += md.y * 0.003f;
-        m_pitch = std::clamp(m_pitch, -1.2f, 1.2f);
+        m_cameraYaw -= md.x * 0.003f;
+        m_cameraPitch -= md.y * 0.003f;
+        m_cameraPitch = std::clamp(m_cameraPitch, -0.6f, 1.0f);
 
-        Vector3 forward = { sinf(m_yaw) * cosf(m_pitch), 0.0f, cosf(m_yaw) * cosf(m_pitch) };
-        Vector3 right = Vector3Normalize(Vector3CrossProduct(forward, {0,1,0}));
+        Vector3 camForward = Vector3Normalize({sinf(m_cameraYaw) * cosf(m_cameraPitch), 0.0f, cosf(m_cameraYaw) * cosf(m_cameraPitch)});
+        Vector3 camRight = Vector3Normalize(Vector3CrossProduct(camForward, {0,1,0}));
 
-        float speed = 10.0f * dt;
-        if (IsKeyDown(KEY_W)) m_profile.playerPosition = Vector3Add(m_profile.playerPosition, Vector3Scale(forward, speed));
-        if (IsKeyDown(KEY_S)) m_profile.playerPosition = Vector3Subtract(m_profile.playerPosition, Vector3Scale(forward, speed));
-        if (IsKeyDown(KEY_A)) m_profile.playerPosition = Vector3Subtract(m_profile.playerPosition, Vector3Scale(right, speed));
-        if (IsKeyDown(KEY_D)) m_profile.playerPosition = Vector3Add(m_profile.playerPosition, Vector3Scale(right, speed));
-        if (IsKeyDown(KEY_SPACE)) m_profile.playerPosition.y += speed;
-        if (IsKeyDown(KEY_LEFT_CONTROL)) m_profile.playerPosition.y -= speed;
-        if (m_profile.playerPosition.y < 1.0f) m_profile.playerPosition.y = 1.0f;
+        Vector3 move{};
+        if (IsKeyDown(KEY_W)) move = Vector3Add(move, camForward);
+        if (IsKeyDown(KEY_S)) move = Vector3Subtract(move, camForward);
+        if (IsKeyDown(KEY_A)) move = Vector3Subtract(move, camRight);
+        if (IsKeyDown(KEY_D)) move = Vector3Add(move, camRight);
 
-        m_camera.position = Vector3Add(m_profile.playerPosition, {0.0f, 2.0f, 0.0f});
-        m_camera.target = Vector3Add(m_camera.position, {sinf(m_yaw)*cosf(m_pitch), sinf(-m_pitch), cosf(m_yaw)*cosf(m_pitch)});
+        if (Vector3Length(move) > 0.001f)
+        {
+            move = Vector3Normalize(move);
+            float speed = IsKeyDown(KEY_LEFT_SHIFT) ? 8.5f : 5.5f;
+            m_profile.playerPosition = Vector3Add(m_profile.playerPosition, Vector3Scale({move.x, 0.0f, move.z}, speed * dt));
+            m_playerYaw = atan2f(move.x, move.z);
+        }
+
+        if (m_grounded && IsKeyPressed(KEY_SPACE))
+        {
+            m_verticalVelocity = 6.5f;
+            m_grounded = false;
+        }
+        m_verticalVelocity -= 18.0f * dt;
+        m_profile.playerPosition.y += m_verticalVelocity * dt;
+        if (m_profile.playerPosition.y <= 1.0f)
+        {
+            m_profile.playerPosition.y = 1.0f;
+            m_verticalVelocity = 0.0f;
+            m_grounded = true;
+        }
+
+        // Third-person camera
+        Vector3 lookDir = {sinf(m_cameraYaw) * cosf(m_cameraPitch), sinf(m_cameraPitch), cosf(m_cameraYaw) * cosf(m_cameraPitch)};
+        m_camera.target = Vector3Add(m_profile.playerPosition, {0.0f, 1.2f, 0.0f});
+        m_camera.position = Vector3Subtract(m_camera.target, Vector3Scale(lookDir, 8.0f));
+        if (m_camera.position.y < 2.0f) m_camera.position.y = 2.0f;
+
+        // Combat update
+        m_enemySystem.Update(m_enemies, m_profile.playerPosition, m_profile.playerHealth, dt);
+        if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+        {
+            Vector3 facing = {sinf(m_playerYaw), 0.0f, cosf(m_playerYaw)};
+            int kills = m_combatSystem.PlayerAttack(m_enemies, m_profile.playerPosition, facing, 2.6f, 20);
+            if (kills > 0)
+            {
+                m_profile.inventory.gold += kills * 5;
+                m_statusText = TextFormat("You defeated %i enemy(s).", kills);
+            }
+        }
+
+        if (m_profile.playerHealth <= 0)
+        {
+            if (const RegionLayout* layout = m_layouts.Find(m_profile.currentRegion))
+                m_profile.playerPosition = layout->playerSpawn;
+            m_profile.playerHealth = m_profile.playerMaxHealth;
+            ResetEnemiesForRegion();
+            m_statusText = "You were defeated and respawned.";
+        }
 
         m_clock.Update(dt);
 
-        // rebuild routines without resetting gatherables
+        // refresh sim state without resetting gatherables
         m_activeRoutines = m_npcRoutineSystem.ResolveActiveRoutines(
             m_pipeline.npcs, m_routines, m_clock.GetHour(), m_profile.currentRegion);
         m_regionState.regionId = m_profile.currentRegion;
         m_regionState.safeZone = (m_profile.currentRegion == "village_region");
         m_regionState.ambientPopulation = static_cast<int>(m_activeRoutines.size());
-        m_regionState.activeEncounters = (m_profile.currentRegion == "forest_region") ? 2 : (m_profile.currentRegion == "ruins_region" ? 1 : 0);
+        m_regionState.activeEncounters = CountAlive(m_enemies);
         m_regionState.activeActivities.clear();
         for (const auto& r : m_activeRoutines) m_regionState.activeActivities.push_back(r.activity);
         const RegionLayout* layout = m_layouts.Find(m_profile.currentRegion);
@@ -122,19 +194,16 @@ namespace fw
 
         std::vector<InteractionCandidate> candidates;
 
-        // NPC interaction
         for (size_t i = 0; i < m_activeNpcPositions.size() && i < m_activeRoutines.size(); ++i)
         {
             float d = Vector3Distance(m_activeNpcPositions[i], m_profile.playerPosition);
             candidates.push_back({"npc", m_activeRoutines[i].npcId, m_activeNpcPositions[i], d, "Press E to talk"});
         }
-        // gatherables
         for (const auto& p : m_activeGatherPoints)
         {
             float d = Vector3Distance(p, m_profile.playerPosition);
             candidates.push_back({"gather", "herb", p, d, "Press E to gather herb"});
         }
-        // travel points
         if (layout)
         {
             for (size_t i = 0; i < layout->travelPoints.size(); ++i)
@@ -174,6 +243,7 @@ namespace fw
                     {
                         const auto* dlg = m_pipeline.dialogues.Find(npc->dialogueId);
                         m_statusText = dlg ? (dlg->speakerName + ": " + dlg->text) : (npc->displayName + ": Hello.");
+                        m_statusTextTimer = m_statusTextDuration;
                     }
                 }
             }
@@ -208,6 +278,7 @@ namespace fw
 
                 if (const RegionLayout* newLayout = m_layouts.Find(m_profile.currentRegion))
                     m_profile.playerPosition = newLayout->playerSpawn;
+                ResetEnemiesForRegion();
                 RebuildRegionState();
                 m_statusText = "Travelled to " + m_profile.currentRegion;
             }
@@ -222,27 +293,33 @@ namespace fw
         DrawGrid(40, 2.0f);
         if (layout)
         {
-            m_renderer.DrawRegion(*layout, m_activeNpcPositions);
+            std::vector<Vector3> enemyPositions;
+            for (const auto& e : m_enemies) if (e.alive) enemyPositions.push_back(e.position);
+            m_renderer.DrawRegion(*layout, m_activeNpcPositions, enemyPositions);
+
             for (const auto& p : m_activeGatherPoints)
             {
                 DrawSphere(p, 0.45f, YELLOW);
                 DrawSphereWires(p, 0.45f, 8, 8, ORANGE);
             }
         }
-        DrawCube({m_profile.playerPosition.x, m_profile.playerPosition.y + 1.0f, m_profile.playerPosition.z}, 1.0f, 2.0f, 1.0f, RED);
-        DrawCubeWires({m_profile.playerPosition.x, m_profile.playerPosition.y + 1.0f, m_profile.playerPosition.z}, 1.0f, 2.0f, 1.0f, BLACK);
+
+        DrawCapsule({m_profile.playerPosition.x, m_profile.playerPosition.y + 0.2f, m_profile.playerPosition.z},
+                    {m_profile.playerPosition.x, m_profile.playerPosition.y + 1.8f, m_profile.playerPosition.z},
+                    0.45f, 8, 8, RED);
         EndMode3D();
 
-        DrawRectangle(0, 0, 560, 230, Fade(BLACK, 0.55f));
-        DrawText("3D_GAME_ENGINE v21 Real Exploration Gameplay", 20, 20, 28, WHITE);
+        DrawRectangle(0, 0, 620, 230, Fade(BLACK, 0.55f));
+        DrawText("3D_GAME_ENGINE v22 Third-Person Exploration Combat", 20, 20, 28, WHITE);
         DrawText(TextFormat("Regions Loaded: %i", (int)m_pipeline.regions.GetAll().size()), 20, 60, 20, LIGHTGRAY);
         DrawText(TextFormat("NPCs Loaded: %i", (int)m_pipeline.npcs.GetAll().size()), 20, 85, 20, LIGHTGRAY);
-        DrawText(TextFormat("Routines Loaded: %i", (int)m_routines.GetAll().size()), 20, 110, 20, LIGHTGRAY);
-        DrawText("WASD move | Mouse look | E interact | F5/F9 save/load", 20, 140, 20, SKYBLUE);
-        DrawText("Quest loop: talk to Alric -> gather herbs in forest -> return", 20, 165, 20, SKYBLUE);
+        DrawText(TextFormat("Alive Enemies: %i", CountAlive(m_enemies)), 20, 110, 20, LIGHTGRAY);
+        DrawText("WASD move | Mouse camera | Shift sprint | Space jump", 20, 140, 20, SKYBLUE);
+        DrawText("LMB attack | E interact | 1/2/3 region switch | F5/F9 save/load", 20, 165, 20, SKYBLUE);
 
         const std::string formatted = m_clock.GetFormattedTime();
-        DrawOpenWorldHud(m_profile, formatted.c_str(), m_regionState, m_activeRoutines, m_interactionPrompt.c_str(), m_statusText.c_str());
+        DrawOpenWorldHud(m_profile, formatted.c_str(), m_regionState, m_activeRoutines,
+                         m_interactionPrompt.c_str(), m_statusText.c_str(), CountAlive(m_enemies));
     }
 
     void OpenWorldFoundationScene::Unload()

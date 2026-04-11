@@ -1,0 +1,14 @@
+name=enemy_spawner_marker
+tag=enemy_spawner_marker
+position=0.0,1.0,0.0
+scale=0.4,0.4,0.4
+color=255,120,40,180
+drawCube=false
+drawSphere=true
+cubeSize=1.0
+sphereRadius=0.30
+useModel=false
+modelPath=
+colliderHalfExtents=0.2,0.2,0.2
+colliderIsTrigger=true
+colliderIsStatic=true

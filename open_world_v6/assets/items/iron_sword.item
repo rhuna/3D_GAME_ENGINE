@@ -1,0 +1,6 @@
+id=iron_sword
+displayName=Iron Sword
+type=weapon
+description=A simple sword.
+value=20
+equipSlot=weapon

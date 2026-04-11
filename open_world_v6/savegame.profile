@@ -1,0 +1,13 @@
+region=village_region
+health=100
+maxHealth=100
+pos=0,1,0
+gold=25
+equippedWeaponId=iron_sword
+equippedArmorId=
+item=herb
+item=herb
+item=herb
+item=herb
+item=herb
+quest=fetch_herbs,1

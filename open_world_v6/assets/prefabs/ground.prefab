@@ -1,0 +1,14 @@
+name=ground
+tag=ground
+position=0.0,-0.5,0.0
+scale=20.0,1.0,20.0
+color=90,110,90,255
+drawCube=true
+drawSphere=false
+cubeSize=1.0
+sphereRadius=0.5
+useModel=false
+modelPath=
+colliderHalfExtents=10.0,0.5,10.0
+colliderIsTrigger=false
+colliderIsStatic=true

@@ -1,0 +1,5 @@
+id=alric_daily
+step=6,12,Market Stall,market_square
+step=12,18,Town Walk,village_paths
+step=18,23,Tavern,tavern
+step=23,6,Sleep,home

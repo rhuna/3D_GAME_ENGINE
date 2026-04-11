@@ -1,0 +1,5 @@
+id=herb
+displayName=Healing Herb
+type=consumable
+description=A basic healing herb.
+value=5
