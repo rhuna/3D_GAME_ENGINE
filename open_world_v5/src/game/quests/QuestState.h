@@ -1,27 +1,24 @@
 #pragma once
-
 #include <string>
 #include <vector>
 
-namespace fw {
+namespace fw
+{
+    enum class QuestProgressState { NotStarted = 0, Active = 1, Completed = 2 };
 
-enum class QuestStatus {
-    NotStarted,
-    Active,
-    Completed
-};
+    struct QuestObjectiveState
+    {
+        std::string id;
+        int current = 0;
+        int required = 1;
+        bool completed = false;
+    };
 
-struct QuestObjective {
-    std::string description;
-    bool complete = false;
-};
-
-struct QuestEntry {
-    std::string questId;
-    std::string title;
-    std::string description;
-    QuestStatus status = QuestStatus::NotStarted;
-    std::vector<QuestObjective> objectives;
-};
-
-} // namespace fw
+    struct QuestEntry
+    {
+        std::string id;
+        std::string title;
+        QuestProgressState state = QuestProgressState::NotStarted;
+        std::vector<QuestObjectiveState> objectives;
+    };
+}

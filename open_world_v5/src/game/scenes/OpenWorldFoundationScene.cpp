@@ -1,214 +1,136 @@
 #include "game/scenes/OpenWorldFoundationScene.h"
-
-#include <memory>
-
+#include "game/ui/OpenWorldHud.h"
 #include "raylib.h"
 #include "raymath.h"
+#include <algorithm>
 
-#include "core/Application.h"
-#include "core/Input.h"
-#include "ecs/World.h"
-#include "ecs/components/RigidbodyComponent.h"
-#include "ecs/components/TagComponent.h"
-#include "ecs/components/TransformComponent.h"
-#include "ecs/systems/CollisionSystem.h"
-#include "ecs/systems/MovementSystem.h"
-#include "game/components/HealthComponent.h"
-#include "game/components/PlayerComponent.h"
-#include "game/components/TeamComponent.h"
-#include "game/interaction/InteractableComponent.h"
-#include "game/interaction/InteractionSystem.h"
-#include "game/inventory/InventoryComponent.h"
-#include "game/inventory/InventorySystem.h"
-#include "game/npc/NpcComponent.h"
-#include "game/save/SaveGameProfile.h"
-#include "game/systems/DamageSystem.h"
-#include "game/systems/EnemyAISystem.h"
-#include "game/systems/PlayerControllerSystem.h"
-#include "game/world/TravelTriggerComponent.h"
-#include "gameplay/prefabs/PrefabLibrary.h"
-#include "gameplay/prefabs/SpawnFactory.h"
-#include "gameplay/registry/SystemRegistry.h"
-#include "gameplay/systems/ProjectileCleanupSystem.h"
-#include "scene/data/SceneDefinition.h"
-#include "scene/spawning/SceneSpawner.h"
-
-namespace fw {
-
-namespace {
-constexpr int kPlayerTeam = 1;
-}
-
-void OpenWorldFoundationScene::OnEnter(Application& app) {
-    m_regionManager.RegisterDefaults();
-    m_state.saveProfile.LoadFromFile("assets/saves/open_world_profile.txt");
-    if (m_state.saveProfile.quests.empty()) {
-        m_state.saveProfile.ResetToDefaults();
-    }
-    LoadRegion(app, m_state.saveProfile.currentRegion, true);
-}
-
-void OpenWorldFoundationScene::OnExit(Application& app) {
-    m_state.saveProfile.SaveToFile("assets/saves/open_world_profile.txt");
-    app.GetSystemRegistry().Clear();
-    app.GetWorld().Clear();
-}
-
-void OpenWorldFoundationScene::LoadRegion(Application& app, const std::string& regionId, bool useSavedPosition) {
-    auto& world = app.GetWorld();
-    auto& systems = app.GetSystemRegistry();
-    auto& prefabs = app.GetPrefabLibrary();
-    auto& scenes = app.GetSceneLibrary();
-
-    world.Clear();
-    systems.Clear();
-
-    systems.RegisterUpdate(std::make_unique<PlayerControllerSystem>());
-    systems.RegisterUpdate(std::make_unique<EnemyAISystem>());
-    systems.RegisterUpdate(std::make_unique<DamageSystem>(nullptr));
-    systems.RegisterUpdate(std::make_unique<InteractionSystem>(&m_state));
-    systems.RegisterUpdate(std::make_unique<InventorySystem>(&m_state));
-    systems.RegisterFixed(std::make_unique<MovementSystem>());
-    systems.RegisterFixed(std::make_unique<CollisionSystem>());
-    systems.RegisterFixed(std::make_unique<ProjectileCleanupSystem>());
-
-    m_regionManager.SetCurrent(regionId);
-    m_state.saveProfile.currentRegion = regionId;
-    const RegionDescriptor* region = m_regionManager.Current();
-    m_state.regionBanner = region ? region->displayName : regionId;
-
-    const SceneDefinition* scene = region ? scenes.Find(region->sceneName) : nullptr;
-    if (!scene || !SceneSpawner::Spawn(world, prefabs, *scene)) {
-        spawn::SpawnStaticBox(world, "ground", Vector3{0.0f, -0.5f, 0.0f}, Vector3{48.0f, 1.0f, 48.0f}, Color{75, 95, 78, 255});
-        spawn::SpawnPlayer(world, Vector3{0.0f, 1.5f, 0.0f});
+namespace fw
+{
+    static std::vector<Vector3> BuildNpcPositions(const RegionLayout* layout, const std::vector<ActiveNpcRoutineInfo>& active)
+    {
+        std::vector<Vector3> out;
+        if (!layout) return out;
+        for (size_t i = 0; i < active.size() && i < layout->npcSpawns.size(); ++i)
+            out.push_back(layout->npcSpawns[i]);
+        return out;
     }
 
-    BootstrapRegionGameplay(world);
+    void OpenWorldFoundationScene::Load()
+    {
+        DisableCursor();
+        m_pipeline.LoadAll("assets");
+        m_routines.LoadFromDirectory("assets/routines");
+        m_layouts.LoadDefaults();
 
-    Entity player = world.FindByTag("player");
-    if (player != 0) {
-        if (TransformComponent* transform = world.GetComponent<TransformComponent>(player)) {
-            if (useSavedPosition) {
-                transform->position = m_state.saveProfile.playerPosition;
-            }
-        }
-        if (HealthComponent* health = world.GetComponent<HealthComponent>(player)) {
-            health->current = m_state.saveProfile.playerHealth;
-            health->maximum = m_state.saveProfile.playerMaxHealth;
-        }
-        if (InventoryComponent* inventory = world.GetComponent<InventoryComponent>(player)) {
-            *inventory = m_state.saveProfile.inventory;
-        }
+        m_profile.ResetToDefaults();
+        m_profile.inventory.gold = 25;
+        m_profile.inventory.equippedWeaponId = "iron_sword";
+        m_profile.inventory.items.push_back("herb");
+
+        m_clock.Reset(8.0f);
+        m_clock.SetTimeScale(0.35f);
+
+        m_camera.position = {0.0f, 2.0f, -6.0f};
+        m_camera.target = {0.0f, 2.0f, 0.0f};
+        m_camera.up = {0.0f, 1.0f, 0.0f};
+        m_camera.fovy = 70.0f;
+        m_camera.projection = CAMERA_PERSPECTIVE;
+
+        RebuildRegionState();
     }
-}
 
-void OpenWorldFoundationScene::BootstrapRegionGameplay(World& world) {
-    const Entity player = world.FindByTag("player");
-    if (player != 0) {
-        world.AddComponent<PlayerComponent>(player, PlayerComponent{});
-        world.AddComponent<HealthComponent>(player, HealthComponent{m_state.saveProfile.playerHealth, m_state.saveProfile.playerMaxHealth});
-        world.AddComponent<TeamComponent>(player, TeamComponent{kPlayerTeam});
-        world.AddComponent<InventoryComponent>(player, m_state.saveProfile.inventory);
-        if (RigidbodyComponent* body = world.GetComponent<RigidbodyComponent>(player)) {
-            body->useGravity = true;
-            body->drag = 10.0f;
+    void OpenWorldFoundationScene::RebuildRegionState()
+    {
+        m_activeRoutines = m_npcRoutineSystem.ResolveActiveRoutines(
+            m_pipeline.npcs, m_routines, m_clock.GetHour(), m_profile.currentRegion);
+
+        m_regionState.regionId = m_profile.currentRegion;
+        m_regionState.safeZone = (m_profile.currentRegion == "village_region");
+        m_regionState.ambientPopulation = static_cast<int>(m_activeRoutines.size());
+        m_regionState.activeEncounters = (m_profile.currentRegion == "forest_region") ? 2 : (m_profile.currentRegion == "ruins_region" ? 1 : 0);
+        m_regionState.activeActivities.clear();
+        for (const auto& r : m_activeRoutines)
+            m_regionState.activeActivities.push_back(r.activity);
+
+        const RegionLayout* layout = m_layouts.Find(m_profile.currentRegion);
+        if (layout)
+        {
+            m_activeNpcPositions = BuildNpcPositions(layout, m_activeRoutines);
+            if (Vector3Length(m_profile.playerPosition) < 0.01f)
+                m_profile.playerPosition = layout->playerSpawn;
+        }
+        else
+        {
+            m_activeNpcPositions.clear();
         }
     }
 
-    for (Entity entity : world.Entities()) {
-        const TagComponent* tag = world.GetComponent<TagComponent>(entity);
-        const TransformComponent* transform = world.GetComponent<TransformComponent>(entity);
-        if (!tag || !transform) continue;
+    void OpenWorldFoundationScene::Update(float dt)
+    {
+        if (IsKeyPressed(KEY_F5)) m_profile.SaveToFile("savegame.profile");
+        if (IsKeyPressed(KEY_F9)) m_profile.LoadFromFile("savegame.profile");
 
-        if (tag->value == "npc_villager") {
-            world.AddComponent<InteractableComponent>(entity, {InteractionKind::Talk, "Press E to talk", 2.5f, true});
-            world.AddComponent<NpcComponent>(entity, {"villager_elder", "Village Elder", {"The road ahead leads through Pinewatch Forest.", "Keep your eyes open for old stones and ruined watchtowers.", "When you reach the ruins, your first quest begins for real."}, true, false});
-        } else if (tag->value == "region_exit") {
-            TravelTriggerComponent trigger {};
-            if (transform->position.z < -20.0f) {
-                trigger.destinationRegion = "forest";
-                trigger.destinationSpawn = Vector3{0.0f, 1.5f, 14.0f};
-            } else if (transform->position.x > 30.0f) {
-                trigger.destinationRegion = "ruins";
-                trigger.destinationSpawn = Vector3{-18.0f, 1.5f, 0.0f};
-            } else {
-                trigger.destinationRegion = "village";
-                trigger.destinationSpawn = Vector3{0.0f, 1.5f, 16.0f};
-            }
-            world.AddComponent<TravelTriggerComponent>(entity, trigger);
-            world.AddComponent<InteractableComponent>(entity, {InteractionKind::Travel, "Press E to travel", 3.0f, true});
-        } else if (tag->value == "save_point") {
-            world.AddComponent<InteractableComponent>(entity, {InteractionKind::SavePoint, "Press E to save at the waystone", 2.5f, true});
-        } else if (tag->value == "item_pickup_herb") {
-            world.AddComponent<InteractableComponent>(entity, {InteractionKind::Loot, "Press E to gather herb", 2.0f, true});
-        } else if (tag->value == "enemy" && !world.HasComponent<TeamComponent>(entity)) {
-            world.AddComponent<TeamComponent>(entity, TeamComponent{2});
-            world.AddComponent<HealthComponent>(entity, HealthComponent{40, 40});
+        bool regionChanged = false;
+        if (IsKeyPressed(KEY_ONE)) { m_profile.currentRegion = "village_region"; regionChanged = true; }
+        if (IsKeyPressed(KEY_TWO)) { m_profile.currentRegion = "forest_region"; regionChanged = true; }
+        if (IsKeyPressed(KEY_THREE)) { m_profile.currentRegion = "ruins_region"; regionChanged = true; }
+
+        if (regionChanged)
+        {
+            if (const RegionLayout* layout = m_layouts.Find(m_profile.currentRegion))
+                m_profile.playerPosition = layout->playerSpawn;
         }
-    }
-}
 
-void OpenWorldFoundationScene::TryTravel(Application& app) {
-    auto& world = app.GetWorld();
-    const Entity player = world.FindByTag("player");
-    const TransformComponent* playerTransform = world.GetComponent<TransformComponent>(player);
-    if (!playerTransform) return;
+        Vector2 md = GetMouseDelta();
+        m_yaw += md.x * 0.003f;
+        m_pitch += md.y * 0.003f;
+        m_pitch = std::clamp(m_pitch, -1.2f, 1.2f);
 
-    for (Entity entity : world.Entities()) {
-        const TravelTriggerComponent* trigger = world.GetComponent<TravelTriggerComponent>(entity);
-        const TransformComponent* transform = world.GetComponent<TransformComponent>(entity);
-        if (!trigger || !transform) continue;
-        const float distance = Vector3Distance(playerTransform->position, transform->position);
-        if (distance > trigger->activationRadius) continue;
-        if (trigger->requiresInteraction && !app.GetInput().IsKeyPressed(KEY_E)) continue;
-        m_state.saveProfile.playerPosition = trigger->destinationSpawn;
-        LoadRegion(app, trigger->destinationRegion, true);
-        return;
-    }
-}
+        Vector3 forward = { sinf(m_yaw) * cosf(m_pitch), 0.0f, cosf(m_yaw) * cosf(m_pitch) };
+        Vector3 right = Vector3Normalize(Vector3CrossProduct(forward, {0,1,0}));
 
-void OpenWorldFoundationScene::Update(Application& app, float deltaTime) {
-    if (m_state.dialogue.active) {
-        if (app.GetInput().IsKeyPressed(KEY_E) || app.GetInput().IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-            m_state.dialogue.Advance();
-        }
+        float speed = 10.0f * dt;
+        if (IsKeyDown(KEY_W)) m_profile.playerPosition = Vector3Add(m_profile.playerPosition, Vector3Scale(forward, speed));
+        if (IsKeyDown(KEY_S)) m_profile.playerPosition = Vector3Subtract(m_profile.playerPosition, Vector3Scale(forward, speed));
+        if (IsKeyDown(KEY_A)) m_profile.playerPosition = Vector3Subtract(m_profile.playerPosition, Vector3Scale(right, speed));
+        if (IsKeyDown(KEY_D)) m_profile.playerPosition = Vector3Add(m_profile.playerPosition, Vector3Scale(right, speed));
+        if (IsKeyDown(KEY_SPACE)) m_profile.playerPosition.y += speed;
+        if (IsKeyDown(KEY_LEFT_CONTROL)) m_profile.playerPosition.y -= speed;
+        if (m_profile.playerPosition.y < 1.0f) m_profile.playerPosition.y = 1.0f;
+
+        m_camera.position = Vector3Add(m_profile.playerPosition, {0.0f, 2.0f, 0.0f});
+        m_camera.target = Vector3Add(m_camera.position, {sinf(m_yaw)*cosf(m_pitch), sinf(-m_pitch), cosf(m_yaw)*cosf(m_pitch)});
+
+        m_clock.Update(dt);
+        RebuildRegionState();
     }
 
-    app.GetSystemRegistry().UpdateAll(app, app.GetWorld(), deltaTime);
-    TryTravel(app);
+    void OpenWorldFoundationScene::Draw()
+    {
+        const RegionLayout* layout = m_layouts.Find(m_profile.currentRegion);
 
-    Entity player = app.GetWorld().FindByTag("player");
-    if (player != 0) {
-        if (const TransformComponent* transform = app.GetWorld().GetComponent<TransformComponent>(player)) {
-            m_state.saveProfile.playerPosition = transform->position;
-            Camera3D& camera = app.GetCamera();
-            const Vector3 desired = Vector3Add(transform->position, Vector3{0.0f, 7.0f, 11.0f});
-            camera.position = Vector3Lerp(camera.position, desired, 0.08f);
-            camera.target = Vector3Lerp(camera.target, Vector3Add(transform->position, Vector3{0.0f, 1.3f, 0.0f}), 0.12f);
-        }
-        if (const HealthComponent* health = app.GetWorld().GetComponent<HealthComponent>(player)) {
-            m_state.saveProfile.playerHealth = health->current;
-            m_state.saveProfile.playerMaxHealth = health->maximum;
-        }
+        BeginMode3D(m_camera);
+        DrawGrid(40, 2.0f);
+        if (layout)
+            m_renderer.DrawRegion(*layout, m_activeNpcPositions);
+        DrawCube({m_profile.playerPosition.x, m_profile.playerPosition.y + 1.0f, m_profile.playerPosition.z}, 1.0f, 2.0f, 1.0f, RED);
+        DrawCubeWires({m_profile.playerPosition.x, m_profile.playerPosition.y + 1.0f, m_profile.playerPosition.z}, 1.0f, 2.0f, 1.0f, BLACK);
+        EndMode3D();
+
+        DrawRectangle(0, 0, 520, 240, Fade(BLACK, 0.55f));
+        DrawText("3D_GAME_ENGINE v20 Visible World Rendering", 20, 20, 28, WHITE);
+        DrawText(TextFormat("Regions Loaded: %i", (int)m_pipeline.regions.GetAll().size()), 20, 60, 20, LIGHTGRAY);
+        DrawText(TextFormat("NPCs Loaded: %i", (int)m_pipeline.npcs.GetAll().size()), 20, 85, 20, LIGHTGRAY);
+        DrawText(TextFormat("Routines Loaded: %i", (int)m_routines.GetAll().size()), 20, 110, 20, LIGHTGRAY);
+        DrawText("WASD move | Mouse look | Space/Ctrl up-down", 20, 140, 20, SKYBLUE);
+        DrawText("1/2/3 switch regions | F5 save | F9 load", 20, 165, 20, SKYBLUE);
+
+        const std::string formatted = m_clock.GetFormattedTime();
+        DrawOpenWorldHud(m_profile, formatted.c_str(), m_regionState, m_activeRoutines);
     }
 
-    if (app.GetInput().IsKeyPressed(KEY_F9)) {
-        m_state.saveProfile.SaveToFile("assets/saves/open_world_profile.txt");
+    void OpenWorldFoundationScene::Unload()
+    {
+        EnableCursor();
     }
 }
-
-void OpenWorldFoundationScene::FixedUpdate(Application& app, float fixedDeltaTime) {
-    app.GetSystemRegistry().FixedUpdateAll(app, app.GetWorld(), fixedDeltaTime);
-}
-
-void OpenWorldFoundationScene::Render(Application& app) {
-    app.GetRenderer().DrawGrid(80, 1.0f);
-    app.GetRenderer().DrawWorld(app.GetWorld(), app.GetAssets());
-    app.GetSystemRegistry().RenderAll(app, app.GetWorld());
-}
-
-void OpenWorldFoundationScene::DrawUi(Application& app) {
-    m_hud.Draw(app.GetWorld(), m_state);
-}
-
-} // namespace fw

@@ -1,32 +1,42 @@
 #pragma once
+#include <vector>
+#include "raylib.h"
+#include "game/content/ContentPipeline.h"
+#include "game/content/validation/ContentValidator.h"
+#include "game/save/SaveGameProfile.h"
+#include "game/simulation/WorldClock.h"
+#include "game/simulation/RoutineDatabase.h"
+#include "game/simulation/NpcRoutineSystem.h"
+#include "game/world/RegionSimulationState.h"
+#include "game/world/RegionLayoutDatabase.h"
+#include "game/render/WorldRenderer.h"
 
-#include <string>
+namespace fw
+{
+    class OpenWorldFoundationScene
+    {
+    public:
+        void Load();
+        void Update(float dt);
+        void Draw();
+        void Unload();
 
-#include "game/state/OpenWorldGameState.h"
-#include "game/ui/OpenWorldHud.h"
-#include "game/world/RegionManager.h"
-#include "scene/Scene.h"
+    private:
+        void RebuildRegionState();
 
-namespace fw {
-
-class OpenWorldFoundationScene : public Scene {
-public:
-    const char* Name() const override { return "OpenWorldFoundationScene"; }
-    void OnEnter(Application& app) override;
-    void OnExit(Application& app) override;
-    void Update(Application& app, float deltaTime) override;
-    void FixedUpdate(Application& app, float fixedDeltaTime) override;
-    void Render(Application& app) override;
-    void DrawUi(Application& app) override;
-
-private:
-    void LoadRegion(Application& app, const std::string& regionId, bool useSavedPosition);
-    void BootstrapRegionGameplay(World& world);
-    void TryTravel(Application& app);
-
-    RegionManager m_regionManager;
-    OpenWorldGameState m_state;
-    OpenWorldHud m_hud;
-};
-
-} // namespace fw
+        ContentPipeline m_pipeline;
+        ContentValidator m_validator;
+        SaveGameProfile m_profile;
+        WorldClock m_clock;
+        RoutineDatabase m_routines;
+        NpcRoutineSystem m_npcRoutineSystem;
+        RegionSimulationState m_regionState;
+        std::vector<ActiveNpcRoutineInfo> m_activeRoutines;
+        RegionLayoutDatabase m_layouts;
+        WorldRenderer m_renderer;
+        Camera3D m_camera{};
+        float m_yaw = 0.0f;
+        float m_pitch = 0.0f;
+        std::vector<Vector3> m_activeNpcPositions;
+    };
+}

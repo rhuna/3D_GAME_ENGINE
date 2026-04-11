@@ -1,66 +1,35 @@
 #include "game/ui/OpenWorldHud.h"
-
-#include <string>
-
+#include "game/save/SaveGameProfile.h"
+#include "game/world/RegionSimulationState.h"
+#include "game/simulation/NpcRoutineSystem.h"
 #include "raylib.h"
 
-#include "game/components/HealthComponent.h"
+namespace fw
+{
+    void DrawOpenWorldHud(const SaveGameProfile& profile,
+                          const char* formattedTime,
+                          const RegionSimulationState& simState,
+                          const std::vector<ActiveNpcRoutineInfo>& activeRoutines)
+    {
+        DrawText(TextFormat("Time: %s", formattedTime), 20, 250, 20, SKYBLUE);
+        DrawText(TextFormat("Region: %s", profile.currentRegion.c_str()), 20, 275, 20, WHITE);
+        DrawText(TextFormat("Health: %i / %i", profile.playerHealth, profile.playerMaxHealth), 20, 300, 20, WHITE);
+        DrawText(TextFormat("Gold: %i", profile.inventory.gold), 20, 325, 20, GOLD);
+        DrawText(TextFormat("Weapon: %s", profile.inventory.equippedWeaponId.empty() ? "(none)" : profile.inventory.equippedWeaponId.c_str()), 20, 350, 20, RAYWHITE);
 
-namespace fw {
+        DrawText(TextFormat("Safe Zone: %s", simState.safeZone ? "Yes" : "No"), 20, 385, 20, simState.safeZone ? GREEN : ORANGE);
+        DrawText(TextFormat("Ambient Population: %i", simState.ambientPopulation), 20, 410, 20, LIGHTGRAY);
+        DrawText(TextFormat("Active Encounters: %i", simState.activeEncounters), 20, 435, 20, LIGHTGRAY);
 
-void OpenWorldHud::Draw(const World& world, const OpenWorldGameState& state) const {
-    DrawRectangle(18, 18, 360, 120, Fade(BLACK, 0.55f));
-    DrawRectangleLines(18, 18, 360, 120, SKYBLUE);
-    DrawText(state.regionBanner.c_str(), 30, 28, 24, RAYWHITE);
-
-    const Entity player = world.FindByTag("player");
-    const HealthComponent* health = world.GetComponent<HealthComponent>(player);
-    if (health) {
-        DrawText(TextFormat("Health: %d / %d", health->current, health->maximum), 30, 58, 20, GREEN);
-    }
-
-    DrawText("E interact | I inventory | J quest log | F5 reload", 30, 84, 18, LIGHTGRAY);
-    if (!state.hoveredPrompt.empty()) {
-        DrawRectangle(18, GetScreenHeight() - 70, 460, 42, Fade(BLACK, 0.6f));
-        DrawText(state.hoveredPrompt.c_str(), 30, GetScreenHeight() - 58, 20, YELLOW);
-    }
-
-    if (state.dialogue.active) {
-        DrawRectangle(40, GetScreenHeight() - 190, GetScreenWidth() - 80, 120, Fade(BLACK, 0.82f));
-        DrawRectangleLines(40, GetScreenHeight() - 190, GetScreenWidth() - 80, 120, ORANGE);
-        DrawText(state.dialogue.speakerName.c_str(), 58, GetScreenHeight() - 176, 24, ORANGE);
-        DrawText(state.dialogue.CurrentLine().c_str(), 58, GetScreenHeight() - 138, 22, RAYWHITE);
-        DrawText("Press E to continue", 58, GetScreenHeight() - 102, 18, LIGHTGRAY);
-    }
-
-    if (state.inventoryOpen) {
-        DrawRectangle(GetScreenWidth() - 360, 24, 330, 180, Fade(BLACK, 0.75f));
-        DrawRectangleLines(GetScreenWidth() - 360, 24, 330, 180, GOLD);
-        DrawText("Inventory", GetScreenWidth() - 338, 36, 24, GOLD);
-        DrawText(TextFormat("Gold: %d", state.saveProfile.inventory.gold), GetScreenWidth() - 338, 68, 20, YELLOW);
-        DrawText(TextFormat("Weapon: %s", state.saveProfile.inventory.equippedWeaponId.c_str()), GetScreenWidth() - 338, 96, 18, RAYWHITE);
-        DrawText(TextFormat("Armor: %s", state.saveProfile.inventory.equippedArmorId.c_str()), GetScreenWidth() - 338, 122, 18, RAYWHITE);
-        int y = 148;
-        for (const auto& item : state.saveProfile.inventory.items) {
-            DrawText(TextFormat("- %s x%d", item.displayName.c_str(), item.quantity), GetScreenWidth() - 338, y, 18, LIGHTGRAY);
+        int y = 470;
+        DrawText("Active NPC Routines:", 20, y, 20, LIME);
+        y += 24;
+        for (const auto& info : activeRoutines)
+        {
+            DrawText(TextFormat("%s -> %s @ %s", info.npcName.c_str(), info.activity.c_str(), info.locationTag.c_str()),
+                     30, y, 18, LIGHTGRAY);
             y += 20;
-            if (y > 188) break;
-        }
-    }
-
-    if (state.questLogOpen) {
-        DrawRectangle(GetScreenWidth() - 360, 220, 330, 190, Fade(BLACK, 0.75f));
-        DrawRectangleLines(GetScreenWidth() - 360, 220, 330, 190, SKYBLUE);
-        DrawText("Quest Log", GetScreenWidth() - 338, 232, 24, SKYBLUE);
-        int y = 266;
-        for (const auto& quest : state.saveProfile.quests) {
-            DrawText(quest.title.c_str(), GetScreenWidth() - 338, y, 18, RAYWHITE);
-            y += 22;
-            DrawText(quest.description.c_str(), GetScreenWidth() - 338, y, 16, LIGHTGRAY);
-            y += 34;
-            if (y > 380) break;
+            if (y > 820) break;
         }
     }
 }
-
-} // namespace fw

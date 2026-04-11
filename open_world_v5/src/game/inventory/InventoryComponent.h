@@ -1,21 +1,22 @@
 #pragma once
-
 #include <string>
 #include <vector>
 
-namespace fw {
+namespace fw
+{
+    struct InventoryComponent
+    {
+        int gold = 0;
+        std::string equippedWeaponId;
+        std::string equippedArmorId;
+        std::vector<std::string> items;
 
-struct InventoryEntry {
-    std::string itemId;
-    std::string displayName;
-    int quantity = 1;
-};
-
-struct InventoryComponent {
-    std::vector<InventoryEntry> items;
-    std::string equippedWeaponId = "starter_staff";
-    std::string equippedArmorId = "traveler_clothes";
-    int gold = 25;
-};
-
-} // namespace fw
+        void Clear()
+        {
+            gold = 0;
+            equippedWeaponId.clear();
+            equippedArmorId.clear();
+            items.clear();
+        }
+    };
+}

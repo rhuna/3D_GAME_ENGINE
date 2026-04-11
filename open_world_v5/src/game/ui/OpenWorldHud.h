@@ -1,13 +1,12 @@
 #pragma once
-
-#include "ecs/World.h"
-#include "game/state/OpenWorldGameState.h"
-
-namespace fw {
-
-class OpenWorldHud {
-public:
-    void Draw(const World& world, const OpenWorldGameState& state) const;
-};
-
-} // namespace fw
+#include <vector>
+namespace fw
+{
+    struct SaveGameProfile;
+    struct RegionSimulationState;
+    struct ActiveNpcRoutineInfo;
+    void DrawOpenWorldHud(const SaveGameProfile& profile,
+                          const char* formattedTime,
+                          const RegionSimulationState& simState,
+                          const std::vector<ActiveNpcRoutineInfo>& activeRoutines);
+}
