@@ -61,6 +61,15 @@
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v5\src\game\render\WorldRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v5\src\game\gameplay\InteractionSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v5\src\game\gameplay\QuestGameplaySystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v5\src\game\gameplay\GatheringSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\dev\3D_GAME_ENGINE\open_world_v5\CMakeLists.txt" />

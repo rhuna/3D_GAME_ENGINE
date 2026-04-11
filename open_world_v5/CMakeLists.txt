@@ -32,6 +32,9 @@ add_executable(3D_GAME_ENGINE
   src/game/world/RegionSimulationState.cpp
   src/game/world/RegionLayoutDatabase.cpp
   src/game/render/WorldRenderer.cpp
+  src/game/gameplay/InteractionSystem.cpp
+  src/game/gameplay/QuestGameplaySystem.cpp
+  src/game/gameplay/GatheringSystem.cpp
 )
 
 target_include_directories(3D_GAME_ENGINE PRIVATE src)

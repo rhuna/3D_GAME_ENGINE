@@ -8,5 +8,7 @@ namespace fw
     void DrawOpenWorldHud(const SaveGameProfile& profile,
                           const char* formattedTime,
                           const RegionSimulationState& simState,
-                          const std::vector<ActiveNpcRoutineInfo>& activeRoutines);
+                          const std::vector<ActiveNpcRoutineInfo>& activeRoutines,
+                          const char* interactionPrompt,
+                          const char* statusText);
 }

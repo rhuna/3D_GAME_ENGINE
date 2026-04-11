@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <string>
 #include "raylib.h"
 #include "game/content/ContentPipeline.h"
 #include "game/content/validation/ContentValidator.h"
@@ -10,6 +11,9 @@
 #include "game/world/RegionSimulationState.h"
 #include "game/world/RegionLayoutDatabase.h"
 #include "game/render/WorldRenderer.h"
+#include "game/gameplay/InteractionSystem.h"
+#include "game/gameplay/QuestGameplaySystem.h"
+#include "game/gameplay/GatheringSystem.h"
 
 namespace fw
 {
@@ -38,5 +42,11 @@ namespace fw
         float m_yaw = 0.0f;
         float m_pitch = 0.0f;
         std::vector<Vector3> m_activeNpcPositions;
+        std::vector<Vector3> m_activeGatherPoints;
+        InteractionSystem m_interactionSystem;
+        QuestGameplaySystem m_questGameplaySystem;
+        GatheringSystem m_gatheringSystem;
+        std::string m_interactionPrompt;
+        std::string m_statusText;
     };
 }
