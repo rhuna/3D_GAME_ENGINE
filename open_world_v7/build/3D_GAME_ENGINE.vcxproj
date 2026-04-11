@@ -355,6 +355,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\main.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\scenes\OpenWorldFoundationScene.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\OpenWorldHud.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\DialogueBox.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\QuestLogPanel.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\EquipmentPanel.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\save\SaveGameProfile.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\quests\QuestState.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\content\QuestDatabase.cpp" />
@@ -379,10 +382,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\combat\CombatSystem.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\progression\EquipmentSystem.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\progression\StatSystem.cpp" />
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\DialogueBox.cpp" />
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\QuestLogPanel.cpp" />
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\EquipmentPanel.cpp" />
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\faction\FactionSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\progression\ProgressionSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\loot\LootSystem.cpp" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

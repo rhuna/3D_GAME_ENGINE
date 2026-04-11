@@ -10,6 +10,15 @@
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\OpenWorldHud.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\DialogueBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\QuestLogPanel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\EquipmentPanel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\save\SaveGameProfile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -82,16 +91,10 @@
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\progression\StatSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\DialogueBox.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\progression\ProgressionSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\QuestLogPanel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\EquipmentPanel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\faction\FactionSystem.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\loot\LootSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

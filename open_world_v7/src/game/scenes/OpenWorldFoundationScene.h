@@ -18,8 +18,9 @@
 #include "game/combat/CombatSystem.h"
 #include "game/progression/EquipmentSystem.h"
 #include "game/progression/StatSystem.h"
+#include "game/progression/ProgressionSystem.h"
+#include "game/loot/LootSystem.h"
 #include "game/ui/DialogueBox.h"
-#include "game/faction/FactionSystem.h"
 
 namespace fw
 {
@@ -61,12 +62,15 @@ namespace fw
         std::vector<EnemyInstance> m_enemies;
         EquipmentSystem m_equipmentSystem;
         StatSystem m_statSystem;
+        ProgressionState m_progression;
+        ProgressionSystem m_progressionSystem;
+        LootSystem m_lootSystem;
+        std::vector<WorldLootDrop> m_worldLoot;
         DialogueBoxState m_dialogue;
         std::string m_interactionPrompt;
         std::string m_statusText;
         float m_statusTextTimer = 0.0f;
         bool m_showQuestLog = true;
         bool m_showEquipment = true;
-        FactionSystem m_factionSystem;
     };
 }

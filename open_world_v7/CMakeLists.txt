@@ -15,6 +15,9 @@ add_executable(3D_GAME_ENGINE
   src/main.cpp
   src/game/scenes/OpenWorldFoundationScene.cpp
   src/game/ui/OpenWorldHud.cpp
+  src/game/ui/DialogueBox.cpp
+  src/game/ui/QuestLogPanel.cpp
+  src/game/ui/EquipmentPanel.cpp
   src/game/save/SaveGameProfile.cpp
   src/game/quests/QuestState.cpp
   src/game/content/QuestDatabase.cpp
@@ -39,10 +42,8 @@ add_executable(3D_GAME_ENGINE
   src/game/combat/CombatSystem.cpp
   src/game/progression/EquipmentSystem.cpp
   src/game/progression/StatSystem.cpp
-  src/game/ui/DialogueBox.cpp
-  src/game/ui/QuestLogPanel.cpp
-  src/game/ui/EquipmentPanel.cpp
-  src/game/faction/FactionSystem.cpp
+  src/game/progression/ProgressionSystem.cpp
+  src/game/loot/LootSystem.cpp
 )
 
 target_include_directories(3D_GAME_ENGINE PRIVATE src)

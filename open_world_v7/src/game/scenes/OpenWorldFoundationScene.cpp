@@ -1,4 +1,3 @@
-
 #include "game/scenes/OpenWorldFoundationScene.h"
 #include "game/ui/OpenWorldHud.h"
 #include "game/ui/QuestLogPanel.h"
@@ -13,7 +12,8 @@ namespace fw
     {
         std::vector<Vector3> out;
         if (!layout) return out;
-        for (size_t i = 0; i < active.size() && i < layout->npcSpawns.size(); ++i) out.push_back(layout->npcSpawns[i]);
+        for (size_t i = 0; i < active.size() && i < layout->npcSpawns.size(); ++i)
+            out.push_back(layout->npcSpawns[i]);
         return out;
     }
 
@@ -27,18 +27,18 @@ namespace fw
     void OpenWorldFoundationScene::ResetEnemiesForRegion()
     {
         m_enemies.clear();
-
-        if (const RegionLayout *layout = m_layouts.Find(m_profile.currentRegion))
+        m_worldLoot.clear();
+        if (const RegionLayout* layout = m_layouts.Find(m_profile.currentRegion))
         {
-            for (const auto &p : layout->enemySpawns)
+            for (const auto& spawn : layout->enemySpawns)
             {
-                fw::EnemyInstance e;
-                e.position = p;
-                e.health = 40;
+                EnemyInstance e;
+                e.position = spawn.position;
+                e.type = spawn.type;
+                e.health = spawn.type == "brute" ? 80 : (spawn.type == "wolf" ? 30 : 45);
                 e.alive = true;
                 e.attackCooldown = 0.0f;
-                
-
+                e.hurtFlash = 0.0f;
                 m_enemies.push_back(e);
             }
         }
@@ -48,21 +48,24 @@ namespace fw
     {
         DisableCursor();
         m_pipeline.LoadAll("assets");
-        m_factionSystem.Reset();
         m_routines.LoadFromDirectory("assets/routines");
         m_layouts.LoadDefaults();
+
         m_profile.ResetToDefaults();
         m_profile.inventory.gold = 25;
         m_profile.inventory.equippedWeaponId = "iron_sword";
         m_profile.inventory.equippedArmorId = "leather_armor";
         m_profile.inventory.items.push_back("healing_potion");
+
         m_clock.Reset(8.0f);
         m_clock.SetTimeScale(0.35f);
+
         m_camera.position = {0.0f, 5.0f, -8.0f};
         m_camera.target = {0.0f, 1.5f, 0.0f};
         m_camera.up = {0.0f, 1.0f, 0.0f};
         m_camera.fovy = 70.0f;
         m_camera.projection = CAMERA_PERSPECTIVE;
+
         RebuildRegionState();
         ResetEnemiesForRegion();
     }
@@ -76,6 +79,7 @@ namespace fw
         m_regionState.activeEncounters = CountAlive(m_enemies);
         m_regionState.activeActivities.clear();
         for (const auto& r : m_activeRoutines) m_regionState.activeActivities.push_back(r.activity);
+
         const RegionLayout* layout = m_layouts.Find(m_profile.currentRegion);
         if (layout)
         {
@@ -93,7 +97,11 @@ namespace fw
     void OpenWorldFoundationScene::Update(float dt)
     {
         m_interactionPrompt.clear();
-        if (m_statusTextTimer > 0.0f) { m_statusTextTimer -= dt; if (m_statusTextTimer <= 0.0f) { m_statusText.clear(); m_statusTextTimer = 0.0f; } }
+        if (m_statusTextTimer > 0.0f)
+        {
+            m_statusTextTimer -= dt;
+            if (m_statusTextTimer <= 0.0f) { m_statusText.clear(); m_statusTextTimer = 0.0f; }
+        }
 
         if (m_dialogue.active && (IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_E)))
         {
@@ -106,12 +114,12 @@ namespace fw
 
         if (IsKeyPressed(KEY_F5)) { m_profile.SaveToFile("savegame.profile"); m_statusText = "Profile saved."; m_statusTextTimer = 3.0f; }
         if (IsKeyPressed(KEY_F9)) { m_profile.LoadFromFile("savegame.profile"); m_statusText = "Profile loaded."; m_statusTextTimer = 3.0f; }
-        if (IsKeyPressed(KEY_R)) { m_statusText = "Villagers: " + m_factionSystem.DescribeStanding("villagers") + " | Guards: " + m_factionSystem.DescribeStanding("guards"); m_statusTextTimer = 4.0f; }
 
         bool regionChanged = false;
         if (IsKeyPressed(KEY_ONE)) { m_profile.currentRegion = "village_region"; regionChanged = true; }
         if (IsKeyPressed(KEY_TWO)) { m_profile.currentRegion = "forest_region"; regionChanged = true; }
         if (IsKeyPressed(KEY_THREE)) { m_profile.currentRegion = "ruins_region"; regionChanged = true; }
+
         if (regionChanged)
         {
             if (const RegionLayout* layout = m_layouts.Find(m_profile.currentRegion)) m_profile.playerPosition = layout->playerSpawn;
@@ -126,11 +134,13 @@ namespace fw
 
         Vector3 camForward = Vector3Normalize({sinf(m_cameraYaw) * cosf(m_cameraPitch), 0.0f, cosf(m_cameraYaw) * cosf(m_cameraPitch)});
         Vector3 camRight = Vector3Normalize(Vector3CrossProduct(camForward, {0,1,0}));
+
         Vector3 move{};
         if (IsKeyDown(KEY_W)) move = Vector3Add(move, camForward);
         if (IsKeyDown(KEY_S)) move = Vector3Subtract(move, camForward);
         if (IsKeyDown(KEY_A)) move = Vector3Subtract(move, camRight);
         if (IsKeyDown(KEY_D)) move = Vector3Add(move, camRight);
+
         if (Vector3Length(move) > 0.001f)
         {
             move = Vector3Normalize(move);
@@ -151,12 +161,33 @@ namespace fw
 
         ComputedStats stats = m_statSystem.Compute(m_profile, m_pipeline.items);
         m_enemySystem.Update(m_enemies, m_profile.playerPosition, m_profile.playerHealth, dt);
+
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
         {
             Vector3 facing = Vector3Normalize(Vector3{sinf(m_cameraYaw), 0.0f, cosf(m_cameraYaw)});
-            int kills = m_combatSystem.PlayerAttack(m_enemies, m_profile.playerPosition, facing, 3.5f, stats.attack);
-            if (kills > 0) { m_profile.inventory.gold += kills * 5; m_statusText = TextFormat("You defeated %i enemy(s).", kills); m_statusTextTimer = 3.0f; }
-            else { m_statusText = "Attack missed."; m_statusTextTimer = 1.0f; }
+            std::vector<std::string> killedTypes;
+            int kills = m_combatSystem.PlayerAttack(m_enemies, m_profile.playerPosition, facing, 3.5f, stats.attack, killedTypes);
+            if (kills > 0)
+            {
+                for (const auto& type : killedTypes)
+                {
+                    m_questGameplaySystem.RegisterEnemyKill(m_profile, type);
+                    m_progressionSystem.AddXp(m_progression, type == "brute" ? 30 : (type == "wolf" ? 12 : 20));
+                }
+                for (const auto& e : m_enemies)
+                {
+                    if (!e.alive && e.hurtFlash > 0.0f)
+                        m_worldLoot.push_back(m_lootSystem.MakeDrop(e.type, e.position));
+                }
+                m_profile.inventory.gold += kills * 5;
+                m_statusText = TextFormat("Defeated %i enemy(s).", kills);
+                m_statusTextTimer = 2.0f;
+            }
+            else
+            {
+                m_statusText = "Attack missed.";
+                m_statusTextTimer = 1.0f;
+            }
         }
 
         if (IsKeyPressed(KEY_F))
@@ -178,6 +209,7 @@ namespace fw
         }
 
         m_clock.Update(dt);
+
         m_activeRoutines = m_npcRoutineSystem.ResolveActiveRoutines(m_pipeline.npcs, m_routines, m_clock.GetHour(), m_profile.currentRegion);
         m_regionState.regionId = m_profile.currentRegion;
         m_regionState.safeZone = (m_profile.currentRegion == "village_region");
@@ -207,6 +239,12 @@ namespace fw
                 candidates.push_back({"travel", std::to_string((int)i), layout->travelPoints[i], d, "Press E to travel"});
             }
         }
+        for (const auto& d : m_worldLoot)
+        {
+            if (!d.active) continue;
+            float dist = Vector3Distance(d.position, m_profile.playerPosition);
+            candidates.push_back({"loot", d.itemId, d.position, dist, "Press E to loot"});
+        }
 
         const InteractionCandidate* best = m_interactionSystem.FindBest(candidates, 3.0f);
         if (best) m_interactionPrompt = best->prompt;
@@ -223,30 +261,21 @@ namespace fw
                         if (!m_questGameplaySystem.HasQuest(m_profile, npc->questId))
                         {
                             m_questGameplaySystem.AcceptQuest(m_profile, m_pipeline, npc->questId);
-                            m_dialogue = {true, npc->displayName, "I need herbs from the forest. Bring me three."};
+                            m_dialogue = {true, npc->displayName, "I need proof of strength and supplies. Bring what I asked for."};
                         }
                         else if (m_questGameplaySystem.TryCompleteQuest(m_profile, m_pipeline, npc->questId))
                         {
-                            m_factionSystem.AddReputation("villagers", 10);
-                            m_factionSystem.AddReputation("guards", 3);
-                            m_dialogue = {true, npc->displayName, "Excellent work. Here is your reward. The village will remember this."};
+                            m_dialogue = {true, npc->displayName, "Excellent work. Your reward is well earned."};
                         }
                         else
                         {
-                            m_dialogue = {true, npc->displayName, "You still need the quest items."};
+                            m_dialogue = {true, npc->displayName, "You still need to finish the objectives."};
                         }
                     }
                     else
                     {
                         const auto* dlg = m_pipeline.dialogues.Find(npc->dialogueId);
-                        std::string line = dlg ? dlg->text : "Hello.";
-                        if (npc->factionId == "guards")
-                        {
-                            std::string standing = m_factionSystem.DescribeStanding("guards");
-                            if (standing == "Hostile" || standing == "Distrusted") line = "The guards eye you with suspicion.";
-                            else if (standing == "Friendly" || standing == "Trusted") line = "You have our thanks. Stay vigilant.";
-                        }
-                        m_dialogue = {true, dlg ? dlg->speakerName : npc->displayName, line};
+                        m_dialogue = {true, dlg ? dlg->speakerName : npc->displayName, dlg ? dlg->text : "Hello."};
                     }
                 }
             }
@@ -275,6 +304,18 @@ namespace fw
                 m_statusText = "Travelled to " + m_profile.currentRegion;
                 m_statusTextTimer = 2.0f;
             }
+            else if (best->kind == "loot")
+            {
+                std::vector<std::string> items;
+                int gold = 0;
+                if (m_lootSystem.PickupNearest(m_worldLoot, m_profile.playerPosition, 3.0f, items, gold))
+                {
+                    for (const auto& item : items) m_profile.inventory.items.push_back(item);
+                    m_profile.inventory.gold += gold;
+                    m_statusText = "Loot collected.";
+                    m_statusTextTimer = 2.0f;
+                }
+            }
         }
     }
 
@@ -287,9 +328,7 @@ namespace fw
         DrawGrid(40, 2.0f);
         if (layout)
         {
-            std::vector<Vector3> enemyPositions;
-            for (const auto& e : m_enemies) if (e.alive) enemyPositions.push_back(e.position);
-            m_renderer.DrawRegion(*layout, m_activeNpcPositions, enemyPositions);
+            m_renderer.DrawRegion(*layout, m_activeNpcPositions, m_enemies, [&](){ std::vector<Vector3> pos; for(const auto& d: m_worldLoot) if(d.active) pos.push_back(d.position); return pos; }());
             for (const auto& p : m_activeGatherPoints)
             {
                 DrawSphere(p, 0.45f, YELLOW);
@@ -301,19 +340,20 @@ namespace fw
                     0.45f, 8, 8, RED);
         EndMode3D();
 
-        DrawRectangle(0, 0, 700, 230, Fade(BLACK, 0.55f));
-        DrawText("3D_GAME_ENGINE v23 RPG Interface + Equipment Progression", 20, 20, 28, WHITE);
+        DrawRectangle(0, 0, 760, 230, Fade(BLACK, 0.55f));
+        DrawText("3D_GAME_ENGINE v25 Combat Rewards + Enemy Variety + Progression Loop", 20, 20, 28, WHITE);
         DrawText(TextFormat("Regions Loaded: %i", (int)m_pipeline.regions.GetAll().size()), 20, 60, 20, LIGHTGRAY);
         DrawText(TextFormat("NPCs Loaded: %i", (int)m_pipeline.npcs.GetAll().size()), 20, 85, 20, LIGHTGRAY);
         DrawText(TextFormat("Alive Enemies: %i", CountAlive(m_enemies)), 20, 110, 20, LIGHTGRAY);
-        DrawText("WASD move | LMB attack | E interact | Tab quest log | I equipment", 20, 140, 20, SKYBLUE);
-        DrawText("F equip weapon | G consume potion | 1/2/3 regions | F5/F9 save/load", 20, 165, 20, SKYBLUE);
+        DrawText(TextFormat("Level %i  XP %i/%i", m_progression.level, m_progression.xp, m_progression.xpToNext), 20, 135, 20, YELLOW);
+        DrawText("WASD move | LMB attack | E interact/loot | Tab quest log | I equipment", 20, 165, 20, SKYBLUE);
+        DrawText("F equip | G consume | 1/2/3 regions | F5/F9 save/load", 20, 190, 20, SKYBLUE);
 
         const std::string formatted = m_clock.GetFormattedTime();
         DrawOpenWorldHud(m_profile, formatted.c_str(), m_regionState, m_activeRoutines, m_interactionPrompt.c_str(), m_statusText.c_str(), CountAlive(m_enemies), stats.attack, stats.defense);
         DrawDialogueBox(m_dialogue);
         DrawQuestLogPanel(m_profile.quests, m_showQuestLog);
-        DrawEquipmentPanel(m_profile, stats, m_showEquipment);
+        DrawEquipmentPanel(m_profile, stats, m_progression, m_showEquipment);
     }
 
     void OpenWorldFoundationScene::Unload()
