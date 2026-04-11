@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\dev\3D_GAME_ENGINE\open_world_v7\build\_deps\raylib-subbuild\CMakeFiles\9ab8ea28b40b01acd32da3900434bd51\raylib-populate-mkdir.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\dev\3D_GAME_ENGINE\open_world_v7\build\_deps\raylib-subbuild\CMakeFiles\9ab8ea28b40b01acd32da3900434bd51\raylib-populate-download.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\dev\3D_GAME_ENGINE\open_world_v7\build\_deps\raylib-subbuild\CMakeFiles\9ab8ea28b40b01acd32da3900434bd51\raylib-populate-update.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\dev\3D_GAME_ENGINE\open_world_v7\build\_deps\raylib-subbuild\CMakeFiles\9ab8ea28b40b01acd32da3900434bd51\raylib-populate-patch.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\dev\3D_GAME_ENGINE\open_world_v7\build\_deps\raylib-subbuild\CMakeFiles\9ab8ea28b40b01acd32da3900434bd51\raylib-populate-configure.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\dev\3D_GAME_ENGINE\open_world_v7\build\_deps\raylib-subbuild\CMakeFiles\9ab8ea28b40b01acd32da3900434bd51\raylib-populate-build.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\dev\3D_GAME_ENGINE\open_world_v7\build\_deps\raylib-subbuild\CMakeFiles\9ab8ea28b40b01acd32da3900434bd51\raylib-populate-install.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\dev\3D_GAME_ENGINE\open_world_v7\build\_deps\raylib-subbuild\CMakeFiles\9ab8ea28b40b01acd32da3900434bd51\raylib-populate-test.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\dev\3D_GAME_ENGINE\open_world_v7\build\_deps\raylib-subbuild\CMakeFiles\1fcd19a22adad22ddaaf7ae1dfa8bfc5\raylib-populate-complete.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\dev\3D_GAME_ENGINE\open_world_v7\build\_deps\raylib-subbuild\CMakeFiles\eb2fb13b2b776497d672f34bdf4432e8\raylib-populate.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\dev\3D_GAME_ENGINE\open_world_v7\build\_deps\raylib-subbuild\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\dev\3D_GAME_ENGINE\open_world_v7\build\_deps\raylib-subbuild\CMakeFiles\raylib-populate" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{68940C14-D810-337A-A659-204F0EE041BA}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
