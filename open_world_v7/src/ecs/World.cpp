@@ -14,12 +14,25 @@ void World::Clear() {
     m_lifetimes.Clear();
     m_editorMetadata.Clear();
     m_players.Clear();
+    m_persistentIds.Clear();
+    m_gatherNodes.Clear();
+    m_savePoints.Clear();
     m_health.Clear();
     m_enemies.Clear();
     m_projectiles.Clear();
     m_teams.Clear();
     m_spawners.Clear();
     m_pickups.Clear();
+    m_loot.Clear();
+    m_equipment.Clear();
+    m_encounterSpawners.Clear();
+    m_factions.Clear();
+    m_respawns.Clear();
+    m_patrols.Clear();
+    m_interactables.Clear();
+    m_inventories.Clear();
+    m_npcs.Clear();
+    m_travelTriggers.Clear();
 }
 
 Entity World::CreateEntity() {
@@ -45,12 +58,25 @@ bool World::DestroyEntity(Entity entity) {
     RemoveComponent<LifetimeComponent>(entity);
     RemoveComponent<EditorMetadataComponent>(entity);
     RemoveComponent<PlayerComponent>(entity);
+    RemoveComponent<PersistentIdComponent>(entity);
+    RemoveComponent<GatherNodeComponent>(entity);
+    RemoveComponent<SavePointComponent>(entity);
     RemoveComponent<HealthComponent>(entity);
     RemoveComponent<EnemyComponent>(entity);
     RemoveComponent<ProjectileComponent>(entity);
     RemoveComponent<TeamComponent>(entity);
     RemoveComponent<SpawnerComponent>(entity);
     RemoveComponent<PickupComponent>(entity);
+    RemoveComponent<LootComponent>(entity);
+    RemoveComponent<EquipmentComponent>(entity);
+    RemoveComponent<EncounterSpawnerComponent>(entity);
+    RemoveComponent<FactionComponent>(entity);
+    RemoveComponent<RespawnComponent>(entity);
+    RemoveComponent<PatrolComponent>(entity);
+    RemoveComponent<InteractableComponent>(entity);
+    RemoveComponent<InventoryComponent>(entity);
+    RemoveComponent<NpcComponent>(entity);
+    RemoveComponent<TravelTriggerComponent>(entity);
 
     m_entities.erase(std::remove(m_entities.begin(), m_entities.end(), entity), m_entities.end());
     m_collisions.erase(std::remove_if(m_collisions.begin(), m_collisions.end(), [entity](const CollisionInfo& info) {

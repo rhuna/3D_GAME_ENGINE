@@ -1,7 +1,13 @@
-#include "game/scenes/OpenWorldFoundationScene.h"
+#include "game/scenes/OpenWorldRuntimeScene.h"
 #include "game/ui/OpenWorldHud.h"
 #include "game/ui/QuestLogPanel.h"
 #include "game/ui/EquipmentPanel.h"
+#include "core/Application.h"
+#include "ecs/World.h"
+#include "game/components/PersistentIdComponent.h"
+#include "game/components/SavePointComponent.h"
+#include "game/world/TravelTriggerComponent.h"
+#include "render/Renderer.h"
 #include "raylib.h"
 #include "raymath.h"
 #include <algorithm>
@@ -24,7 +30,7 @@ namespace fw
         return alive;
     }
 
-    void OpenWorldFoundationScene::ResetCurrentRegionStateFromLayout()
+    void OpenWorldRuntimeScene::ResetCurrentRegionStateFromLayout()
     {
         PersistentRegionState& state = m_worldState.GetOrCreate(m_profile.currentRegion);
         state.enemies.clear();
@@ -50,14 +56,15 @@ namespace fw
         }
     }
 
-    void OpenWorldFoundationScene::EnsureCurrentRegionState()
+    void OpenWorldRuntimeScene::EnsureCurrentRegionState()
     {
         PersistentRegionState& state = m_worldState.GetOrCreate(m_profile.currentRegion);
         if (!state.initialized) ResetCurrentRegionStateFromLayout();
     }
 
-    void OpenWorldFoundationScene::Load()
+    void OpenWorldRuntimeScene::OnEnter(Application& app)
     {
+        (void)app;
         DisableCursor();
         m_pipeline.LoadAll("assets");
         m_routines.LoadFromDirectory("assets/routines");
@@ -80,10 +87,11 @@ namespace fw
         m_camera.projection = CAMERA_PERSPECTIVE;
 
         EnsureCurrentRegionState();
-        RebuildRegionState();
+        RebuildRegionState(app);
+        app.GetCamera() = m_camera;
     }
 
-    void OpenWorldFoundationScene::RebuildRegionState()
+    void OpenWorldRuntimeScene::RebuildRegionState(Application& app, bool rebuildEcsWorld)
     {
         EnsureCurrentRegionState();
         PersistentRegionState& state = m_worldState.GetOrCreate(m_profile.currentRegion);
@@ -104,9 +112,14 @@ namespace fw
         else m_activeNpcPositions.clear();
 
         if (CountAlive(state.enemies) == 0 && state.initialized) state.encounterCleared = true;
+
+        if (rebuildEcsWorld)
+        {
+            m_regionEcsLoader.Rebuild(app, m_pipeline, m_layouts, m_profile, m_profile.currentRegion);
+        }
     }
 
-    void OpenWorldFoundationScene::Update(float dt)
+    void OpenWorldRuntimeScene::Update(Application& app, float dt)
     {
         m_interactionPrompt.clear();
         if (m_statusTextTimer > 0.0f) { m_statusTextTimer -= dt; if (m_statusTextTimer <= 0.0f) { m_statusText.clear(); m_statusTextTimer = 0.0f; } }
@@ -121,10 +134,10 @@ namespace fw
         if (IsKeyPressed(KEY_I)) m_showEquipment = !m_showEquipment;
 
         if (IsKeyPressed(KEY_F5)) { m_profile.SaveToFile("savegame.profile"); m_statusText = "Profile saved."; m_statusTextTimer = 3.0f; }
-        if (IsKeyPressed(KEY_F9)) { m_profile.LoadFromFile("savegame.profile"); EnsureCurrentRegionState(); RebuildRegionState(); m_statusText = "Profile loaded."; m_statusTextTimer = 3.0f; }
+        if (IsKeyPressed(KEY_F9)) { m_profile.LoadFromFile("savegame.profile"); EnsureCurrentRegionState(); RebuildRegionState(app); m_statusText = "Profile loaded."; m_statusTextTimer = 3.0f; }
         if (IsKeyPressed(KEY_O)) { m_worldState.SaveToFile("worldstate.snapshot"); m_statusText = "World state saved."; m_statusTextTimer = 3.0f; }
-        if (IsKeyPressed(KEY_P)) { if(m_worldState.LoadFromFile("worldstate.snapshot")){ EnsureCurrentRegionState(); RebuildRegionState(); m_statusText = "World state loaded."; } else { m_statusText = "No world state file found."; } m_statusTextTimer = 3.0f; }
-        if (IsKeyPressed(KEY_K)) { m_worldState.ClearRegion(m_profile.currentRegion); EnsureCurrentRegionState(); RebuildRegionState(); m_statusText = "Current region reset."; m_statusTextTimer = 3.0f; }
+        if (IsKeyPressed(KEY_P)) { if(m_worldState.LoadFromFile("worldstate.snapshot")){ EnsureCurrentRegionState(); RebuildRegionState(app); m_statusText = "World state loaded."; } else { m_statusText = "No world state file found."; } m_statusTextTimer = 3.0f; }
+        if (IsKeyPressed(KEY_K)) { m_worldState.ClearRegion(m_profile.currentRegion); EnsureCurrentRegionState(); RebuildRegionState(app); m_statusText = "Current region reset."; m_statusTextTimer = 3.0f; }
 
         bool regionChanged = false;
         if (IsKeyPressed(KEY_ONE)) { m_profile.currentRegion = "village_region"; regionChanged = true; }
@@ -135,7 +148,7 @@ namespace fw
         {
             EnsureCurrentRegionState();
             if (const RegionLayout* layout = m_layouts.Find(m_profile.currentRegion)) m_profile.playerPosition = layout->playerSpawn;
-            RebuildRegionState();
+            RebuildRegionState(app);
         }
 
         Vector2 md = GetMouseDelta();
@@ -172,7 +185,7 @@ namespace fw
         PersistentRegionState& state = m_worldState.GetOrCreate(m_profile.currentRegion);
         ComputedStats stats = m_statSystem.Compute(m_profile, m_pipeline.items);
 
-        # guards helpful or suspicious effect via reputation
+        // guards helpful or suspicious effect via reputation
         int guardRep = m_factionSystem.GetReputation("guards");
         int villagerRep = m_factionSystem.GetReputation("villagers");
         if (guardRep <= -10 && m_profile.currentRegion == "village_region" && (GetRandomValue(0, 180) == 0))
@@ -242,14 +255,15 @@ namespace fw
             m_profile.playerHealth = m_profile.playerMaxHealth;
             m_worldState.ClearRegion(m_profile.currentRegion);
             EnsureCurrentRegionState();
-            RebuildRegionState();
+            RebuildRegionState(app);
             m_factionSystem.AddReputation("guards", -2);
             m_statusText = "You were defeated and the region reset.";
             m_statusTextTimer = 3.0f;
         }
 
         m_clock.Update(dt);
-        RebuildRegionState();
+        RebuildRegionState(app, false);
+        app.GetCamera() = m_camera;
 
         std::vector<InteractionCandidate> candidates;
         for (size_t i = 0; i < m_activeNpcPositions.size() && i < m_activeRoutines.size(); ++i)
@@ -262,13 +276,24 @@ namespace fw
             float d = Vector3Distance(p, m_profile.playerPosition);
             candidates.push_back({"gather", "herb", p, d, "Press E to gather herb"});
         }
-        if (const RegionLayout* layout = m_layouts.Find(m_profile.currentRegion))
+        for (const Entity entity : app.GetWorld().Entities())
         {
-            for (size_t i = 0; i < layout->travelPoints.size(); ++i)
-            {
-                float d = Vector3Distance(layout->travelPoints[i], m_profile.playerPosition);
-                candidates.push_back({"travel", std::to_string((int)i), layout->travelPoints[i], d, "Press E to travel"});
-            }
+            const auto* trigger = app.GetWorld().GetComponent<TravelTriggerComponent>(entity);
+            const auto* transform = app.GetWorld().GetComponent<TransformComponent>(entity);
+            if (!trigger || !transform) continue;
+            float d = Vector3Distance(transform->position, m_profile.playerPosition);
+            candidates.push_back({"travel", trigger->destinationRegion, transform->position, d, "Press E to travel"});
+        }
+        for (const Entity entity : app.GetWorld().Entities())
+        {
+            const auto* savePoint = app.GetWorld().GetComponent<SavePointComponent>(entity);
+            const auto* persistentId = app.GetWorld().GetComponent<PersistentIdComponent>(entity);
+            const auto* transform = app.GetWorld().GetComponent<TransformComponent>(entity);
+            if (!savePoint || !transform) continue;
+            float d = Vector3Distance(transform->position, m_profile.playerPosition);
+            std::string prompt = "Press E to save";
+            if (persistentId && m_worldState.IsSavePointUsed(m_profile.currentRegion, persistentId->value)) prompt = "Press E to save again";
+            candidates.push_back({"save", persistentId ? persistentId->value : "", transform->position, d, prompt});
         }
         for (const auto& d : state.lootDrops)
         {
@@ -337,13 +362,19 @@ namespace fw
             }
             else if (best->kind == "travel")
             {
-                if (m_profile.currentRegion == "village_region") m_profile.currentRegion = "forest_region";
-                else if (m_profile.currentRegion == "forest_region") m_profile.currentRegion = "ruins_region";
-                else m_profile.currentRegion = "village_region";
+                m_profile.currentRegion = best->id;
                 EnsureCurrentRegionState();
                 if (const RegionLayout* newLayout = m_layouts.Find(m_profile.currentRegion)) m_profile.playerPosition = newLayout->playerSpawn;
-                RebuildRegionState();
+                RebuildRegionState(app);
                 m_statusText = "Travelled to " + m_profile.currentRegion;
+                m_statusTextTimer = 2.0f;
+            }
+            else if (best->kind == "save")
+            {
+                m_profile.SaveToFile("savegame.profile");
+                m_worldState.SaveToFile("worldstate.snapshot");
+                if (!best->id.empty()) m_worldState.MarkSavePointUsed(m_profile.currentRegion, best->id);
+                m_statusText = "Progress saved at checkpoint.";
                 m_statusTextTimer = 2.0f;
             }
             else if (best->kind == "loot")
@@ -361,38 +392,46 @@ namespace fw
         }
     }
 
-    void OpenWorldFoundationScene::Draw()
+    void OpenWorldRuntimeScene::FixedUpdate(Application& app, float fixedDeltaTime)
+    {
+        (void)app;
+        (void)fixedDeltaTime;
+    }
+
+    void OpenWorldRuntimeScene::Render(Application& app)
     {
         PersistentRegionState& state = m_worldState.GetOrCreate(m_profile.currentRegion);
         const RegionLayout* layout = m_layouts.Find(m_profile.currentRegion);
-        ComputedStats stats = m_statSystem.Compute(m_profile, m_pipeline.items);
 
-        BeginMode3D(m_camera);
-        DrawGrid(40, 2.0f);
+        app.GetRenderer().DrawGrid(40, 2.0f);
+        app.GetRenderer().DrawWorld(app.GetWorld(), app.GetAssets());
+
         if (layout)
         {
             std::vector<Vector3> lootPositions;
             for (const auto& d : state.lootDrops) if (d.active) lootPositions.push_back(d.position);
             m_renderer.DrawRegion(*layout, m_activeNpcPositions, state.enemies, lootPositions);
-            for (const auto& p : state.gatherPoints)
-            {
-                DrawSphere(p, 0.45f, YELLOW);
-                DrawSphereWires(p, 0.45f, 8, 8, ORANGE);
-            }
         }
+
         DrawCapsule({m_profile.playerPosition.x, m_profile.playerPosition.y + 0.2f, m_profile.playerPosition.z},
                     {m_profile.playerPosition.x, m_profile.playerPosition.y + 1.8f, m_profile.playerPosition.z},
                     0.45f, 8, 8, RED);
-        EndMode3D();
+    }
+
+    void OpenWorldRuntimeScene::DrawUi(Application& app)
+    {
+        (void)app;
+        PersistentRegionState& state = m_worldState.GetOrCreate(m_profile.currentRegion);
+        ComputedStats stats = m_statSystem.Compute(m_profile, m_pipeline.items);
 
         DrawRectangle(0, 0, 900, 250, Fade(BLACK, 0.55f));
-        DrawText("3D_GAME_ENGINE v28 Dynamic Region Pressure + Patrols", 20, 20, 28, WHITE);
+        DrawText("3D_GAME_ENGINE v29 Open World Runtime Merge", 20, 20, 28, WHITE);
         DrawText(TextFormat("Alive Enemies: %i", CountAlive(state.enemies)), 20, 60, 20, LIGHTGRAY);
         DrawText(TextFormat("Encounter Cleared: %s", state.encounterCleared ? "Yes" : "No"), 20, 85, 20, state.encounterCleared ? GREEN : ORANGE);
         DrawText(TextFormat("Villagers: %s | Guards: %s", m_factionSystem.DescribeStanding("villagers").c_str(), m_factionSystem.DescribeStanding("guards").c_str()), 20, 110, 20, SKYBLUE);
         DrawText(TextFormat("Level %i  XP %i/%i", m_progression.level, m_progression.xp, m_progression.xpToNext), 20, 135, 20, YELLOW);
-        DrawText("World reacts to reputation, patrol pressure, and secured routes.", 20, 165, 20, SKYBLUE);
-        DrawText("Pressure can spawn patrols; friendly regions can generate support caches.", 20, 190, 20, SKYBLUE);
+        DrawText(TextFormat("Current Region: %s", m_profile.currentRegion.c_str()), 20, 160, 20, SKYBLUE);
+        DrawText("This build routes open world through Application + SceneManager + ECS region spawning.", 20, 185, 20, SKYBLUE);
 
         std::string rep = "Villagers: " + m_factionSystem.DescribeStanding("villagers") + " | Guards: " + m_factionSystem.DescribeStanding("guards");
         const std::string formatted = m_clock.GetFormattedTime();
@@ -402,8 +441,9 @@ namespace fw
         DrawEquipmentPanel(m_profile, stats, m_progression, m_showEquipment);
     }
 
-    void OpenWorldFoundationScene::Unload()
+    void OpenWorldRuntimeScene::OnExit(Application& app)
     {
+        app.GetWorld().Clear();
         EnableCursor();
     }
 }

@@ -1,76 +1,103 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\main.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\assets\AssetManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\scenes\OpenWorldFoundationScene.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\core\Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\OpenWorldHud.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\core\EngineConfig.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\DialogueBox.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\core\FileSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\QuestLogPanel.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\core\Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\EquipmentPanel.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\core\Logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\save\SaveGameProfile.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\core\ServiceLocator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\quests\QuestState.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\core\Time.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\content\QuestDatabase.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\ecs\World.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\content\DialogueDatabase.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\ecs\components\EditorMetadataComponent.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\content\ItemDatabase.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\ecs\systems\CollisionSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\content\NpcDatabase.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\ecs\systems\MovementSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\content\EncounterDatabase.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\editor\runtime\EditorGizmo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\content\LootTableDatabase.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\editor\runtime\EditorPicking.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\content\RegionDatabase.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\editor\runtime\EditorSceneAuthoring.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\editor\runtime\EditorSelection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\editor\runtime\InspectorPanel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\editor\serialization\SceneExporter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\editor\validation\ContentValidator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\audio\AudioBus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\combat\CombatSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\combat\EnemySystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\content\ContentPipeline.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\content\validation\ContentValidator.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\content\DialogueDatabase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\simulation\WorldClock.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\content\EncounterDatabase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\simulation\RoutineDatabase.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\content\ItemDatabase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\simulation\NpcRoutineSystem.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\content\LootTableDatabase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\world\RegionSimulationState.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\content\NpcDatabase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\world\RegionLayoutDatabase.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\content\QuestDatabase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\world\WorldStatePersistence.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\content\RegionDatabase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\render\WorldRenderer.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\dialogue\DialogueState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\faction\FactionSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\gameplay\GatheringSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\gameplay\InteractionSystem.cpp">
@@ -79,28 +106,214 @@
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\gameplay\QuestGameplaySystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\gameplay\GatheringSystem.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\interaction\InteractionSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\combat\EnemySystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\combat\CombatSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\progression\EquipmentSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\progression\StatSystem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\progression\ProgressionSystem.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\inventory\InventorySystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\loot\LootSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\faction\FactionSystem.cpp">
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\progression\CampaignProfile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\progression\EquipmentSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\progression\ProgressionSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\progression\StatSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\quests\QuestState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\render\WorldRenderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\rules\WaveDirector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\save\SaveGameProfile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\scenes\ArenaGameScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\scenes\OpenWorldRuntimeScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\simulation\NpcRoutineSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\simulation\RoutineDatabase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\simulation\WorldClock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\CombatFeedbackSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\DamageSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\DialogueSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\EnemyAISystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\EquipmentSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\FactionSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\InteractionPromptSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\LootContainerSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\PatrolSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\PickupSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\PlayerControllerSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\PowerupSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\QuestSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\RangedEnemyAISystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\RespawnSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\RoamingEncounterSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\SpawnPersistenceSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\ArenaSelectMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\DialogueBox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\DialogueWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\EndScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\EquipmentPanel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\GameHud.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\InventoryWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\MainMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\OpenWorldHud.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\QuestLogPanel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\QuestLogWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\RegionBanner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\world\EncounterManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\world\RegionEcsLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\world\RegionLayoutDatabase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\world\RegionManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\world\RegionSimulationState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\world\RespawnProfile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\world\WorldStatePersistence.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\gameplay\GameplayTags.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\gameplay\Spawn.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\gameplay\prefabs\PrefabDefinition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\gameplay\prefabs\PrefabLibrary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\gameplay\prefabs\PrefabVariantDefinition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\gameplay\registry\SystemRegistry.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\gameplay\systems\ProjectileCleanupSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\render\DebugOverlay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\render\Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\scene\SceneManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\scene\data\SceneDefinition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\scene\data\SceneLibrary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\scene\scenes\SandboxScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\scene\spawning\SceneSpawner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\serialization\WorldSerializer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\util\Math.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\util\StringUtil.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

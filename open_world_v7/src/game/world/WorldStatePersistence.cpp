@@ -1,4 +1,187 @@
 #include "game/world/WorldStatePersistence.h"
+
 #include <fstream>
 #include <sstream>
-namespace fw { PersistentRegionState& WorldStatePersistence::GetOrCreate(const std::string& regionId){ return m_regions[regionId]; } void WorldStatePersistence::ClearRegion(const std::string& regionId){ m_regions.erase(regionId); } void WorldStatePersistence::ResetAll(){ m_regions.clear(); } bool WorldStatePersistence::SaveToFile(const std::string& path) const { std::ofstream out(path); if(!out.is_open()) return false; for(const auto& pair:m_regions){ out<<"region="<<pair.first<<"\n"; out<<"initialized="<<(pair.second.initialized?1:0)<<"\n"; out<<"cleared="<<(pair.second.encounterCleared?1:0)<<"\n"; for(const auto& e:pair.second.enemies) out<<"enemy="<<e.position.x<<","<<e.position.y<<","<<e.position.z<<","<<e.type<<","<<e.health<<","<<(e.alive?1:0)<<","<<e.attackCooldown<<","<<e.hurtFlash<<"\n"; for(const auto& g:pair.second.gatherPoints) out<<"gather="<<g.x<<","<<g.y<<","<<g.z<<"\n"; for(const auto& d:pair.second.lootDrops) out<<"loot="<<d.position.x<<","<<d.position.y<<","<<d.position.z<<","<<d.itemId<<","<<d.gold<<","<<(d.active?1:0)<<"\n"; out<<"endregion=1\n"; } return true; } bool WorldStatePersistence::LoadFromFile(const std::string& path){ std::ifstream in(path); if(!in.is_open()) return false; m_regions.clear(); std::string line,currentRegion; while(std::getline(in,line)){ auto pos=line.find('='); if(pos==std::string::npos) continue; std::string key=line.substr(0,pos), value=line.substr(pos+1); if(key=="region"){ currentRegion=value; m_regions[currentRegion]=PersistentRegionState{}; } else if(currentRegion.empty()) continue; else if(key=="initialized") m_regions[currentRegion].initialized=(value=="1"); else if(key=="cleared") m_regions[currentRegion].encounterCleared=(value=="1"); else if(key=="enemy"){ std::stringstream ss(value); std::string tok; EnemyInstance e{}; if(std::getline(ss,tok,',')) e.position.x=std::stof(tok); if(std::getline(ss,tok,',')) e.position.y=std::stof(tok); if(std::getline(ss,tok,',')) e.position.z=std::stof(tok); if(std::getline(ss,tok,',')) e.type=tok; if(std::getline(ss,tok,',')) e.health=std::stoi(tok); if(std::getline(ss,tok,',')) e.alive=(tok=="1"); if(std::getline(ss,tok,',')) e.attackCooldown=std::stof(tok); if(std::getline(ss,tok,',')) e.hurtFlash=std::stof(tok); m_regions[currentRegion].enemies.push_back(e);} else if(key=="gather"){ std::stringstream ss(value); std::string tok; Vector3 g{}; if(std::getline(ss,tok,',')) g.x=std::stof(tok); if(std::getline(ss,tok,',')) g.y=std::stof(tok); if(std::getline(ss,tok,',')) g.z=std::stof(tok); m_regions[currentRegion].gatherPoints.push_back(g);} else if(key=="loot"){ std::stringstream ss(value); std::string tok; WorldLootDrop d{}; if(std::getline(ss,tok,',')) d.position.x=std::stof(tok); if(std::getline(ss,tok,',')) d.position.y=std::stof(tok); if(std::getline(ss,tok,',')) d.position.z=std::stof(tok); if(std::getline(ss,tok,',')) d.itemId=tok; if(std::getline(ss,tok,',')) d.gold=std::stoi(tok); if(std::getline(ss,tok,',')) d.active=(tok=="1"); m_regions[currentRegion].lootDrops.push_back(d);} } return true; } }
+
+namespace fw {
+
+PersistentRegionState& WorldStatePersistence::GetOrCreate(const std::string& regionId) {
+    return m_regions[regionId];
+}
+
+void WorldStatePersistence::ClearRegion(const std::string& regionId) {
+    m_regions.erase(regionId);
+}
+
+void WorldStatePersistence::ResetAll() {
+    m_regions.clear();
+}
+
+bool WorldStatePersistence::IsNodeHarvested(const std::string& regionId, const std::string& persistentId) const {
+    const auto it = m_regions.find(regionId);
+    if (it == m_regions.end()) {
+        return false;
+    }
+    return it->second.harvestedNodeIds.find(persistentId) != it->second.harvestedNodeIds.end();
+}
+
+void WorldStatePersistence::MarkNodeHarvested(const std::string& regionId, const std::string& persistentId) {
+    m_regions[regionId].harvestedNodeIds.insert(persistentId);
+}
+
+bool WorldStatePersistence::IsSavePointUsed(const std::string& regionId, const std::string& persistentId) const {
+    const auto it = m_regions.find(regionId);
+    if (it == m_regions.end()) {
+        return false;
+    }
+    return it->second.usedSavePointIds.find(persistentId) != it->second.usedSavePointIds.end();
+}
+
+void WorldStatePersistence::MarkSavePointUsed(const std::string& regionId, const std::string& persistentId) {
+    m_regions[regionId].usedSavePointIds.insert(persistentId);
+}
+
+bool WorldStatePersistence::SaveToFile(const std::string& path) const {
+    std::ofstream out(path);
+    if (!out.is_open()) {
+        return false;
+    }
+
+    for (const auto& pair : m_regions) {
+        const auto& regionId = pair.first;
+        const auto& state = pair.second;
+
+        out << "region=" << regionId << "\n";
+        out << "initialized=" << (state.initialized ? 1 : 0) << "\n";
+        out << "cleared=" << (state.encounterCleared ? 1 : 0) << "\n";
+
+        for (const auto& enemy : state.enemies) {
+            out << "enemy="
+                << enemy.position.x << ','
+                << enemy.position.y << ','
+                << enemy.position.z << ','
+                << enemy.type << ','
+                << enemy.health << ','
+                << (enemy.alive ? 1 : 0) << ','
+                << enemy.attackCooldown << ','
+                << enemy.hurtFlash << "\n";
+        }
+
+        for (const auto& gatherPoint : state.gatherPoints) {
+            out << "gather="
+                << gatherPoint.x << ','
+                << gatherPoint.y << ','
+                << gatherPoint.z << "\n";
+        }
+
+        for (const auto& lootDrop : state.lootDrops) {
+            out << "loot="
+                << lootDrop.position.x << ','
+                << lootDrop.position.y << ','
+                << lootDrop.position.z << ','
+                << lootDrop.itemId << ','
+                << lootDrop.gold << ','
+                << (lootDrop.active ? 1 : 0) << "\n";
+        }
+
+        for (const auto& harvestedId : state.harvestedNodeIds) {
+            out << "harvested=" << harvestedId << "\n";
+        }
+
+        for (const auto& savePointId : state.usedSavePointIds) {
+            out << "savepoint=" << savePointId << "\n";
+        }
+
+        out << "endregion=1\n";
+    }
+
+    return true;
+}
+
+bool WorldStatePersistence::LoadFromFile(const std::string& path) {
+    std::ifstream in(path);
+    if (!in.is_open()) {
+        return false;
+    }
+
+    m_regions.clear();
+
+    std::string line;
+    std::string currentRegion;
+
+    while (std::getline(in, line)) {
+        const auto pos = line.find('=');
+        if (pos == std::string::npos) {
+            continue;
+        }
+
+        const std::string key = line.substr(0, pos);
+        const std::string value = line.substr(pos + 1);
+
+        if (key == "region") {
+            currentRegion = value;
+            m_regions[currentRegion] = PersistentRegionState{};
+            continue;
+        }
+
+        if (currentRegion.empty()) {
+            continue;
+        }
+
+        auto& state = m_regions[currentRegion];
+
+        if (key == "initialized") {
+            state.initialized = (value == "1");
+        } else if (key == "cleared") {
+            state.encounterCleared = (value == "1");
+        } else if (key == "enemy") {
+            std::stringstream ss(value);
+            std::string token;
+            EnemyInstance enemy{};
+
+            if (std::getline(ss, token, ',')) enemy.position.x = std::stof(token);
+            if (std::getline(ss, token, ',')) enemy.position.y = std::stof(token);
+            if (std::getline(ss, token, ',')) enemy.position.z = std::stof(token);
+            if (std::getline(ss, token, ',')) enemy.type = token;
+            if (std::getline(ss, token, ',')) enemy.health = std::stoi(token);
+            if (std::getline(ss, token, ',')) enemy.alive = (token == "1");
+            if (std::getline(ss, token, ',')) enemy.attackCooldown = std::stof(token);
+            if (std::getline(ss, token, ',')) enemy.hurtFlash = std::stof(token);
+
+            state.enemies.push_back(enemy);
+        } else if (key == "gather") {
+            std::stringstream ss(value);
+            std::string token;
+            Vector3 gatherPoint{};
+
+            if (std::getline(ss, token, ',')) gatherPoint.x = std::stof(token);
+            if (std::getline(ss, token, ',')) gatherPoint.y = std::stof(token);
+            if (std::getline(ss, token, ',')) gatherPoint.z = std::stof(token);
+
+            state.gatherPoints.push_back(gatherPoint);
+        } else if (key == "loot") {
+            std::stringstream ss(value);
+            std::string token;
+            WorldLootDrop lootDrop{};
+
+            if (std::getline(ss, token, ',')) lootDrop.position.x = std::stof(token);
+            if (std::getline(ss, token, ',')) lootDrop.position.y = std::stof(token);
+            if (std::getline(ss, token, ',')) lootDrop.position.z = std::stof(token);
+            if (std::getline(ss, token, ',')) lootDrop.itemId = token;
+            if (std::getline(ss, token, ',')) lootDrop.gold = std::stoi(token);
+            if (std::getline(ss, token, ',')) lootDrop.active = (token == "1");
+
+            state.lootDrops.push_back(lootDrop);
+        } else if (key == "harvested") {
+            state.harvestedNodeIds.insert(value);
+        } else if (key == "savepoint") {
+            state.usedSavePointIds.insert(value);
+        } else if (key == "endregion") {
+            currentRegion.clear();
+        }
+    }
+
+    return true;
+}
+
+} // namespace fw

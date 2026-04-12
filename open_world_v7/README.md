@@ -1,11 +1,9 @@
-# 3D_GAME_ENGINE v27 — Faction + World Reaction Layer
+# 3D_GAME_ENGINE v28 — Dynamic Region Pressure + Patrols
 
-This version makes the world react to player reputation and quest outcomes.
+This version adds a more dynamic world loop on top of faction/world reactions.
 
 ## Added
-- faction reputation carried in runtime
-- villager and guard standing summaries
-- NPC dialogue changes based on standing
-- reputation gains from helping the village and fighting raiders
-- guard pressure when your standing drops
-- quest completion now has faction consequences
+- patrol pressure that can spawn new hostiles in unsafe regions
+- secured routes that can generate support caches
+- dynamic regional danger tied to encounter state and faction standing
+- stronger feeling that the world is changing while you move through it

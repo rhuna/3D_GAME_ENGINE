@@ -8,13 +8,13 @@ namespace fw {
 void QuestSystem::Update(Application&, World&, float) {
     if (!m_state) return;
     for (auto& quest : m_state->saveProfile.quests) {
-        if (quest.status == QuestStatus::Active) {
+        if (quest.state == QuestProgressState::Active) {
             bool complete = true;
             for (const auto& objective : quest.objectives) {
-                if (!objective.complete) { complete = false; break; }
+                if (!objective.completed) { complete = false; break; }
             }
             if (complete) {
-                quest.status = QuestStatus::Completed;
+                quest.state = QuestProgressState::Completed;
             }
         }
     }

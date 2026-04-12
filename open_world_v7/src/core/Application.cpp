@@ -7,7 +7,7 @@
 
 #include "core/Logger.h"
 #include "editor/serialization/SceneExporter.h"
-#include "game/scenes/OpenWorldFoundationScene.h"
+#include "game/scenes/OpenWorldRuntimeScene.h"
 #include "serialization/WorldSerializer.h"
 
 namespace fw {
@@ -73,7 +73,7 @@ int Application::Run() {
 }
 
 void Application::ReloadStartScene() {
-    m_sceneManager.ChangeScene(*this, std::make_unique<OpenWorldFoundationScene>());
+    m_sceneManager.ChangeScene(*this, std::make_unique<OpenWorldRuntimeScene>());
     m_editorSelection.Clear();
     Logger::Info("Reloaded start scene.");
 }

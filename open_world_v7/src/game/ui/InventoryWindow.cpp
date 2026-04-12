@@ -10,8 +10,8 @@ void InventoryWindow::Draw(const OpenWorldGameState& state) const {
     DrawRectangleLines(30, 90, 320, 260, RAYWHITE);
     DrawText("Inventory", 44, 104, 22, RAYWHITE);
     int y = 136;
-    for (const auto& item : state.saveProfile.inventory.items) {
-        DrawText(TextFormat("%s x%d", item.displayName.c_str(), item.quantity), 44, y, 18, LIGHTGRAY);
+    for (const auto& itemId : state.saveProfile.inventory.items) {
+        DrawText(itemId.c_str(), 44, y, 18, LIGHTGRAY);
         y += 24;
         if (y > 320) break;
     }

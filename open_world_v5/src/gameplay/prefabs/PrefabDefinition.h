@@ -16,6 +16,7 @@ struct PrefabDefinition {
     TagComponent tag {};
     TransformComponent transform {};
     RenderComponent render {};
+    Vector3 rotation {};
 
     bool hasCollider = false;
     BoxColliderComponent collider {};

@@ -65,8 +65,9 @@ void InteractionSystem::Update(Application& app, World& world, float) {
         case InteractionKind::Loot: {
             InventoryComponent* inventory = world.GetComponent<InventoryComponent>(player);
             const TagComponent* tag = world.GetComponent<TagComponent>(target);
-            if (inventory && tag) {
-                inventory->items.push_back({tag->value, "World Item", 1});
+            if (inventory && tag)
+            {
+                inventory->items.push_back(tag->value);
                 world.DestroyEntity(target);
             }
             break;

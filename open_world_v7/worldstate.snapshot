@@ -1,0 +1,6 @@
+region=village_region
+initialized=1
+cleared=1
+gather=8,1,8
+savepoint=village_region:save:0
+endregion=1

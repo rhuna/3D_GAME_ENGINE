@@ -25,6 +25,9 @@
 #include "game/components/EquipmentComponent.h"
 #include "game/components/LootComponent.h"
 #include "game/components/PlayerComponent.h"
+#include "game/components/PersistentIdComponent.h"
+#include "game/components/GatherNodeComponent.h"
+#include "game/components/SavePointComponent.h"
 #include "game/components/ProjectileComponent.h"
 #include "game/components/SpawnerComponent.h"
 #include "game/components/TeamComponent.h"
@@ -86,6 +89,9 @@ private:
     ComponentStorage<EditorMetadataComponent> m_editorMetadata;
 
     ComponentStorage<PlayerComponent> m_players;
+    ComponentStorage<PersistentIdComponent> m_persistentIds;
+    ComponentStorage<GatherNodeComponent> m_gatherNodes;
+    ComponentStorage<SavePointComponent> m_savePoints;
     ComponentStorage<HealthComponent> m_health;
     ComponentStorage<EnemyComponent> m_enemies;
     ComponentStorage<ProjectileComponent> m_projectiles;
@@ -141,6 +147,9 @@ ComponentStorage<T>& World::Storage() {
     else if constexpr (std::is_same_v<T, LifetimeComponent>) return m_lifetimes;
     else if constexpr (std::is_same_v<T, EditorMetadataComponent>) return m_editorMetadata;
     else if constexpr (std::is_same_v<T, PlayerComponent>) return m_players;
+    else if constexpr (std::is_same_v<T, PersistentIdComponent>) return m_persistentIds;
+    else if constexpr (std::is_same_v<T, GatherNodeComponent>) return m_gatherNodes;
+    else if constexpr (std::is_same_v<T, SavePointComponent>) return m_savePoints;
     else if constexpr (std::is_same_v<T, HealthComponent>) return m_health;
     else if constexpr (std::is_same_v<T, EnemyComponent>) return m_enemies;
     else if constexpr (std::is_same_v<T, ProjectileComponent>) return m_projectiles;
@@ -172,6 +181,9 @@ const ComponentStorage<T>& World::Storage() const {
     else if constexpr (std::is_same_v<T, LifetimeComponent>) return m_lifetimes;
     else if constexpr (std::is_same_v<T, EditorMetadataComponent>) return m_editorMetadata;
     else if constexpr (std::is_same_v<T, PlayerComponent>) return m_players;
+    else if constexpr (std::is_same_v<T, PersistentIdComponent>) return m_persistentIds;
+    else if constexpr (std::is_same_v<T, GatherNodeComponent>) return m_gatherNodes;
+    else if constexpr (std::is_same_v<T, SavePointComponent>) return m_savePoints;
     else if constexpr (std::is_same_v<T, HealthComponent>) return m_health;
     else if constexpr (std::is_same_v<T, EnemyComponent>) return m_enemies;
     else if constexpr (std::is_same_v<T, ProjectileComponent>) return m_projectiles;
