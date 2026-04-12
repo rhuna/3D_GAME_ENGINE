@@ -1,31 +1,11 @@
-# 3D_GAME_ENGINE v25 — Combat Rewards + Enemy Variety + Progression Loop
+# 3D_GAME_ENGINE v27 — Faction + World Reaction Layer
 
-This version strengthens the action-RPG gameplay loop.
+This version makes the world react to player reputation and quest outcomes.
 
 ## Added
-- multiple enemy archetypes:
-  - raider
-  - wolf
-  - brute
-- XP and level scaffold
-- combat rewards:
-  - gold
-  - world loot drops
-- in-world loot pickup loop
-- stronger equipment/stat progression hooks
-- combat-oriented quest progress support
-- enemy hit flash and attack cooldown data used more consistently
-
-## Controls
-- WASD move
-- mouse camera
-- Shift sprint
-- Space jump
-- LMB attack
-- E interact / pick up / talk / travel
-- Tab quest log
-- I equipment panel
-- F equip first weapon found
-- G use first consumable
-- 1 / 2 / 3 region switch
-- F5 / F9 save / load
+- faction reputation carried in runtime
+- villager and guard standing summaries
+- NPC dialogue changes based on standing
+- reputation gains from helping the village and fighting raiders
+- guard pressure when your standing drops
+- quest completion now has faction consequences

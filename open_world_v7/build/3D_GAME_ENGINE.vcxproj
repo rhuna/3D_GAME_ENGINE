@@ -374,6 +374,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\simulation\NpcRoutineSystem.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\world\RegionSimulationState.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\world\RegionLayoutDatabase.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\world\WorldStatePersistence.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\render\WorldRenderer.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\gameplay\InteractionSystem.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\gameplay\QuestGameplaySystem.cpp" />
@@ -384,6 +385,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\progression\StatSystem.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\progression\ProgressionSystem.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\loot\LootSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\faction\FactionSystem.cpp" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

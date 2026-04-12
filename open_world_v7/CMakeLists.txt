@@ -34,6 +34,7 @@ add_executable(3D_GAME_ENGINE
   src/game/simulation/NpcRoutineSystem.cpp
   src/game/world/RegionSimulationState.cpp
   src/game/world/RegionLayoutDatabase.cpp
+  src/game/world/WorldStatePersistence.cpp
   src/game/render/WorldRenderer.cpp
   src/game/gameplay/InteractionSystem.cpp
   src/game/gameplay/QuestGameplaySystem.cpp
@@ -44,6 +45,7 @@ add_executable(3D_GAME_ENGINE
   src/game/progression/StatSystem.cpp
   src/game/progression/ProgressionSystem.cpp
   src/game/loot/LootSystem.cpp
+  src/game/faction/FactionSystem.cpp
 )
 
 target_include_directories(3D_GAME_ENGINE PRIVATE src)

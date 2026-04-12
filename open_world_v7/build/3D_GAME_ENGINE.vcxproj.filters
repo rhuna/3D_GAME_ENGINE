@@ -67,6 +67,9 @@
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\world\RegionLayoutDatabase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\world\WorldStatePersistence.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\render\WorldRenderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -95,6 +98,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\loot\LootSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\faction\FactionSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

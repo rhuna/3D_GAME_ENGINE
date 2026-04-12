@@ -4,7 +4,7 @@
 int main()
 {
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-    InitWindow(1600, 900, "3D_GAME_ENGINE v25 Combat Rewards + Enemy Variety + Progression Loop");
+    InitWindow(1600, 900, "3D_GAME_ENGINE");
     SetTargetFPS(60);
 
     fw::OpenWorldFoundationScene scene;
