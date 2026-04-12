@@ -1,0 +1,15 @@
+{
+  "questId": "first_medicine",
+  "items": [
+    {
+      "itemId": "coin",
+      "count": 15
+    }
+  ],
+  "factionAdjustments": [
+    {
+      "factionId": "herbalists",
+      "delta": 5
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\dev\3D_GAME_ENGINE\open_world_v9-ContentReady\build\_deps\raylib-subbuild\CMakeFiles\ab200f7dacf9b5ead0c702452c8e4117\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{133E51AB-633D-3D43-BD0F-A9E2DB52D329}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,28 @@
+{
+  "milestones": [
+    {
+      "milestoneId": "met_mara",
+      "displayName": "Met Mara",
+      "description": "The herbalist now knows you by name.",
+      "unlockTags": [
+        "starter_vale.dialogue.mara_trust_1"
+      ]
+    },
+    {
+      "milestoneId": "crafted_field_medicine",
+      "displayName": "First Medicine Crafted",
+      "description": "You created field medicine from gathered herbs.",
+      "unlockTags": [
+        "starter_vale.recipe.field_medicine.complete"
+      ]
+    },
+    {
+      "milestoneId": "secured_brush_path",
+      "displayName": "Brush Path Secured",
+      "description": "The wolf brush is safer to cross.",
+      "unlockTags": [
+        "starter_vale.route.brush_path_safe"
+      ]
+    }
+  ]
+}
