@@ -1,0 +1,8 @@
+{
+  "id": "guard_tomas",
+  "displayName": "Guard Tomas",
+  "role": "quest_giver",
+  "faction": "town_guard",
+  "prefab": "starter_guard",
+  "scene": "starter_vale"
+}
