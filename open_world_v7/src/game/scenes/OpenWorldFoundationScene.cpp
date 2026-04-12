@@ -139,7 +139,7 @@ namespace fw
         }
 
         Vector2 md = GetMouseDelta();
-        m_cameraYaw += md.x * 0.003f;
+        m_cameraYaw -= md.x * 0.003f;
         m_cameraPitch -= md.y * 0.003f;
         m_cameraPitch = std::clamp(m_cameraPitch, -0.6f, 1.0f);
 

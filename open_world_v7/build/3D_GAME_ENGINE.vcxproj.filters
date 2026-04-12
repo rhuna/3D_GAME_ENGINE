@@ -154,6 +154,9 @@
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\simulation\WorldClock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\BuildingInteriorSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\CombatFeedbackSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -172,10 +175,16 @@
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\FactionSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\GatheringNodeSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\InteractionPromptSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\LootContainerSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\MerchantSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\PatrolSystem.cpp">
@@ -206,6 +215,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\ArenaSelectMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\CraftingWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\DialogueBox.cpp">
@@ -239,6 +251,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\RegionBanner.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\ShopWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\world\EncounterManager.cpp">

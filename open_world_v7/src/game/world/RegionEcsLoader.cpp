@@ -92,7 +92,13 @@ void RegionEcsLoader::Rebuild(Application& app,
                     Vector3{0.6f, 0.6f, 0.6f},
                     GOLD);
         if (e != 0) {
-            world.AddComponent<GatherNodeComponent>(e, GatherNodeComponent{"herb", true});
+            GatherNodeComponent gather{};
+            gather.nodeId = MakePersistentId(regionId, "gather", i);
+            gather.resourceId = "herb";
+            gather.remainingUses = 1;
+            gather.respawnSeconds = 300.0f;
+            gather.harvested = false;
+            world.AddComponent<GatherNodeComponent>(e, gather);
             world.AddComponent<PersistentIdComponent>(e, PersistentIdComponent{MakePersistentId(regionId, "gather", i)});
         }
     }
@@ -170,7 +176,13 @@ void RegionEcsLoader::Rebuild(Application& app,
             }
         } else if (tag->value == "gather_marker") {
             if (!world.HasComponent<GatherNodeComponent>(entity)) {
-                world.AddComponent<GatherNodeComponent>(entity, GatherNodeComponent{"herb", true});
+                GatherNodeComponent gather{};
+                gather.nodeId = MakePersistentId(regionId, "gather_scene", taggedGatherIndex);
+                gather.resourceId = "herb";
+                gather.remainingUses = 1;
+                gather.respawnSeconds = 300.0f;
+                gather.harvested = false;
+                world.AddComponent<GatherNodeComponent>(entity, gather);
             }
             if (!world.HasComponent<PersistentIdComponent>(entity)) {
                 world.AddComponent<PersistentIdComponent>(entity, PersistentIdComponent{MakePersistentId(regionId, "gather_scene", taggedGatherIndex++)});

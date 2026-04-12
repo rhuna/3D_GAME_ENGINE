@@ -66,7 +66,7 @@ void InteractionSystem::Update(Application& app, World& world, float) {
             InventoryComponent* inventory = world.GetComponent<InventoryComponent>(player);
             const TagComponent* tag = world.GetComponent<TagComponent>(target);
             if (inventory && tag) {
-                inventory->items.push_back(tag->value);
+                inventory->items.push_back({tag->value});
                 world.DestroyEntity(target);
             }
             break;

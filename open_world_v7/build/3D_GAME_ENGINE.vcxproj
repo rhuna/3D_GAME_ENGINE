@@ -411,6 +411,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\simulation\NpcRoutineSystem.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\simulation\RoutineDatabase.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\simulation\WorldClock.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\BuildingInteriorSystem.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\CombatFeedbackSystem.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\DamageSystem.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\DialogueSystem.cpp" />
@@ -421,8 +422,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\FactionSystem.cpp">
       <ObjectFileName>$(IntDir)/src/game/systems/FactionSystem.cpp.obj</ObjectFileName>
     </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\GatheringNodeSystem.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\InteractionPromptSystem.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\LootContainerSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\MerchantSystem.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\PatrolSystem.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\PickupSystem.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\PlayerControllerSystem.cpp" />
@@ -433,6 +436,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\RoamingEncounterSystem.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\systems\SpawnPersistenceSystem.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\ArenaSelectMenu.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\CraftingWindow.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\DialogueBox.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\DialogueWindow.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\EndScreen.cpp" />
@@ -444,6 +448,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\QuestLogPanel.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\QuestLogWindow.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\RegionBanner.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\ui\ShopWindow.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\world\EncounterManager.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\world\RegionEcsLoader.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v7\src\game\world\RegionLayoutDatabase.cpp" />
