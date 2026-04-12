@@ -1,7 +1,0 @@
-id=scrap_blade
-displayName=Scrap Blade
-type=weapon
-description=Crude raider weapon.
-value=12
-equipSlot=weapon
-attack=8

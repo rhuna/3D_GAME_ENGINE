@@ -1,5 +1,0 @@
-name=building_enter_trigger
-category=interaction
-component=trigger
-component=enter_building
-size=2,2,2

@@ -1,8 +1,0 @@
-id=clear_raiders
-title=Clear the Raiders
-description=Defeat raiders in the ruins.
-giverNpcId=alric
-targetEnemyType=raider
-targetCount=2
-rewardItemId=leather_armor
-rewardGold=35

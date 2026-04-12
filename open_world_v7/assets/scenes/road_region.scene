@@ -1,6 +1,0 @@
-# v16 road region
-entity prefab=ground position=0,-0.5,0 scale=96,1,32
-entity prefab=player position=0,1.5,10
-entity prefab=encounter_bandit position=12,1.0,-8
-entity prefab=encounter_wolf position=-14,1.0,-12
-entity prefab=campfire_checkpoint position=0,1.0,0

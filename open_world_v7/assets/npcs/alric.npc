@@ -1,8 +1,0 @@
-id=alric
-displayName=Alric
-regionId=village_region
-dialogueId=alric_intro
-questId=fetch_herbs
-factionId=villagers
-routineId=alric_daily
-homeRegionId=village_region

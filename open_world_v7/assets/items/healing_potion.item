@@ -1,6 +1,0 @@
-id=healing_potion
-displayName=Healing Potion
-type=consumable
-description=Restores health.
-value=25
-heal=40
