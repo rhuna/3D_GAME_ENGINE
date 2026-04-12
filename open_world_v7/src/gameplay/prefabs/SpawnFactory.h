@@ -39,7 +39,7 @@ inline Entity SpawnFromPrefab(World& world, const PrefabLibrary& library, const 
     //fallback.transform.scale = Vector3{1.0f, 1.0f, 1.0f};
     fallback.render.visible = true;
     fallback.render.drawCube = true;
-    fallback.render.drawSphere = false;                    
+    fallback.render.drawSphere = false;
     fallback.render.cubeSize = 1.0f;
     fallback.render.tint = WHITE;
     fallback.hasCollider = true;
