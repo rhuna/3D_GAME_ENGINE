@@ -1,0 +1,24 @@
+{
+  "id": "starter_vale_multi_region_slice",
+  "regions": [
+    "starter_vale",
+    "western_trail",
+    "river_crossing"
+  ],
+  "quests": [
+    "first_medicine",
+    "trail_to_river"
+  ],
+  "links": [
+    "starter_vale_region_links"
+  ],
+  "flow": [
+    "talk_mara",
+    "gather_herbs",
+    "craft_field_medicine",
+    "travel_western_trail",
+    "clear_bandit_pressure",
+    "travel_river_crossing",
+    "deliver_supplies"
+  ]
+}

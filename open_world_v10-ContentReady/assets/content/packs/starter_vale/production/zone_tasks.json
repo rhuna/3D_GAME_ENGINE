@@ -1,0 +1,16 @@
+{
+  "zones": [
+    {
+      "id": "starter_vale_core",
+      "tasks": ["npc_polish", "quest_markers", "loot_validation"]
+    },
+    {
+      "id": "western_trail",
+      "tasks": ["encounter_density", "travel_anchor_validation", "merchant_pass"]
+    },
+    {
+      "id": "river_crossing_outpost",
+      "tasks": ["cross_region_handoff", "reward_flow", "savepoint_test"]
+    }
+  ]
+}

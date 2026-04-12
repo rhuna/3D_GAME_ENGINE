@@ -1,0 +1,5 @@
+scene=herbalist_hut_interior
+spawn_anchor=interior_entry
+prefab=ground position=0,0,0 scale=8,1,8
+prefab=npc_villager position=1,0,1
+prefab=building_exit_trigger position=0,0,3

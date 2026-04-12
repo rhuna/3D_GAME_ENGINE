@@ -1,0 +1,9 @@
+{
+  "sceneId": "starter_vale",
+  "entities": [
+    {"name": "StarterMerchant", "prefab": "starter_merchant", "position": [4.0, 0.0, 2.0]},
+    {"name": "StarterHerbNode", "prefab": "starter_herb_node", "position": [7.0, 0.0, -1.0]},
+    {"name": "StarterSavePoint", "prefab": "starter_save_point", "position": [0.0, 0.0, 0.0]},
+    {"name": "StarterHutDoor", "prefab": "building_enter_trigger", "position": [10.0, 0.0, 3.0]}
+  ]
+}

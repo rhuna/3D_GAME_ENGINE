@@ -1,0 +1,5 @@
+#include "game/ui/EquipmentPanel.h"
+#include "game/progression/StatSystem.h"
+#include "game/progression/ProgressionSystem.h"
+#include "raylib.h"
+namespace fw { void DrawEquipmentPanel(const SaveGameProfile& profile, const ComputedStats& stats, const ProgressionState& prog, bool visible){ if(!visible) return; DrawRectangle(1160,360,400,250,Fade(BLACK,0.72f)); DrawRectangleLines(1160,360,400,250,WHITE); DrawText("Equipment / Stats",1180,380,28,SKYBLUE); DrawText(TextFormat("Weapon: %s", profile.inventory.equippedWeaponId.empty()?"(none)":profile.inventory.equippedWeaponId.c_str()),1180,425,20,WHITE); DrawText(TextFormat("Armor: %s", profile.inventory.equippedArmorId.empty()?"(none)":profile.inventory.equippedArmorId.c_str()),1180,450,20,WHITE); DrawText(TextFormat("Attack: %i", stats.attack),1180,490,22,RED); DrawText(TextFormat("Defense: %i", stats.defense),1180,520,22,GREEN); DrawText(TextFormat("Level: %i", prog.level),1180,550,22,YELLOW); DrawText(TextFormat("XP: %i / %i", prog.xp, prog.xpToNext),1180,575,20,ORANGE); } }

@@ -1,0 +1,9 @@
+{
+  "id": "ferryman_ives",
+  "inventory": [
+    "healing_potion",
+    "herb",
+    "wolf_pelt"
+  ],
+  "pricingProfile": "travel_trade_basic"
+}

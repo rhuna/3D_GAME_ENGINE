@@ -1,0 +1,7 @@
+scene=ruins_region
+spawn=prefab=ground;position=0,0,0;scale=4,1,4;color=108,102,96,255
+spawn=prefab=encounter_bandit;position=6,1,8
+spawn=prefab=encounter_bandit;position=-8,1,-4
+spawn=prefab=chest_loot;position=4,1,-6
+spawn=prefab=save_point;tag=save_point;position=-10,1,0
+spawn=prefab=region_exit;tag=travel_marker;position=-24,1,0

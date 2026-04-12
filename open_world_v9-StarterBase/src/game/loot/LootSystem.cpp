@@ -1,0 +1,3 @@
+#include "game/loot/LootSystem.h"
+#include "raymath.h"
+namespace fw { WorldLootDrop LootSystem::MakeDrop(const std::string& enemyType, const Vector3& pos) const { WorldLootDrop d; d.position=pos; if(enemyType=="wolf"){ d.itemId="wolf_pelt"; d.gold=3; } else if(enemyType=="brute"){ d.itemId="brute_club"; d.gold=12; } else { d.itemId="scrap_blade"; d.gold=6; } return d; } bool LootSystem::PickupNearest(std::vector<WorldLootDrop>& drops, const Vector3& playerPos, float maxDistance, std::vector<std::string>& outItems, int& outGold) const { for(auto& d:drops){ if(!d.active) continue; if(Vector3Distance(d.position,playerPos)<=maxDistance){ d.active=false; if(!d.itemId.empty()) outItems.push_back(d.itemId); outGold+=d.gold; return true; } } return false; } }

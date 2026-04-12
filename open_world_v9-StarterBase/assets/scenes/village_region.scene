@@ -1,0 +1,6 @@
+scene=village_region
+spawn=prefab=ground;position=0,0,0;scale=5,1,5;color=92,118,92,255
+spawn=prefab=npc_villager;tag=npc_spawn_marker;position=4,1,4
+spawn=prefab=save_point;tag=save_point;position=-4,1,2
+spawn=prefab=region_exit;tag=travel_marker;position=24,1,0
+spawn=prefab=campfire_checkpoint;position=-8,1,-4

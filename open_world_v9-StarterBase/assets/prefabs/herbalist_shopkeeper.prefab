@@ -1,0 +1,15 @@
+prefab: herbalist_shopkeeper
+role: merchant
+merchant_id: herbalist_hut_shop
+shop_name: Herbalist Supplies
+stock:
+  - item_id: herb_bundle
+    display_name: Herb Bundle
+    buy_price: 8
+    sell_price: 4
+    quantity: 12
+  - item_id: weak_healing_tonic
+    display_name: Weak Healing Tonic
+    buy_price: 22
+    sell_price: 11
+    quantity: 6

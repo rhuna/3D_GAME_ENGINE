@@ -1,0 +1,5 @@
+id=village_region
+displayName=Village of Ember
+sceneFile=village_region.scene
+safeZone=true
+ambientMusicId=village_theme
