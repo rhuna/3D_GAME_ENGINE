@@ -1,9 +1,0 @@
-id=fetch_herbs
-title=Gather Healing Herbs
-description=Collect herbs from the forest.
-giverNpcId=alric
-targetItemId=herb
-targetRegionId=forest_region
-targetCount=3
-rewardItemId=iron_sword
-rewardGold=25

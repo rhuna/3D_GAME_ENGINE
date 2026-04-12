@@ -1,8 +1,0 @@
-id=guard_01
-displayName=Village Guard
-regionId=village_region
-dialogueId=alric_intro
-questId=
-factionId=guards
-routineId=guard_daily
-homeRegionId=village_region

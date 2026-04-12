@@ -1,5 +1,0 @@
-id=forager_daily
-step=5,11,Foraging,forest_edge
-step=11,17,Gathering,forest_clearing
-step=17,22,Return Trip,forest_path
-step=22,5,Sleep,cabin
