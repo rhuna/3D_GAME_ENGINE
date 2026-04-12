@@ -1,0 +1,18 @@
+{
+  "factions": [
+    {
+      "id": "town_guard",
+      "hostileAtOrBelow": -50,
+      "unfriendlyAtOrBelow": -10,
+      "friendlyAtOrAbove": 25,
+      "alliedAtOrAbove": 75
+    },
+    {
+      "id": "herbalist_circle",
+      "hostileAtOrBelow": -40,
+      "unfriendlyAtOrBelow": -5,
+      "friendlyAtOrAbove": 20,
+      "alliedAtOrAbove": 60
+    }
+  ]
+}

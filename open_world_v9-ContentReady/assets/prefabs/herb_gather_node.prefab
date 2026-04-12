@@ -1,0 +1,17 @@
+{
+  "id": "herb_gather_node",
+  "displayName": "Herb Gather Node",
+  "components": {
+    "Transform": {
+      "position": [0, 0, 0],
+      "scale": [1, 1, 1]
+    },
+    "GatherNode": {
+      "nodeId": "herb_node_01",
+      "resourceId": "green_herb",
+      "remainingUses": 1,
+      "respawnSeconds": 180.0,
+      "harvested": false
+    }
+  }
+}

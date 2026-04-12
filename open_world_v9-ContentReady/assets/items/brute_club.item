@@ -1,0 +1,7 @@
+id=brute_club
+displayName=Brute Club
+type=weapon
+description=Heavy club.
+value=22
+equipSlot=weapon
+attack=18

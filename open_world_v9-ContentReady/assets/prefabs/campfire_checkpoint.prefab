@@ -1,0 +1,5 @@
+name=campfire_checkpoint
+tag=save_point
+model=cube
+scale=1.2,0.6,1.2
+color=255,120,70,255

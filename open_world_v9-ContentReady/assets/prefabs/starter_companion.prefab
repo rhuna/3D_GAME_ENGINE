@@ -1,0 +1,6 @@
+{
+  "id": "starter_companion",
+  "displayName": "Field Scout",
+  "role": "companion",
+  "notes": "Starter companion scaffold for v39 party runtime work."
+}
