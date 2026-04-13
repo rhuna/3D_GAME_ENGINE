@@ -1,0 +1,13 @@
+{
+  "id": "starter_vale_branch_rewards",
+  "options": [
+    {
+      "conditionFlag": "helped_mara_first",
+      "rewardId": "wolf_brush_bonus"
+    },
+    {
+      "conditionFlag": "reported_to_guard",
+      "rewardId": "wolf_brush_supplies"
+    }
+  ]
+}

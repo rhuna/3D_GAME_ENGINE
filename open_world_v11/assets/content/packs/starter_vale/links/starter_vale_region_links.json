@@ -1,0 +1,16 @@
+{
+  "links": [
+    {
+      "from": "starter_vale",
+      "to": "western_trail",
+      "entryMarker": "starter_gate_west",
+      "exitMarker": "trail_gate_east"
+    },
+    {
+      "from": "western_trail",
+      "to": "river_crossing",
+      "entryMarker": "trail_bridge_west",
+      "exitMarker": "river_bridge_east"
+    }
+  ]
+}

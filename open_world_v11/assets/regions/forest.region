@@ -1,0 +1,5 @@
+id=forest_region
+displayName=Whispering Forest
+sceneFile=forest_region.scene
+safeZone=false
+ambientMusicId=forest_theme

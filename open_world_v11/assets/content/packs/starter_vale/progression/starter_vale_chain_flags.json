@@ -1,0 +1,9 @@
+{
+  "flags": [
+    "starter_vale_chain_started",
+    "starter_vale_gather_complete",
+    "starter_vale_craft_complete",
+    "starter_vale_report_complete",
+    "starter_vale_chain_complete"
+  ]
+}

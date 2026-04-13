@@ -1,0 +1,8 @@
+{
+  "id": "western_trail",
+  "displayName": "Western Trail",
+  "encounters": ["wolf_brush_chain", "trail_bandits"],
+  "merchants": ["roving_trader_len"],
+  "gatherNodes": ["trail_herb_patch", "trail_mushroom_patch"],
+  "craftingStations": ["trail_campfire_station"]
+}

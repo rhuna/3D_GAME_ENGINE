@@ -1,0 +1,83 @@
+🧱 STARTER VALE PRODUCTION CHECKLIST
+
+Use this like a mission list. Don’t move on until each section is complete.
+
+✅ PHASE 1 — WORLD SETUP
+ Starter Vale region loads correctly
+ Player spawn point works
+ Camera and controls feel correct
+ Save point placed in town
+ Travel exit to next region exists
+👤 PHASE 2 — NPCS
+Mara (Herbalist)
+ NPC spawns correctly
+ Intro dialogue works
+ Quest is offered
+ Dialogue updates after progress
+ Acts as merchant
+Tomas (Guard)
+ NPC spawns correctly
+ Gives directional guidance
+ Reacts to quest progress
+ Controls access to next region
+🌿 PHASE 3 — GATHERING
+ Herb nodes placed in logical locations
+ Player can interact with nodes
+ Items added to inventory
+ Node visually updates (harvested state)
+ Nodes persist after save/load
+🎒 PHASE 4 — INVENTORY
+ Items appear correctly
+ Stack behavior works
+ UI updates properly
+ No duplicate or ghost items
+ Items persist after reload
+⚒️ PHASE 5 — CRAFTING
+ Crafting UI opens correctly
+ Recipe appears (Field Medicine)
+ Correct materials required
+ Craft succeeds and adds item
+ Crafted item usable or recognized
+🛒 PHASE 6 — MERCHANT
+ Shop opens from Mara
+ Items listed correctly
+ Buying works
+ Selling works
+ Currency updates correctly
+📜 PHASE 7 — QUEST CHAIN
+First Medicine Quest
+ Talk to Mara → quest starts
+ Objective: gather herbs
+ Objective updates when herbs collected
+ Craft medicine step triggers
+ Return to Mara completes quest
+ Reward granted
+ Next step unlocked
+🐺 PHASE 8 — ENCOUNTER
+ Wolf encounter spawns correctly
+ Enemy AI behaves correctly
+ Combat works
+ Enemy drops loot
+ Encounter resets or persists correctly
+💾 PHASE 9 — PERSISTENCE
+ Save game works
+ Reload keeps:
+ inventory
+ quest progress
+ harvested nodes
+ defeated enemies
+ unlocked regions
+🌍 PHASE 10 — PROGRESSION
+ Completing quest unlocks trail
+ Tomas reacts to completion
+ Player can move to next region
+ No dead ends in gameplay
+🎯 FINAL VALIDATION
+
+Play from start to finish:
+
+ Player knows what to do at all times
+ No broken interactions
+ No missing UI feedback
+ Loop feels smooth
+ Game is playable for 15–20 minutes

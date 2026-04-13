@@ -1,0 +1,8 @@
+{
+  "region": "western_trail",
+  "hooks": [
+    {"event": "help_trader", "faction": "merchants_guild", "delta": 5},
+    {"event": "clear_bandits", "faction": "village_guard", "delta": 4},
+    {"event": "rob_trader", "faction": "merchants_guild", "delta": -10}
+  ]
+}

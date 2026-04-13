@@ -1,0 +1,9 @@
+scene=forest_region
+spawn=prefab=ground;position=0,0,0;scale=4,1,4;color=80,120,80,255
+spawn=prefab=item_pickup_herb;tag=gather_marker;position=3,1,6
+spawn=prefab=item_pickup_herb;tag=gather_marker;position=10,1,-2
+spawn=prefab=encounter_wolf;position=8,1,10
+spawn=prefab=encounter_bandit;position=12,1,-12
+spawn=prefab=region_exit;tag=travel_marker;position=25,1,0
+spawn=prefab=region_exit;tag=travel_marker;position=-25,1,0
+spawn=prefab=save_point;tag=save_point;position=0,1,12

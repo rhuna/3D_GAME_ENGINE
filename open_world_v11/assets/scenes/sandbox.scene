@@ -1,0 +1,25 @@
+# 3D_GAME_ENGINE scene file
+scene=sandbox
+
+spawn=prefab=ground; position=0.0,-0.5,0.0; scale=20.0,1.0,20.0
+spawn=prefab=player; position=0.0,2.0,0.0
+spawn=variant=crate_blue; position=-4.4,2.5,-4.4
+spawn=variant=crate_red; position=-2.2,3.5,-4.4
+spawn=variant=crate_tall; position=0.0,4.5,-4.4
+spawn=variant=crate_blue; position=2.2,2.5,-4.4
+spawn=variant=crate_red; position=4.4,3.5,-4.4
+spawn=variant=crate_red; position=-4.4,2.8,-2.2
+spawn=variant=crate_blue; position=-2.2,4.0,-2.2
+spawn=variant=crate_tall; position=2.2,2.4,-2.2
+spawn=variant=crate_red; position=4.4,3.1,-2.2
+spawn=variant=crate_tall; position=-4.4,4.3,2.2
+spawn=variant=crate_blue; position=-2.2,2.4,2.2
+spawn=variant=crate_red; position=2.2,3.8,2.2
+spawn=variant=crate_blue; position=4.4,2.2,2.2
+spawn=variant=crate_red; position=-4.4,2.9,4.4
+spawn=variant=crate_tall; position=-2.2,4.8,4.4
+spawn=variant=crate_blue; position=0.0,2.7,4.4
+spawn=variant=crate_red; position=2.2,3.4,4.4
+spawn=variant=crate_blue; position=4.4,2.3,4.4
+
+spawn=variant=crate_blue_large;tag=crate_blue_large;position=6.0,1.0,-2.0

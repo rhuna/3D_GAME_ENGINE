@@ -1,0 +1,5 @@
+{
+  "prefabId": "starter_save_point",
+  "displayName": "Traveler Stone",
+  "components": ["Transform", "SavePoint", "InteractionPrompt"]
+}
