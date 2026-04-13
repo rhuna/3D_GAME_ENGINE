@@ -1,0 +1,21 @@
+{
+  "rewardId": "wolf_brush_bonus",
+  "displayName": "Brush Path Bonus",
+  "entries": [
+    {
+      "type": "item",
+      "value": "field_bandage",
+      "quantity": 2
+    },
+    {
+      "type": "currency",
+      "value": "starter_coin",
+      "quantity": 20
+    },
+    {
+      "type": "reputation",
+      "value": "town_guard",
+      "quantity": 4
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "starter_vale_loot",
+  "entries": [
+    {
+      "itemId": "herb",
+      "weight": 10
+    },
+    {
+      "itemId": "coin_pouch",
+      "weight": 5
+    },
+    {
+      "itemId": "scrap_cloth",
+      "weight": 7
+    }
+  ]
+}

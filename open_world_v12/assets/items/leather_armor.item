@@ -1,0 +1,7 @@
+id=leather_armor
+displayName=Leather Armor
+type=armor
+description=Basic armor.
+value=18
+equipSlot=armor
+defense=5

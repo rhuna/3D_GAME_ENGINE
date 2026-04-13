@@ -1,0 +1,5 @@
+name=encounter_wolf
+tag=enemy
+model=cube
+scale=1.6,0.8,2.0
+color=110,110,125,255

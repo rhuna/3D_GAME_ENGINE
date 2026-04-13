@@ -1,0 +1,22 @@
+{
+  "id": "western_trail_broken_cart_lod",
+  "type": "static_prop",
+  "lod": {
+    "groupId": "broken_cart_lod",
+    "levels": [
+      {
+        "modelPath": "assets/models/props/western_trail/broken_cart_high.glb",
+        "maxDistance": 20.0
+      },
+      {
+        "modelPath": "assets/models/props/western_trail/broken_cart_mid.glb",
+        "maxDistance": 50.0
+      },
+      {
+        "modelPath": "assets/models/props/western_trail/broken_cart_low.glb",
+        "maxDistance": 120.0
+      }
+    ]
+  },
+  "materialBudget": "wagon_painted_wood"
+}

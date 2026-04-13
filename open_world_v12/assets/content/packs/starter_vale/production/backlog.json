@@ -1,0 +1,9 @@
+{
+  "pack": "starter_vale",
+  "tasks": [
+    {"id": "expand_mara_dialogue", "category": "quest", "status": "todo"},
+    {"id": "add_western_trail_encounters", "category": "encounter", "status": "todo"},
+    {"id": "tune_merchant_prices", "category": "merchant", "status": "todo"},
+    {"id": "validate_savepoints", "category": "persistence", "status": "todo"}
+  ]
+}

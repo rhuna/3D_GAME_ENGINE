@@ -1,0 +1,6 @@
+# V58 asset registry
+# Format:
+# asset=<id>;type=<model|texture|shader>;path=<relative path>
+
+asset=placeholder_crate_model;type=model;path=assets/models/.keep
+asset=placeholder_ground_texture;type=texture;path=assets/models/.keep
