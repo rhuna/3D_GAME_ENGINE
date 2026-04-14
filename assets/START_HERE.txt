@@ -1,0 +1,27 @@
+START HERE
+==========
+
+This version is focused on building your game from asset-authored regions instead of hardcoded C++ layouts.
+
+Edit these files first:
+  assets/game.project
+  assets/regions/starter_village.json
+  assets/regions/starter_forest.json
+  assets/quests/clear_the_path.quest
+  assets/npcs/village_elder.npc
+  assets/items/iron_sword.item
+
+Region workflow:
+  1) Copy one of the starter region json files.
+  2) Change id, displayName, links, and layout data.
+  3) Add enemies, travel points, gather nodes, and props in the layout section.
+  4) Set start_region in assets/game.project when you want a different opening area.
+
+Runtime shortcuts:
+  E = interact
+  Left mouse = attack
+  I = equipment panel
+  TAB = quest log
+  F5/F9 = save/load profile
+  O/P = save/load world state
+  F6 = create any missing starter files again

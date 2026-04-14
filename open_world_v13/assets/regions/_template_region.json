@@ -1,0 +1,23 @@
+{
+  "id": "new_region_id",
+  "displayName": "New Region",
+  "scene": "new_region_scene",
+  "description": "Describe this region.",
+  "ambientMusicId": "region_theme",
+  "safeZone": false,
+  "links": [
+    { "targetRegion": "starter_village", "anchorId": "return_gate" }
+  ],
+  "layout": {
+    "playerSpawn": [0, 1, 0],
+    "props": [
+      { "type": "box", "position": [0, 0.5, 0], "size": [50, 1, 50], "color": [100, 120, 100, 255] }
+    ],
+    "npcSpawns": [[0, 1, 4]],
+    "gatherPoints": [[4, 1, 4]],
+    "travelPoints": [[-20, 1, 0], [20, 1, 0]],
+    "enemySpawns": [
+      { "position": [8, 1, 6], "type": "wolf" }
+    ]
+  }
+}

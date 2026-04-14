@@ -314,10 +314,24 @@ bool BuildAssetWorkshop::SaveGroupAsKit(const World& world, const EditorSelectio
         return false;
     }
 
+    std::ostringstream kit;
+    kit << "id=" << kitName << "\n";
+    kit << "name=" << kitName << "\n";
+    kit << "displayName=" << kitName << "\n";
+    kit << "category=generated\n";
+    kit << "tags=generated,kit,build\n";
+    kit << "scene=" << scenePath << "\n";
+    kit << "favorite=false\n";
+    const std::string kitPath = "assets/scenes/generated/" + kitName + ".kit";
+    if (!FileSystem::WriteTextFile(kitPath, kit.str())) {
+        m_statusText = "Failed to write kit metadata: " + kitPath;
+        return false;
+    }
+
     scenes.LoadFromDirectory("assets/scenes");
     m_lastSavedKitPath = scenePath;
-    m_statusText = "Saved kit. Use spawn=kit=" + kitName + ";position=x,y,z in a scene.";
-    Logger::Info("V66", "Saved asset kit: " + scenePath);
+    m_statusText = "Saved V69 kit scene + metadata. Open Visual Builder > Kits to place it.";
+    Logger::Info("V69", "Saved asset kit: " + scenePath);
     return true;
 }
 
@@ -394,7 +408,7 @@ void BuildAssetWorkshop::Draw(const World& world, const EditorSelection& selecti
     const Rectangle panel = PanelBounds();
     DrawRectangleRec(panel, Color{0, 0, 0, 190});
     DrawRectangleLinesEx(panel, 2.0f, Fade(ORANGE, 0.80f));
-    DrawText("V66 Build Asset Workshop", static_cast<int>(panel.x) + 12, static_cast<int>(panel.y) + 10, 22, RAYWHITE);
+    DrawText("V69 Build Asset Workshop", static_cast<int>(panel.x) + 12, static_cast<int>(panel.y) + 10, 22, RAYWHITE);
 
     int y = static_cast<int>(panel.y) + 42;
     DrawText(TextFormat("F9 toggle | B stamp | 1-4 shape | Ctrl+P save kit"), static_cast<int>(panel.x) + 12, y, 18, LIGHTGRAY); y += 26;
@@ -406,8 +420,8 @@ void BuildAssetWorkshop::Draw(const World& world, const EditorSelection& selecti
 
     DrawText(TextFormat("Kit name: %s", m_kitName), static_cast<int>(panel.x) + 12, y, 20, YELLOW); y += 26;
     DrawText("Actions: G add/remove selected, H remove, Ctrl+D duplicate, M mirror group", static_cast<int>(panel.x) + 12, y, 18, LIGHTGRAY); y += 24;
-    DrawText("Save result: assets/scenes/generated/<kit>.scene", static_cast<int>(panel.x) + 12, y, 18, LIGHTGRAY); y += 24;
-    DrawText("Then use spawn=kit=<kit>;position=x,y,z in any scene.", static_cast<int>(panel.x) + 12, y, 18, LIGHTGRAY); y += 28;
+    DrawText("Save result: assets/scenes/generated/<kit>.scene + .kit", static_cast<int>(panel.x) + 12, y, 18, LIGHTGRAY); y += 24;
+    DrawText("Then place it directly from Visual Builder > Kits or use spawn=kit=<kit>.", static_cast<int>(panel.x) + 12, y, 18, LIGHTGRAY); y += 28;
 
     Color statusColor = world.Entities().empty() ? LIGHTGRAY : SKYBLUE;
     DrawText(m_statusText.empty() ? "Ready." : m_statusText.c_str(), static_cast<int>(panel.x) + 12, y, 18, statusColor);

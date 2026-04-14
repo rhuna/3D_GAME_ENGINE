@@ -1,0 +1,6 @@
+Fixes the OpenWorldRuntimeScene type mismatch introduced by struct-based region layout data.
+
+Changes:
+- Converts layout->npcSpawns entries to Vector3 with GetLayoutPosition(...)
+- Converts layout->gatherPoints into state.gatherPoints using BuildPositionList(...)
+- Works with either plain Vector3 layout arrays or struct entries that expose .position

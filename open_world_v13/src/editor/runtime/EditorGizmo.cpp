@@ -3,6 +3,7 @@
 #include <cstdio>
 
 #include "core/Application.h"
+#include "core/Hotkeys.h"
 #include "ecs/World.h"
 #include "ecs/components/RenderComponent.h"
 #include "ecs/components/TransformComponent.h"
@@ -54,9 +55,9 @@ void EditorGizmo::Update(Application& app, World& world, EditorSelection& select
     selection.PruneDead(world);
     if (!selection.HasSelection(world)) return;
 
-    if (IsKeyPressed(KEY_W) || IsKeyPressed(KEY_ONE)) m_mode = GizmoMode::Translate;
-    if (IsKeyPressed(KEY_E) || IsKeyPressed(KEY_TWO)) m_mode = GizmoMode::Rotate;
-    if (IsKeyPressed(KEY_R) || IsKeyPressed(KEY_THREE)) m_mode = GizmoMode::Scale;
+    if (hotkeys::ToggleTranslateGizmoPressed()) m_mode = GizmoMode::Translate;
+    if (hotkeys::ToggleRotateGizmoPressed()) m_mode = GizmoMode::Rotate;
+    if (hotkeys::ToggleScaleGizmoPressed()) m_mode = GizmoMode::Scale;
 
     Vector3 translationDelta {0.0f, 0.0f, 0.0f};
     Vector3 rotationDelta {0.0f, 0.0f, 0.0f};
@@ -67,26 +68,26 @@ void EditorGizmo::Update(Application& app, World& world, EditorSelection& select
     const float scaleSpeed = kScaleSpeed * deltaTime;
 
     if (m_mode == GizmoMode::Translate) {
-        if (IsKeyDown(KEY_J)) translationDelta.x -= moveSpeed;
-        if (IsKeyDown(KEY_L)) translationDelta.x += moveSpeed;
-        if (IsKeyDown(KEY_I)) translationDelta.z -= moveSpeed;
-        if (IsKeyDown(KEY_K)) translationDelta.z += moveSpeed;
-        if (IsKeyDown(KEY_U)) translationDelta.y += moveSpeed;
-        if (IsKeyDown(KEY_O)) translationDelta.y -= moveSpeed;
+        if (IsKeyDown(KEY_KP_4)) translationDelta.x -= moveSpeed;
+        if (IsKeyDown(KEY_KP_6)) translationDelta.x += moveSpeed;
+        if (IsKeyDown(KEY_KP_8)) translationDelta.z -= moveSpeed;
+        if (IsKeyDown(KEY_KP_5)) translationDelta.z += moveSpeed;
+        if (IsKeyDown(KEY_KP_9)) translationDelta.y += moveSpeed;
+        if (IsKeyDown(KEY_KP_7)) translationDelta.y -= moveSpeed;
     } else if (m_mode == GizmoMode::Rotate) {
-        if (IsKeyDown(KEY_J)) rotationDelta.y -= rotateSpeed;
-        if (IsKeyDown(KEY_L)) rotationDelta.y += rotateSpeed;
-        if (IsKeyDown(KEY_I)) rotationDelta.x -= rotateSpeed;
-        if (IsKeyDown(KEY_K)) rotationDelta.x += rotateSpeed;
-        if (IsKeyDown(KEY_U)) rotationDelta.z -= rotateSpeed;
-        if (IsKeyDown(KEY_O)) rotationDelta.z += rotateSpeed;
+        if (IsKeyDown(KEY_KP_4)) rotationDelta.y -= rotateSpeed;
+        if (IsKeyDown(KEY_KP_6)) rotationDelta.y += rotateSpeed;
+        if (IsKeyDown(KEY_KP_8)) rotationDelta.x -= rotateSpeed;
+        if (IsKeyDown(KEY_KP_5)) rotationDelta.x += rotateSpeed;
+        if (IsKeyDown(KEY_KP_9)) rotationDelta.z -= rotateSpeed;
+        if (IsKeyDown(KEY_KP_7)) rotationDelta.z += rotateSpeed;
     } else {
-        if (IsKeyDown(KEY_L)) scaleDelta.x += scaleSpeed;
-        if (IsKeyDown(KEY_J)) scaleDelta.x -= scaleSpeed;
-        if (IsKeyDown(KEY_U)) scaleDelta.y += scaleSpeed;
-        if (IsKeyDown(KEY_O)) scaleDelta.y -= scaleSpeed;
-        if (IsKeyDown(KEY_I)) scaleDelta.z += scaleSpeed;
-        if (IsKeyDown(KEY_K)) scaleDelta.z -= scaleSpeed;
+        if (IsKeyDown(KEY_KP_6)) scaleDelta.x += scaleSpeed;
+        if (IsKeyDown(KEY_KP_4)) scaleDelta.x -= scaleSpeed;
+        if (IsKeyDown(KEY_KP_9)) scaleDelta.y += scaleSpeed;
+        if (IsKeyDown(KEY_KP_7)) scaleDelta.y -= scaleSpeed;
+        if (IsKeyDown(KEY_KP_8)) scaleDelta.z += scaleSpeed;
+        if (IsKeyDown(KEY_KP_5)) scaleDelta.z -= scaleSpeed;
     }
 
     const Vector3 pivot = GroupPivot(world, selection);
@@ -158,10 +159,10 @@ void EditorGizmo::Draw(const World& world, const EditorSelection& selection) con
     DrawText("V68 Gizmo", 20, 440, 24, RAYWHITE);
 
     char buffer[256];
-    std::snprintf(buffer, sizeof(buffer), "Mode: %s  (W/E/R or 1/2/3)  Selected: %d", GizmoModeName(m_mode), static_cast<int>(selection.SelectedEntities().size()));
+    std::snprintf(buffer, sizeof(buffer), "Mode: %s  (Alt+W / Alt+E / Alt+R)  Selected: %d", GizmoModeName(m_mode), static_cast<int>(selection.SelectedEntities().size()));
     DrawText(buffer, 20, 470, 20, RAYWHITE);
-    DrawText("Ctrl+drag = box select | Ctrl+D = duplicate group | M = mirror X | Delete = remove", 20, 496, 18, LIGHTGRAY);
-    DrawText("J/L = X axis | I/K = Z axis | U/O = Y axis", 20, 518, 18, LIGHTGRAY);
+    DrawText("Ctrl+drag = box select | Ctrl+D = duplicate group | Ctrl+M = mirror X | Ctrl+Delete = remove", 20, 496, 18, LIGHTGRAY);
+    DrawText("Numpad 4/6 = X axis | 8/5 = Z axis | 9/7 = Y axis", 20, 518, 18, LIGHTGRAY);
 }
 
 } // namespace fw

@@ -1,0 +1,28 @@
+{
+  "id": "starter_forest",
+  "displayName": "Starter Forest",
+  "scene": "starter_forest_scene",
+  "description": "Your first combat and quest region.",
+  "ambientMusicId": "forest_theme",
+  "safeZone": false,
+  "links": [
+    { "targetRegion": "starter_village", "anchorId": "west_gate" }
+  ],
+  "layout": {
+    "playerSpawn": [-18, 1, 0],
+    "props": [
+      { "type": "box", "position": [0, 0.5, 0], "size": [70, 1, 70], "color": [55, 105, 60, 255] },
+      { "type": "cylinder", "position": [-10, 2, -10], "size": [1.2, 4, 1.2], "color": [80, 130, 70, 255] },
+      { "type": "cylinder", "position": [6, 2, -14], "size": [1.6, 4, 1.6], "color": [75, 140, 75, 255] },
+      { "type": "box", "position": [-4, 0.6, 12], "size": [4, 1.2, 3], "color": [120, 90, 60, 255] }
+    ],
+    "npcSpawns": [[-6, 1, 4]],
+    "gatherPoints": [[3, 1, 6], [10, 1, -2], [-12, 1, -4]],
+    "travelPoints": [[-25, 1, 0]],
+    "enemySpawns": [
+      { "position": [8, 1, 10], "type": "wolf" },
+      { "position": [-10, 1, -8], "type": "wolf" },
+      { "position": [12, 1, -12], "type": "raider" }
+    ]
+  }
+}

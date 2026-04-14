@@ -1,5 +1,0 @@
-{
-  "prefabId": "starter_herb_node",
-  "displayName": "Wild Herb Patch",
-  "components": ["Transform", "GatherNode", "InteractionPrompt"]
-}

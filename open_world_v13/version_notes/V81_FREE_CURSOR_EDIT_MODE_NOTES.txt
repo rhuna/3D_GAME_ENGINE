@@ -1,0 +1,3 @@
+V81 fixes edit-mode cursor capture in OpenWorldRuntimeScene.
+When the visual builder/editor menu is open, the scene now respects editor mode by enabling the cursor and suppressing gameplay mouse-look and character movement input.
+This keeps the mouse free for the edit UI instead of feeling stuck to the character.

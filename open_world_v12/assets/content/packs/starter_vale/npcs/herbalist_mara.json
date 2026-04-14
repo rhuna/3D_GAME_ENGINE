@@ -1,8 +1,0 @@
-{
-  "id": "herbalist_mara",
-  "displayName": "Mara the Herbalist",
-  "role": "merchant",
-  "faction": "herbalists",
-  "prefab": "starter_merchant",
-  "scene": "starter_hut_interior"
-}

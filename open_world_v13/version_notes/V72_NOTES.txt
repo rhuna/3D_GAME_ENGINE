@@ -1,0 +1,20 @@
+V72 - Content Authoring Upgrade
+
+What changed:
+- RegionLayoutDatabase now supports loading layout data from assets/regions/*.json
+- Layout data is now the source of truth for:
+  - player spawn
+  - props
+  - NPC spawn ids
+  - gather resource ids
+  - travel destinations and destination spawns
+  - enemy spawn positions/types
+- OpenWorldRuntimeScene now loads layout files from assets/regions after fallback defaults
+- 1-9 debug region switching now uses the actual loaded region list instead of fixed region ids
+- Starter scaffold now writes:
+  - assets/regions/starter_village.json
+  - assets/regions/starter_forest.json
+  - assets/regions/_template_region.json
+
+Why this version matters:
+This removes another major layer of C++ editing when making the game. You can now build regions by copying a JSON file and changing content data instead of modifying RegionLayoutDatabase.cpp every time.

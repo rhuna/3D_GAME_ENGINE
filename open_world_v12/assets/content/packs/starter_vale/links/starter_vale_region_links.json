@@ -1,8 +1,0 @@
-{
-    "links": [{
-        "id": "vale_to_western_trail",
-        "fromRegion": "starter_vale_core",
-        "toRegion": "western_trail",
-        "entryAnchor": "from_vale"
-    }]
-}

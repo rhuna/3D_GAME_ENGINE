@@ -1,8 +1,0 @@
-{
-  "enableLOD": true,
-  "enableVisibilityCulling": true,
-  "enableChunkStreaming": true,
-  "enableMaterialBudgetValidation": true,
-  "enableAnimationRuntime": true,
-  "enableStreamingTooling": true
-}

@@ -1,8 +1,0 @@
-id=mira
-displayName=Mira
-regionId=forest_region
-dialogueId=alric_intro
-questId=
-factionId=villagers
-routineId=forager_daily
-homeRegionId=forest_region

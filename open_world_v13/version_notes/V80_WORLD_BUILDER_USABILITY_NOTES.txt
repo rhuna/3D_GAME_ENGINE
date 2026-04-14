@@ -1,0 +1,22 @@
+V80 world builder usability patch
+
+Goals:
+- organize the build menu around a clear user workflow
+- keep the cursor free while the builder is open
+- separate camera controls from menu controls
+- make common tools easy to find
+
+Key changes:
+- Build/Create tabs
+- category rail: Terrain, Structures, Props, Gameplay, Edit
+- curated tool buttons with short descriptions
+- placement toggle separate from tool selection
+- grid-snapped placement on X/Z
+- free cursor in builder mode
+- camera pan with Middle Mouse Button in builder mode
+- camera orbit with Alt + Right Mouse Button in builder mode
+- duplicate/delete actions available from the Edit category
+
+Notes:
+- this patch targets UI organization and cursor behavior first
+- terrain buttons are placeholder workflow entries in this pass; they currently place the floor builder piece

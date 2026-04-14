@@ -1,0 +1,9 @@
+id=leather_armor
+displayName=Leather Armor
+type=armor
+description=Simple armor for a first zone hero.
+equipSlot=armor
+value=20
+attack=0
+defense=4
+heal=0

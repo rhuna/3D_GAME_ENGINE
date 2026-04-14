@@ -12,6 +12,7 @@
 #include "editor/runtime/EditorGizmo.h"
 #include "editor/runtime/EditorSceneAuthoring.h"
 #include "editor/runtime/InspectorPanel.h"
+#include "editor/ui/VisualBuilderPanel.h"
 #include "editor/validation/ContentValidator.h"
 #include "gameplay/prefabs/PrefabLibrary.h"
 #include "gameplay/registry/SystemRegistry.h"
@@ -33,6 +34,8 @@ public:
     void ReloadStartScene();
     void RunContentValidation();
     void ExportCurrentScene();
+    void DuplicateSelectionFromBuilder();
+    void DeleteSelectionFromBuilder();
 
     [[nodiscard]] const EngineConfig& GetConfig() const { return m_config; }
     [[nodiscard]] Time& GetTime() { return m_time; }
@@ -55,6 +58,8 @@ public:
     [[nodiscard]] bool IsDebugOverlayEnabled() const { return m_showDebugOverlay; }
     [[nodiscard]] bool IsInspectorVisible() const { return m_showInspector; }
     [[nodiscard]] bool IsMouseLookActive() const { return m_mouseLookActive; }
+    [[nodiscard]] bool IsVisualBuilderVisible() const { return m_visualBuilderPanel.IsVisible(); }
+    [[nodiscard]] bool IsEditorMenuModeActive() const { return m_editorMenuMode; }
     [[nodiscard]] const std::vector<ValidationMessage>& GetValidationMessages() const { return m_validationMessages; }
     [[nodiscard]] const std::string& GetLastExportPath() const { return m_lastExportPath; }
     [[nodiscard]] EditorSelection& GetEditorSelection() { return m_editorSelection; }
@@ -85,6 +90,7 @@ private:
     EditorSelection m_editorSelection {};
     EditorGizmo m_editorGizmo {};
     EditorSceneAuthoring m_editorAuthoring {};
+    VisualBuilderPanel m_visualBuilderPanel {};
     std::vector<ValidationMessage> m_validationMessages {};
     std::string m_lastExportPath;
     Camera3D m_camera {};
@@ -94,6 +100,7 @@ private:
     bool m_showDebugOverlay = true;
     bool m_showInspector = true;
     bool m_mouseLookActive = false;
+    bool m_editorMenuMode = false;
 };
 
 } // namespace fw

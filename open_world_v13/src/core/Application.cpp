@@ -1,5 +1,6 @@
 #include "core/Application.h"
 
+#include <algorithm>
 #include <cmath>
 #include <memory>
 
@@ -23,20 +24,41 @@ int Application::Run() {
         m_time.BeginFrame();
         m_input.BeginFrame();
 
-        if (m_input.IsKeyPressed(KEY_ESCAPE)) m_isRunning = false;
+        if (m_input.IsKeyPressed(KEY_F8)) {
+            m_visualBuilderPanel.ToggleVisible();
+            m_editorMenuMode = m_visualBuilderPanel.IsVisible();
+            EnableCursor();
+            ShowCursor();
+            m_mouseLookActive = false;
+        }
+
+        if (m_input.IsKeyPressed(KEY_ESCAPE)) {
+            if (m_visualBuilderPanel.IsVisible()) {
+                m_visualBuilderPanel.ToggleVisible();
+                m_editorMenuMode = false;
+                EnableCursor();
+                ShowCursor();
+                m_mouseLookActive = false;
+            } else {
+                m_isRunning = false;
+            }
+        }
+
         if (m_input.IsKeyPressed(KEY_F1)) m_showDebugOverlay = !m_showDebugOverlay;
-        if (m_input.IsKeyPressed(KEY_F2)) m_editorSelection.SelectNext(m_world);
+        const bool builderUiCapturing = m_visualBuilderPanel.IsVisible();
+
+        if (!builderUiCapturing && m_input.IsKeyPressed(KEY_F2)) m_editorSelection.SelectNext(m_world);
         m_editorSelection.PruneDead(m_world);
-        if (m_input.IsKeyPressed(KEY_F3)) ExportCurrentScene();
-        if (m_input.IsKeyPressed(KEY_F4)) RunContentValidation();
-        if (m_input.IsKeyPressed(KEY_F5)) ReloadStartScene();
-        if (m_input.IsKeyPressed(KEY_F6)) WorldSerializer::SaveToFile(m_world, "assets/saves/open_world_snapshot.txt");
-        if (m_input.IsKeyPressed(KEY_F7)) WorldSerializer::LoadFromFile(m_world, "assets/saves/open_world_snapshot.txt");
-        if (m_input.IsKeyPressed(KEY_TAB)) m_showInspector = !m_showInspector;
+        if (!builderUiCapturing && m_input.IsKeyPressed(KEY_F3)) ExportCurrentScene();
+        if (!builderUiCapturing && m_input.IsKeyPressed(KEY_F4)) RunContentValidation();
+        if (!builderUiCapturing && m_input.IsKeyPressed(KEY_F5)) ReloadStartScene();
+        if (!builderUiCapturing && m_input.IsKeyPressed(KEY_F6)) WorldSerializer::SaveToFile(m_world, "assets/saves/open_world_snapshot.txt");
+        if (!builderUiCapturing && m_input.IsKeyPressed(KEY_F7)) WorldSerializer::LoadFromFile(m_world, "assets/saves/open_world_snapshot.txt");
+        if (!builderUiCapturing && m_input.IsKeyPressed(KEY_TAB)) m_showInspector = !m_showInspector;
         if (m_input.IsKeyPressed(KEY_F11)) ToggleFullscreen();
 
         const bool ctrlDown = IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_RIGHT_CONTROL);
-        if (!m_mouseLookActive && ctrlDown && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+        if (!m_mouseLookActive && !builderUiCapturing && ctrlDown && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
             m_editorSelection.BeginBoxSelect(GetMousePosition());
         }
         if (m_editorSelection.IsBoxSelecting()) {
@@ -46,12 +68,14 @@ int Application::Run() {
             }
         }
 
-        if (ctrlDown && m_input.IsKeyPressed(KEY_D)) DuplicateSelectionGroup();
-        if (m_input.IsKeyPressed(KEY_M)) MirrorSelectionGroupX();
-        if (m_input.IsKeyPressed(KEY_DELETE)) DeleteSelectionGroup();
+        if (!builderUiCapturing && ctrlDown && m_input.IsKeyPressed(KEY_D)) DuplicateSelectionGroup();
+        if (!builderUiCapturing && m_input.IsKeyPressed(KEY_M)) MirrorSelectionGroupX();
+        if (!builderUiCapturing && m_input.IsKeyPressed(KEY_DELETE)) DeleteSelectionGroup();
 
         UpdateCameraController(m_time.DeltaTime());
         m_sceneManager.Update(*this, m_time.DeltaTime());
+        m_visualBuilderPanel.Update(*this, m_world, m_editorSelection, m_prefabs, m_sceneLibrary);
+        m_editorMenuMode = m_visualBuilderPanel.IsVisible();
         m_editorAuthoring.Update(*this, m_world, m_editorSelection, m_prefabs, m_sceneLibrary);
         m_editorGizmo.Update(*this, m_world, m_editorSelection, m_time.DeltaTime());
         if (m_showInspector) m_inspectorPanel.Update(*this, m_world, m_editorSelection, m_time.DeltaTime());
@@ -80,12 +104,11 @@ int Application::Run() {
         if (m_showInspector) {
             m_inspectorPanel.Draw(m_world, m_editorSelection);
         }
+        m_visualBuilderPanel.Draw(*this, m_prefabs, m_sceneLibrary);
 
-        if (!m_mouseLookActive) {
-            const Vector2 mousePos = GetMousePosition();
-            DrawCircleV(mousePos, 4.0f, SKYBLUE);
-            DrawCircleLines(static_cast<int>(mousePos.x), static_cast<int>(mousePos.y), 10.0f, Fade(SKYBLUE, 0.75f));
-        }
+        const Vector2 mousePos = GetMousePosition();
+        DrawCircleV(mousePos, 4.0f, SKYBLUE);
+        DrawCircleLines(static_cast<int>(mousePos.x), static_cast<int>(mousePos.y), 10.0f, Fade(SKYBLUE, 0.75f));
 
         m_renderer.EndFrame();
     }
@@ -113,6 +136,13 @@ void Application::ExportCurrentScene() {
     }
 }
 
+void Application::DuplicateSelectionFromBuilder() {
+    DuplicateSelectionGroup();
+}
+
+void Application::DeleteSelectionFromBuilder() {
+    DeleteSelectionGroup();
+}
 
 void Application::DuplicateSelectionGroup() {
     const auto selected = m_editorSelection.SelectedEntities();
@@ -213,12 +243,58 @@ void Application::Shutdown() {
 }
 
 void Application::UpdateCameraController(float deltaTime) {
+    if (m_visualBuilderPanel.IsVisible()) {
+        EnableCursor();
+        ShowCursor();
+        m_mouseLookActive = false;
+
+        const Vector3 forward = Vector3Normalize(Vector3Subtract(m_camera.target, m_camera.position));
+        Vector3 right = Vector3Normalize(Vector3CrossProduct(forward, m_camera.up));
+        if (Vector3Length(right) < 0.0001f) {
+            right = Vector3{1.0f, 0.0f, 0.0f};
+        }
+
+        if (IsMouseButtonDown(MOUSE_BUTTON_MIDDLE)) {
+            const Vector2 delta = GetMouseDelta();
+            const float panScale = 0.03f * m_config.cameraMoveSpeed;
+            const Vector3 moveRight = Vector3Scale(right, -delta.x * panScale);
+            const Vector3 moveUp = Vector3Scale(Vector3{0.0f, 1.0f, 0.0f}, delta.y * panScale);
+            const Vector3 move = Vector3Add(moveRight, moveUp);
+            m_camera.position = Vector3Add(m_camera.position, move);
+            m_camera.target = Vector3Add(m_camera.target, move);
+        }
+
+        const bool orbiting = (IsKeyDown(KEY_LEFT_ALT) || IsKeyDown(KEY_RIGHT_ALT)) && IsMouseButtonDown(MOUSE_BUTTON_RIGHT);
+        if (orbiting) {
+            const float distance = std::max(Vector3Distance(m_camera.position, m_camera.target), 0.0001f);
+            float yaw = std::atan2f(m_camera.target.x - m_camera.position.x, m_camera.target.z - m_camera.position.z);
+            float pitch = std::asinf((m_camera.target.y - m_camera.position.y) / distance);
+
+            const Vector2 delta = GetMouseDelta();
+            yaw -= delta.x * m_config.cameraLookSensitivity;
+            pitch += delta.y * m_config.cameraLookSensitivity;
+            const float limit = 1.2f;
+            if (pitch > limit) pitch = limit;
+            if (pitch < -limit) pitch = -limit;
+
+            const Vector3 offset {
+                std::sinf(yaw) * std::cosf(pitch) * distance,
+                std::sinf(pitch) * distance,
+                std::cosf(yaw) * std::cosf(pitch) * distance
+            };
+            m_camera.position = Vector3Subtract(m_camera.target, offset);
+        }
+
+        return;
+    }
+
     const bool activateLook = m_input.IsMouseButtonDown(MOUSE_BUTTON_RIGHT);
     if (activateLook && !m_mouseLookActive) {
         DisableCursor();
         m_mouseLookActive = true;
     } else if (!activateLook && m_mouseLookActive) {
         EnableCursor();
+        ShowCursor();
         m_mouseLookActive = false;
     }
 

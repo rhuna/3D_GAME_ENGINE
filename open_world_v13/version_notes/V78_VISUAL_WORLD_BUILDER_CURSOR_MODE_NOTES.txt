@@ -1,0 +1,13 @@
+V78 Visual World Builder - Cursor/Menu Mode
+
+What changed
+- F8 now opens the Visual Builder in a dedicated editor menu mode.
+- While the builder is open, the cursor is always enabled.
+- Right-mouse camera look is disabled while the builder is open.
+- World selection/authoring hotkeys are suppressed while the builder is open.
+- Builder clicks no longer bleed into world box selection or editor actions underneath the panel.
+- Scene save for authoring is on F9 while F8 is reserved for builder toggle.
+
+Why
+- Makes environment creation feel separated from normal world navigation.
+- Lets you use the mouse directly in the edit menu without fighting camera/world input.

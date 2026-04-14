@@ -1,7 +1,0 @@
-{
-  "id": "wolf_brush",
-  "displayName": "Wolf Brush Ambush",
-  "spawnPrefab": "starter_wolf",
-  "count": 2,
-  "scene": "starter_vale"
-}

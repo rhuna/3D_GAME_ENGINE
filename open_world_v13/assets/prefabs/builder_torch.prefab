@@ -1,0 +1,13 @@
+name=builder_torch
+tag=prop
+visible=true
+drawCube=true
+drawSphere=false
+primitiveShape=cube
+scale=0.2,1.8,0.2
+cubeSize=1.0
+sphereRadius=0.5
+color=210,145,60,255
+colliderHalfExtents=0.1,0.9,0.1
+colliderIsTrigger=false
+colliderIsStatic=true

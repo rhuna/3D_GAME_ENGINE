@@ -1,0 +1,11 @@
+V76 HUD controls key patch
+
+What changed:
+- Adds a compact bottom-left key strip to the open-world HUD.
+- Adds a full controls legend in the top-right corner.
+- Press F1 to show/hide the full legend.
+- The legend matches the active v13 runtime keys in OpenWorldRuntimeScene.cpp.
+
+Patched files:
+- src/game/ui/OpenWorldHud.cpp
+- src/game/ui/OpenWorldHud.h

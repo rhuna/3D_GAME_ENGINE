@@ -1,0 +1,9 @@
+id=healing_potion
+displayName=Healing Potion
+type=consumable
+description=Restores health when used.
+equipSlot=
+value=12
+attack=0
+defense=0
+heal=25

@@ -1,0 +1,9 @@
+id=iron_sword
+displayName=Iron Sword
+type=weapon
+description=A dependable starter weapon.
+equipSlot=weapon
+value=25
+attack=10
+defense=0
+heal=0

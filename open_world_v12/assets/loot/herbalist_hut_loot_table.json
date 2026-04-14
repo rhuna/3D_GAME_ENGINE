@@ -1,8 +1,0 @@
-{
-  "id": "herbalist_hut_loot",
-  "drops": [
-    { "itemId": "green_herb", "minQuantity": 1, "maxQuantity": 3, "weight": 5.0 },
-    { "itemId": "cloth_wrap", "minQuantity": 1, "maxQuantity": 1, "weight": 2.0 },
-    { "itemId": "glass_vial", "minQuantity": 1, "maxQuantity": 2, "weight": 1.0 }
-  ]
-}

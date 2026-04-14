@@ -1,0 +1,15 @@
+V75 redo patch for open_world_v13
+
+This redo patch replaces RegionEcsLoader.cpp with a version that matches the actual
+current RegionLayoutDatabase.h types in v13:
+- npcSpawns: std::vector<Vector3>
+- gatherPoints: std::vector<Vector3>
+- travelPoints: std::vector<Vector3>
+- enemySpawns: std::vector<EnemySpawn>
+
+Main fixes:
+- removes broken struct-field assumptions like point.resourceId on Vector3
+- uses actual Vector3 point variables for NPC/gather/travel markers
+- uses RegionDefinition.links as the preferred source for travel destinations
+- keeps a legacy fallback for starter_village / starter_forest / ruins_region routes
+- preserves scene spawn, save-point tagging, and gather-marker tagging

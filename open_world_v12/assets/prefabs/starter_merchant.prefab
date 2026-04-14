@@ -1,5 +1,0 @@
-{
-  "prefabId": "starter_merchant",
-  "displayName": "Vale Herbalist",
-  "components": ["Transform", "Merchant", "InteractionPrompt"]
-}

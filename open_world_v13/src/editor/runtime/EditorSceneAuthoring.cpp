@@ -25,10 +25,12 @@ void EditorSceneAuthoring::Update(Application& app, World& world, EditorSelectio
     };
 
     const bool mouseLookActive = app.IsMouseLookActive();
+    const bool builderVisible = app.IsVisualBuilderVisible();
+    const bool editorMenuMode = app.IsEditorMenuModeActive();
     const bool mouseOverInspector = app.IsInspectorVisible() && GetMouseX() <= 430 && GetMouseY() >= 200 && GetMouseY() <= 420;
     const bool ctrlDown = IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_RIGHT_CONTROL);
 
-    if (!mouseLookActive && !mouseOverInspector) {
+    if (!mouseLookActive && !mouseOverInspector && !builderVisible && !editorMenuMode) {
         selection.SetHovered(EditorPicking::PickEntity(world, app.GetCamera()));
 
         if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
@@ -80,11 +82,11 @@ void EditorSceneAuthoring::Update(Application& app, World& world, EditorSelectio
         Logger::Info("Editor variant changed to: " + m_currentVariantName);
     }
 
-    if (IsKeyPressed(KEY_INSERT) || IsKeyPressed(KEY_N)) {
+    if (!builderVisible && !editorMenuMode && (IsKeyPressed(KEY_INSERT) || IsKeyPressed(KEY_N))) {
         SpawnSelectedVariant(world, selection, prefabs);
     }
 
-    if (IsKeyPressed(KEY_DELETE) && selection.HasSelection(world)) {
+    if (!builderVisible && !editorMenuMode && IsKeyPressed(KEY_DELETE) && selection.HasSelection(world)) {
         const std::vector<Entity> toDelete = selection.SelectedEntities();
         for (Entity entity : toDelete) {
             if (world.IsAlive(entity)) world.DestroyEntity(entity);
@@ -93,11 +95,11 @@ void EditorSceneAuthoring::Update(Application& app, World& world, EditorSelectio
         Logger::Info("Deleted selected editor group.");
     }
 
-    if (ctrlDown && IsKeyPressed(KEY_D) && selection.HasSelection(world)) {
+    if (!builderVisible && !editorMenuMode && ctrlDown && IsKeyPressed(KEY_D) && selection.HasSelection(world)) {
         SpawnSelectedVariant(world, selection, prefabs);
     }
 
-    if ((ctrlDown && IsKeyPressed(KEY_S)) || IsKeyPressed(KEY_F8)) {
+    if (!builderVisible && !editorMenuMode && ((ctrlDown && IsKeyPressed(KEY_S)) || IsKeyPressed(KEY_F9))) {
         SaveNamedScene(world, prefabs, scenes, "sandbox_edited", "assets/scenes/sandbox_edited.scene");
     }
 }

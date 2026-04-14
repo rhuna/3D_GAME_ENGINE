@@ -1,0 +1,13 @@
+name=builder_wall
+tag=structure
+visible=true
+drawCube=true
+drawSphere=false
+primitiveShape=cube
+scale=2.0,2.5,0.35
+cubeSize=1.0
+sphereRadius=0.5
+color=150,128,105,255
+colliderHalfExtents=1.0,1.25,0.175
+colliderIsTrigger=false
+colliderIsStatic=true

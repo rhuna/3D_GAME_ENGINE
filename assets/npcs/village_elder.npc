@@ -1,0 +1,7 @@
+id=village_elder
+displayName=Village Elder
+regionId=starter_village
+dialogueId=village_elder_intro
+questId=clear_the_path
+factionId=villagers
+homeRegionId=starter_village

@@ -7,18 +7,20 @@ namespace fw {
 namespace {
 constexpr int kTrackedKeys[] = {
     KEY_W, KEY_A, KEY_S, KEY_D,
-    KEY_Q, KEY_E,
+    KEY_Q, KEY_E, KEY_R, KEY_C, KEY_M,
     KEY_LEFT_SHIFT, KEY_RIGHT_SHIFT,
-    KEY_SPACE, KEY_R,
+    KEY_LEFT_CONTROL, KEY_RIGHT_CONTROL,
+    KEY_LEFT_ALT, KEY_RIGHT_ALT,
+    KEY_SPACE,
     KEY_ESCAPE,
-    KEY_F1, KEY_F2, KEY_F3, KEY_F4, KEY_F5, KEY_F6, KEY_F7, KEY_F8,
+    KEY_F1, KEY_F2, KEY_F3, KEY_F4, KEY_F5, KEY_F6, KEY_F7, KEY_F8, KEY_F9, KEY_F10, KEY_F11,
     KEY_TAB,
     KEY_ONE, KEY_TWO, KEY_THREE,
     KEY_J, KEY_K, KEY_L, KEY_I, KEY_U, KEY_O,
     KEY_LEFT_BRACKET, KEY_RIGHT_BRACKET,
     KEY_N, KEY_INSERT,
-    KEY_DELETE,
-    KEY_ENTER, KEY_P
+    KEY_DELETE, KEY_BACKSPACE,
+    KEY_ENTER, KEY_P, KEY_S
 };
 
 constexpr int kTrackedMouseButtons[] = {

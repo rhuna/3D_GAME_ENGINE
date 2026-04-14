@@ -1,0 +1,29 @@
+{
+  "id": "starter_village",
+  "displayName": "Starter Village",
+  "scene": "starter_village_scene",
+  "description": "A safe starting hub with a quest giver, merchant, and the road to the forest.",
+  "ambientMusicId": "village_theme",
+  "safeZone": true,
+  "links": [
+    { "targetRegion": "starter_forest", "anchorId": "east_gate" }
+  ],
+  "layout": {
+    "playerSpawn": [0.0, 1.0, 0.0],
+    "props": [
+      { "type": "box", "position": [0.0, 0.5, 0.0], "size": [48.0, 1.0, 48.0], "color": [94, 126, 86] },
+      { "type": "box", "position": [-8.0, 2.0, -5.0], "size": [6.0, 4.0, 6.0], "color": [148, 110, 72] },
+      { "type": "box", "position": [8.0, 2.0, 4.0], "size": [5.0, 4.0, 5.0], "color": [138, 102, 64] },
+      { "type": "cylinder", "position": [3.0, 2.0, -9.0], "size": [1.6, 4.0, 1.6], "color": [82, 150, 84] }
+    ],
+    "npcSpawns": [
+      { "npcId": "village_elder", "position": [2.0, 1.0, -2.0] },
+      { "npcId": "shopkeeper_mira", "position": [-4.5, 1.0, 2.5] }
+    ],
+    "gatherPoints": [ [7.5, 1.0, 7.0] ],
+    "travelPoints": [
+      { "position": [18.0, 1.0, 0.0], "targetRegion": "starter_forest", "anchorId": "east_gate", "destinationSpawn": [-18.0, 1.0, 0.0] }
+    ],
+    "enemySpawns": []
+  }
+}

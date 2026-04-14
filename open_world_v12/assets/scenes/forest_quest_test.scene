@@ -1,7 +1,0 @@
-# v15 exploration test scene
-entity prefab=ground position=0,-0.5,0 scale=64,1,64
-entity prefab=player position=0,1.5,8
-entity prefab=quest_giver_villager position=2,1.0,12
-entity prefab=item_pickup_herb position=-6,1.0,-4
-entity prefab=chest_loot position=8,1.0,-10
-entity prefab=enemy_walker position=0,1.0,-18

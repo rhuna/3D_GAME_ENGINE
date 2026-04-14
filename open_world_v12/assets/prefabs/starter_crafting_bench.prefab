@@ -1,5 +1,0 @@
-{
-  "prefabId": "starter_crafting_bench",
-  "displayName": "Field Bench",
-  "components": ["Transform", "CraftingStation", "InteractionPrompt"]
-}

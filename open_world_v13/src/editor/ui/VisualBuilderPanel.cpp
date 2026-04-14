@@ -1,6 +1,7 @@
 #include "editor/ui/VisualBuilderPanel.h"
 
 #include <algorithm>
+#include <array>
 #include <cmath>
 #include <filesystem>
 #include <sstream>
@@ -28,10 +29,6 @@ bool PointInRect(const Rectangle& rect, Vector2 point) {
 
 Rectangle MakeRow(float x, float y, float width, float height) {
     return Rectangle{x, y, width, height};
-}
-
-std::string StripExtension(const std::string& filePath) {
-    return std::filesystem::path(filePath).stem().string();
 }
 
 Vector3 MouseToGround(const Camera3D& camera, float groundY, bool& hit) {
@@ -99,6 +96,62 @@ bool VisualBuilderPanel::IsMouseOverUi() const {
     return m_visible && PointInRect(m_bounds, GetMousePosition());
 }
 
+void VisualBuilderPanel::BuildDefaultPresets() {
+    if (!m_presets.empty()) return;
+
+    m_presets = {
+        {"Raise", "builder_floor", "Raise terrain block", BuildCategory::Terrain},
+        {"Lower", "builder_floor", "Lower terrain block", BuildCategory::Terrain},
+        {"Flatten", "builder_floor", "Flatten an area", BuildCategory::Terrain},
+
+        {"Floor", "builder_floor", "Place floor tile", BuildCategory::Structures},
+        {"Wall", "builder_wall", "Place wall section", BuildCategory::Structures},
+        {"Door", "builder_door", "Place door marker", BuildCategory::Structures},
+
+        {"Crate", "builder_crate", "Place crate prop", BuildCategory::Props},
+        {"Barrel", "builder_barrel", "Place barrel prop", BuildCategory::Props},
+        {"Torch", "builder_torch", "Place torch prop", BuildCategory::Props},
+        {"Table", "builder_table", "Place table prop", BuildCategory::Props},
+        {"Chest", "chest_small", "Place loot chest", BuildCategory::Props},
+
+        {"NPC", "npc_villager", "Place NPC", BuildCategory::Gameplay},
+        {"Enemy", "enemy_spawner_marker", "Place enemy marker", BuildCategory::Gameplay},
+        {"Gather", "herb_gather_node", "Place gather node", BuildCategory::Gameplay},
+        {"Exit", "region_exit", "Place region exit", BuildCategory::Gameplay},
+
+        {"Duplicate", "", "Duplicate current selection", BuildCategory::Edit},
+        {"Delete", "", "Delete current selection", BuildCategory::Edit}
+    };
+}
+
+std::vector<std::size_t> VisualBuilderPanel::FilteredPresetIndices() const {
+    std::vector<std::size_t> result;
+    for (std::size_t i = 0; i < m_presets.size(); ++i) {
+        if (m_presets[i].category == m_activeCategory) {
+            result.push_back(i);
+        }
+    }
+    return result;
+}
+
+const char* VisualBuilderPanel::CategoryLabel(BuildCategory category) const {
+    switch (category) {
+        case BuildCategory::Terrain: return "Terrain";
+        case BuildCategory::Structures: return "Structures";
+        case BuildCategory::Props: return "Props";
+        case BuildCategory::Gameplay: return "Gameplay";
+        case BuildCategory::Edit: return "Edit";
+    }
+    return "Unknown";
+}
+
+const char* VisualBuilderPanel::ActivePlacementLabel() const {
+    if (m_selectedPresetIndex < 0 || m_selectedPresetIndex >= static_cast<int>(m_presets.size())) {
+        return "No tool selected";
+    }
+    return m_presets[static_cast<std::size_t>(m_selectedPresetIndex)].label.c_str();
+}
+
 void VisualBuilderPanel::RefreshCaches(const PrefabLibrary& prefabs, const SceneLibrary& scenes) {
     m_prefabNames.clear();
     m_variantNames.clear();
@@ -112,10 +165,10 @@ void VisualBuilderPanel::RefreshCaches(const PrefabLibrary& prefabs, const Scene
     std::sort(m_variantNames.begin(), m_variantNames.end());
     std::sort(m_sceneNames.begin(), m_sceneNames.end());
 
-    if (m_selectedPrefabIndex >= m_prefabNames.size()) m_selectedPrefabIndex = 0;
-    if (m_selectedVariantIndex >= m_variantNames.size()) m_selectedVariantIndex = 0;
     if (m_selectedSceneIndex >= m_sceneNames.size()) m_selectedSceneIndex = 0;
 
+    BuildDefaultPresets();
+    if (m_selectedPresetIndex >= static_cast<int>(m_presets.size())) m_selectedPresetIndex = -1;
     m_needsRefresh = false;
 }
 
@@ -151,53 +204,49 @@ void VisualBuilderPanel::Update(Application& app, World& world, EditorSelection&
         RefreshCaches(prefabs, scenes);
     }
 
-    const Rectangle placeTabRect {m_bounds.x + 10.0f, m_bounds.y + 10.0f, 110.0f, 36.0f};
-    const Rectangle createTabRect {m_bounds.x + 126.0f, m_bounds.y + 10.0f, 110.0f, 36.0f};
-    if (PointInRect(placeTabRect, GetMousePosition()) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) m_activeTab = Tab::Place;
+    const Rectangle buildTabRect {m_bounds.x + 10.0f, m_bounds.y + 10.0f, 120.0f, 36.0f};
+    const Rectangle createTabRect {m_bounds.x + 136.0f, m_bounds.y + 10.0f, 120.0f, 36.0f};
+    if (PointInRect(buildTabRect, GetMousePosition()) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) m_activeTab = Tab::Build;
     if (PointInRect(createTabRect, GetMousePosition()) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) m_activeTab = Tab::Create;
 
-    if (m_activeTab == Tab::Place) {
-        HandlePlaceTab(app, world, selection, prefabs, scenes);
+    if (m_activeTab == Tab::Build) {
+        HandleBuildTab(app, world, selection, prefabs, scenes);
     } else {
         HandleCreateTab(app, prefabs);
     }
 }
 
-void VisualBuilderPanel::HandlePlaceTab(Application& app, World& world, EditorSelection& selection, PrefabLibrary& prefabs, SceneLibrary& scenes) {
-    const float left = m_bounds.x + 14.0f;
-    float y = m_bounds.y + 62.0f;
+void VisualBuilderPanel::HandleBuildTab(Application& app, World& world, EditorSelection& selection, PrefabLibrary& prefabs, SceneLibrary& scenes) {
+    const float left = m_bounds.x + 16.0f;
+    const float top = m_bounds.y + 68.0f;
 
-    const Rectangle modePrefabRect = MakeRow(left, y, 110.0f, 30.0f);
-    const Rectangle modeVariantRect = MakeRow(left + 116.0f, y, 110.0f, 30.0f);
-    if (Button(modePrefabRect, m_useVariantPlacement ? "Use Prefab" : "Prefab Mode")) {
-        m_useVariantPlacement = false;
-    }
-    if (Button(modeVariantRect, m_useVariantPlacement ? "Variant Mode" : "Use Variant")) {
-        m_useVariantPlacement = true;
-    }
+    const std::array<BuildCategory, 5> categories = {
+        BuildCategory::Terrain,
+        BuildCategory::Structures,
+        BuildCategory::Props,
+        BuildCategory::Gameplay,
+        BuildCategory::Edit
+    };
 
-    y += 42.0f;
-    if (!m_useVariantPlacement) {
-        if (!m_prefabNames.empty()) {
-            if (Button(MakeRow(left, y, 36.0f, 28.0f), "<") && m_selectedPrefabIndex > 0) --m_selectedPrefabIndex;
-            if (Button(MakeRow(left + 300.0f, y, 36.0f, 28.0f), ">") && (m_selectedPrefabIndex + 1) < m_prefabNames.size()) ++m_selectedPrefabIndex;
-        }
-    } else {
-        if (!m_variantNames.empty()) {
-            if (Button(MakeRow(left, y, 36.0f, 28.0f), "<") && m_selectedVariantIndex > 0) --m_selectedVariantIndex;
-            if (Button(MakeRow(left + 300.0f, y, 36.0f, 28.0f), ">") && (m_selectedVariantIndex + 1) < m_variantNames.size()) ++m_selectedVariantIndex;
+    for (std::size_t i = 0; i < categories.size(); ++i) {
+        const Rectangle rect = MakeRow(left, top + 44.0f * static_cast<float>(i), 150.0f, 34.0f);
+        if (Button(rect, CategoryLabel(categories[i]))) {
+            m_activeCategory = categories[i];
+            m_statusMessage = std::string("Category: ") + CategoryLabel(categories[i]);
         }
     }
 
-    if (Button(MakeRow(left, y + 40.0f, 150.0f, 32.0f), m_clickPlaceEnabled ? "Placement: ON" : "Placement: OFF")) {
+    if (Button(MakeRow(left, top + 240.0f, 150.0f, 34.0f), m_clickPlaceEnabled ? "Placement: ON" : "Placement: OFF")) {
         m_clickPlaceEnabled = !m_clickPlaceEnabled;
-    }
-    if (Button(MakeRow(left + 160.0f, y + 40.0f, 150.0f, 32.0f), "Refresh Lists")) {
-        m_needsRefresh = true;
-        m_statusMessage = "Refreshed content lists";
+        m_statusMessage = m_clickPlaceEnabled ? "Placement enabled. Click the world to stamp the selected tool." : "Placement disabled. Menu only mode.";
     }
 
-    if (Button(MakeRow(left, y + 84.0f, 150.0f, 32.0f), "Save Scene As")) {
+    if (Button(MakeRow(left, top + 284.0f, 150.0f, 34.0f), "Refresh Lists")) {
+        m_needsRefresh = true;
+        m_statusMessage = "Refreshed content lists.";
+    }
+
+    if (Button(MakeRow(left, top + 328.0f, 150.0f, 34.0f), "Save Scene")) {
         const std::string sceneName = !m_sceneNames.empty() ? m_sceneNames[m_selectedSceneIndex] + "_edited" : "sandbox_edited";
         const std::string scenePath = "assets/scenes/" + sceneName + ".scene";
         if (SceneExporter::ExportWorldAsScene(world, prefabs, sceneName, scenePath)) {
@@ -205,15 +254,48 @@ void VisualBuilderPanel::HandlePlaceTab(Application& app, World& world, EditorSe
             m_statusMessage = "Saved scene: " + sceneName;
             m_needsRefresh = true;
         } else {
-            m_statusMessage = "Scene save failed";
+            m_statusMessage = "Scene save failed.";
         }
     }
 
-    const bool canPlace = m_clickPlaceEnabled && !app.IsMouseLookActive() && !IsMouseOverUi();
+    const auto presetIndices = FilteredPresetIndices();
+    const float gridX = left + 176.0f;
+    const float gridY = top;
+    const float buttonW = 150.0f;
+    const float buttonH = 48.0f;
+    const float gap = 12.0f;
+
+    for (std::size_t i = 0; i < presetIndices.size(); ++i) {
+        const std::size_t presetIndex = presetIndices[i];
+        const int row = static_cast<int>(i / 3);
+        const int col = static_cast<int>(i % 3);
+        const Rectangle rect = MakeRow(gridX + col * (buttonW + gap), gridY + row * (buttonH + gap), buttonW, buttonH);
+        if (Button(rect, m_presets[presetIndex].label.c_str())) {
+            m_selectedPresetIndex = static_cast<int>(presetIndex);
+            m_statusMessage = m_presets[presetIndex].description;
+
+            if (m_presets[presetIndex].category == BuildCategory::Edit) {
+                if (m_presets[presetIndex].label == "Duplicate") {
+                    app.DuplicateSelectionFromBuilder();
+                } else if (m_presets[presetIndex].label == "Delete") {
+                    app.DeleteSelectionFromBuilder();
+                }
+            }
+        }
+    }
+
+    const bool canPlace = m_clickPlaceEnabled
+        && m_selectedPresetIndex >= 0
+        && m_selectedPresetIndex < static_cast<int>(m_presets.size())
+        && m_presets[static_cast<std::size_t>(m_selectedPresetIndex)].category != BuildCategory::Edit
+        && !IsMouseOverUi();
+
     if (canPlace && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
         bool hit = false;
-        const Vector3 position = MouseToGround(app.GetCamera(), 0.0f, hit);
+        Vector3 position = MouseToGround(app.GetCamera(), 0.0f, hit);
         if (hit) {
+            position.x = std::round(position.x);
+            position.z = std::round(position.z);
             SpawnPlacement(world, selection, prefabs, position);
         }
     }
@@ -311,17 +393,21 @@ bool VisualBuilderPanel::SavePrimitiveVariant(PrefabLibrary& prefabs) const {
 }
 
 void VisualBuilderPanel::SpawnPlacement(World& world, EditorSelection& selection, PrefabLibrary& prefabs, const Vector3& position) const {
-    Entity entity = 0;
-    if (!m_useVariantPlacement && !m_prefabNames.empty()) {
-        entity = spawn::SpawnFromPrefab(world, prefabs, m_prefabNames[m_selectedPrefabIndex]);
-    } else if (m_useVariantPlacement && !m_variantNames.empty()) {
-        entity = spawn::SpawnFromVariant(world, prefabs, m_variantNames[m_selectedVariantIndex]);
-    }
+    if (m_selectedPresetIndex < 0 || m_selectedPresetIndex >= static_cast<int>(m_presets.size())) return;
 
+    const PlacementPreset& preset = m_presets[static_cast<std::size_t>(m_selectedPresetIndex)];
+    if (preset.prefabName.empty()) return;
+
+    Entity entity = spawn::SpawnFromPrefab(world, prefabs, preset.prefabName);
     if (entity == 0) return;
+
     if (TransformComponent* transform = world.GetComponent<TransformComponent>(entity)) {
         transform->position = position;
-        if (transform->position.y == 0.0f) {
+        if (preset.label == "Wall") {
+            transform->position.y = std::max(transform->scale.y * 0.5f, 1.0f);
+        } else if (preset.label == "Torch") {
+            transform->position.y = 1.5f;
+        } else if (transform->position.y == 0.0f) {
             transform->position.y = transform->scale.y * 0.5f;
         }
     }
@@ -336,23 +422,62 @@ void VisualBuilderPanel::Draw(Application& app, const PrefabLibrary& prefabs, co
 
     DrawRectangleRounded(m_bounds, 0.02f, 8, Color{18, 24, 34, 240});
     DrawRectangleRoundedLinesEx(m_bounds, 0.02f, 8, 1.0f, SKYBLUE);
-    DrawText("V64 Visual Builder", static_cast<int>(m_bounds.x + 14.0f), static_cast<int>(m_bounds.y + 14.0f), 22, RAYWHITE);
+    DrawText("V80 Visual World Builder", static_cast<int>(m_bounds.x + 14.0f), static_cast<int>(m_bounds.y + 14.0f), 22, RAYWHITE);
+    DrawText("Pick category  ->  pick tool  ->  click world", static_cast<int>(m_bounds.x + 280.0f), static_cast<int>(m_bounds.y + 18.0f), 18, LIGHTGRAY);
 
-    const Rectangle placeTabRect {m_bounds.x + 10.0f, m_bounds.y + 40.0f, 110.0f, 36.0f};
-    const Rectangle createTabRect {m_bounds.x + 126.0f, m_bounds.y + 40.0f, 110.0f, 36.0f};
-    DrawHeaderTab(placeTabRect, "Place", Tab::Place);
+    const Rectangle buildTabRect {m_bounds.x + 10.0f, m_bounds.y + 40.0f, 120.0f, 36.0f};
+    const Rectangle createTabRect {m_bounds.x + 136.0f, m_bounds.y + 40.0f, 120.0f, 36.0f};
+    DrawHeaderTab(buildTabRect, "Build", Tab::Build);
     DrawHeaderTab(createTabRect, "Create", Tab::Create);
 
-    const float left = m_bounds.x + 14.0f;
-    if (m_activeTab == Tab::Place) {
-        DrawText("Placement mode", static_cast<int>(left), static_cast<int>(m_bounds.y + 88.0f), 18, LIGHTGRAY);
-        const std::string currentName = !m_useVariantPlacement
-            ? (m_prefabNames.empty() ? std::string("<no prefabs>") : m_prefabNames[m_selectedPrefabIndex])
-            : (m_variantNames.empty() ? std::string("<no variants>") : m_variantNames[m_selectedVariantIndex]);
-        DrawText(currentName.c_str(), static_cast<int>(left + 50.0f), static_cast<int>(m_bounds.y + 140.0f), 20, GOLD);
-        DrawText(m_clickPlaceEnabled ? "Left-click ground to place" : "Enable placement to stamp into the world", static_cast<int>(left), static_cast<int>(m_bounds.y + 190.0f), 18, LIGHTGRAY);
-        DrawText("Use F8 to open/close this panel.", static_cast<int>(left), static_cast<int>(m_bounds.y + 228.0f), 18, LIGHTGRAY);
-        DrawText(m_statusMessage.c_str(), static_cast<int>(left), static_cast<int>(m_bounds.y + 494.0f), 18, SKYBLUE);
+    const float left = m_bounds.x + 16.0f;
+    const float top = m_bounds.y + 68.0f;
+
+    if (m_activeTab == Tab::Build) {
+        DrawText("Categories", static_cast<int>(left), static_cast<int>(top - 18.0f), 18, LIGHTGRAY);
+        const std::array<BuildCategory, 5> categories = {
+            BuildCategory::Terrain,
+            BuildCategory::Structures,
+            BuildCategory::Props,
+            BuildCategory::Gameplay,
+            BuildCategory::Edit
+        };
+        for (std::size_t i = 0; i < categories.size(); ++i) {
+            const Rectangle rect = MakeRow(left, top + 44.0f * static_cast<float>(i), 150.0f, 34.0f);
+            const bool active = categories[i] == m_activeCategory;
+            DrawRectangleRec(rect, active ? Color{52, 83, 135, 255} : Color{28, 34, 45, 255});
+            DrawRectangleLinesEx(rect, 1.0f, SKYBLUE);
+            DrawText(CategoryLabel(categories[i]), static_cast<int>(rect.x + 10.0f), static_cast<int>(rect.y + 8.0f), 18, active ? RAYWHITE : LIGHTGRAY);
+        }
+
+        DrawText("Tools", static_cast<int>(left + 176.0f), static_cast<int>(top - 18.0f), 18, LIGHTGRAY);
+        const auto presetIndices = FilteredPresetIndices();
+        const float gridX = left + 176.0f;
+        const float gridY = top;
+        const float buttonW = 150.0f;
+        const float buttonH = 48.0f;
+        const float gap = 12.0f;
+        for (std::size_t i = 0; i < presetIndices.size(); ++i) {
+            const std::size_t presetIndex = presetIndices[i];
+            const int row = static_cast<int>(i / 3);
+            const int col = static_cast<int>(i % 3);
+            const Rectangle rect = MakeRow(gridX + col * (buttonW + gap), gridY + row * (buttonH + gap), buttonW, buttonH);
+            const bool active = m_selectedPresetIndex == static_cast<int>(presetIndex);
+            DrawRectangleRec(rect, active ? Color{77, 112, 171, 255} : Color{28, 34, 45, 255});
+            DrawRectangleLinesEx(rect, 1.0f, SKYBLUE);
+            DrawText(m_presets[presetIndex].label.c_str(), static_cast<int>(rect.x + 10.0f), static_cast<int>(rect.y + 8.0f), 18, RAYWHITE);
+            DrawText(m_presets[presetIndex].description.c_str(), static_cast<int>(rect.x + 10.0f), static_cast<int>(rect.y + 26.0f), 12, LIGHTGRAY);
+        }
+
+        const Rectangle infoRect {left + 176.0f, m_bounds.y + 360.0f, 460.0f, 148.0f};
+        DrawRectangleRec(infoRect, Color{24, 30, 40, 220});
+        DrawRectangleLinesEx(infoRect, 1.0f, SKYBLUE);
+        DrawText(TextFormat("Active category: %s", CategoryLabel(m_activeCategory)), static_cast<int>(infoRect.x + 12.0f), static_cast<int>(infoRect.y + 10.0f), 18, RAYWHITE);
+        DrawText(TextFormat("Selected tool: %s", ActivePlacementLabel()), static_cast<int>(infoRect.x + 12.0f), static_cast<int>(infoRect.y + 34.0f), 18, GOLD);
+        DrawText(m_clickPlaceEnabled ? "Placement is ON. Left-click in the world to place." : "Placement is OFF. Use the menu without touching the world.", static_cast<int>(infoRect.x + 12.0f), static_cast<int>(infoRect.y + 60.0f), 16, LIGHTGRAY);
+        DrawText("Cursor: always free in builder mode.", static_cast<int>(infoRect.x + 12.0f), static_cast<int>(infoRect.y + 84.0f), 16, LIGHTGRAY);
+        DrawText("Camera: hold Middle Mouse to pan, Alt+Right Mouse to orbit.", static_cast<int>(infoRect.x + 12.0f), static_cast<int>(infoRect.y + 104.0f), 16, LIGHTGRAY);
+        DrawText(m_statusMessage.c_str(), static_cast<int>(infoRect.x + 12.0f), static_cast<int>(infoRect.y + 126.0f), 16, SKYBLUE);
     } else {
         DrawText("Primitive asset workshop", static_cast<int>(left), static_cast<int>(m_bounds.y + 88.0f), 18, LIGHTGRAY);
         const Rectangle prefabField {left, m_bounds.y + 108.0f, 260.0f, 30.0f};
@@ -365,11 +490,11 @@ void VisualBuilderPanel::Draw(Application& app, const PrefabLibrary& prefabs, co
         DrawText(m_draft.tag.c_str(), static_cast<int>(tagField.x + 8.0f), static_cast<int>(tagField.y + 7.0f), 18, RAYWHITE);
         DrawText(TextFormat("Shape: %s", m_draft.primitiveShape.c_str()), static_cast<int>(left + 280.0f), static_cast<int>(m_bounds.y + 115.0f), 18, GOLD);
         DrawText(TextFormat("Scale: %.2f %.2f %.2f", m_draft.scale.x, m_draft.scale.y, m_draft.scale.z), static_cast<int>(left), static_cast<int>(m_bounds.y + 214.0f), 18, LIGHTGRAY);
-        DrawRectangle(left, static_cast<int>(m_bounds.y + 258.0f), 110, 42, m_draft.color);
+        DrawRectangle(static_cast<int>(left), static_cast<int>(m_bounds.y + 258.0f), 110, 42, m_draft.color);
         DrawRectangleLines(static_cast<int>(left), static_cast<int>(m_bounds.y + 258.0f), 110, 42, WHITE);
         DrawText("Prefab name", static_cast<int>(left), static_cast<int>(m_bounds.y + 92.0f), 16, LIGHTGRAY);
         DrawText("Tag", static_cast<int>(left), static_cast<int>(m_bounds.y + 136.0f), 16, LIGHTGRAY);
-        DrawText(m_statusMessage.c_str(), static_cast<int>(left), static_cast<int>(m_bounds.y + 494.0f), 18, SKYBLUE);
+        DrawText(m_statusMessage.c_str(), static_cast<int>(left), static_cast<int>(m_bounds.y + 520.0f), 18, SKYBLUE);
     }
 }
 

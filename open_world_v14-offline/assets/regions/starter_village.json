@@ -1,0 +1,24 @@
+{
+  "id": "starter_village",
+  "displayName": "Starter Village",
+  "scene": "starter_village_scene",
+  "description": "The first safe hub for your game.",
+  "ambientMusicId": "village_theme",
+  "safeZone": true,
+  "links": [
+    { "targetRegion": "starter_forest", "anchorId": "east_gate" }
+  ],
+  "layout": {
+    "playerSpawn": [0, 1, 0],
+    "props": [
+      { "type": "box", "position": [0, 0.5, 0], "size": [48, 1, 48], "color": [95, 125, 85, 255] },
+      { "type": "box", "position": [-7, 2, -5], "size": [6, 4, 6], "color": [150, 110, 70, 255] },
+      { "type": "box", "position": [9, 2, 4], "size": [5, 4, 5], "color": [140, 100, 60, 255] },
+      { "type": "cylinder", "position": [4, 2, -10], "size": [1.5, 4, 1.5], "color": [90, 150, 80, 255] }
+    ],
+    "npcSpawns": [[2, 1, -2], [-5, 1, 3]],
+    "gatherPoints": [[8, 1, 8]],
+    "travelPoints": [[20, 1, 0]],
+    "enemySpawns": []
+  }
+}

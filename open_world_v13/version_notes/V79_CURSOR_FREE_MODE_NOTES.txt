@@ -1,0 +1,18 @@
+V79 - Free Cursor Builder Camera Mode
+
+What changed
+- Builder mode no longer ties cursor movement to camera look.
+- When the visual builder is open, the cursor stays free by default.
+- To orbit the camera while the builder is open, hold Alt + Right Mouse Button.
+- Releasing Alt or RMB restores the cursor to its original menu position.
+- Closing the builder also restores any temporary orbit state.
+
+Patched files
+- src/core/Application.h
+- src/core/Application.cpp
+
+How to use
+- F8 opens/closes the visual builder.
+- Move the mouse freely in the builder panel.
+- Hold Alt + RMB to temporarily orbit the camera.
+- Use E / Q while orbiting to move camera up / down, matching existing controls.

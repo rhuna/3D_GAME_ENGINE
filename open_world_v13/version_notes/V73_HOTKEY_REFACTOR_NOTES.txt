@@ -1,0 +1,45 @@
+V73 Hotkey Refactor Patch
+
+Goals:
+- separate gameplay, editor, and debug hotkeys
+- remove the biggest conflicts between world gameplay and editor authoring
+- stop number keys and common gameplay keys from also triggering editor actions
+
+New defaults:
+Gameplay
+- I = inventory
+- J = quest log
+- C = equipment / stats
+- Enter = advance dialogue
+- Escape = close dialogue
+- F5 = save profile
+- F9 = load profile
+
+Gameplay debug
+- Ctrl+1 / Ctrl+2 / Ctrl+3 = debug region jump
+- Ctrl+Shift+S = save world state snapshot
+- Ctrl+Shift+L = load world state snapshot
+- Ctrl+Shift+Backspace = reset current region
+- Ctrl+Shift+F6 = restore starter scaffold
+
+Editor
+- Alt+W = translate gizmo mode
+- Alt+E = rotate gizmo mode
+- Alt+R = scale gizmo mode
+- Numpad 4/6 = X axis
+- Numpad 8/5 = Z axis
+- Numpad 9/7 = Y axis
+- Ctrl+D = duplicate selection
+- Ctrl+M = mirror selection
+- Ctrl+Delete = delete selection
+- F10 = toggle inspector
+
+Application debug
+- F1 = debug overlay
+- Ctrl+F2 = select next editor entity
+- Ctrl+F3 = export scene
+- Ctrl+F4 = validate content
+- Ctrl+F5 = reload runtime scene
+- Ctrl+F6 = save world snapshot
+- Ctrl+F7 = load world snapshot
+- F11 = fullscreen

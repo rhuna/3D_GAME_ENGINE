@@ -2,6 +2,7 @@
 
 #include "core/Application.h"
 #include "core/Input.h"
+#include "core/Hotkeys.h"
 #include "raylib.h"
 
 namespace fw {
@@ -9,7 +10,7 @@ namespace fw {
 void DialogueSystem::Update(Application& app, World&, float) {
     if (!m_state) return;
     if (!m_state->dialogue.active) return;
-    if (app.GetInput().IsKeyPressed(KEY_Q)) {
+    if (hotkeys::DialogueClosePressed()) {
         m_state->dialogue.active = false;
     }
 }

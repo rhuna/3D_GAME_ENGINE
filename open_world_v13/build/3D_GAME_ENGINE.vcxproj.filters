@@ -58,6 +58,12 @@
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v13\src\editor\runtime\InspectorPanel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v13\src\editor\runtime\KitLibrary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v13\src\editor\runtime\KitPlacement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v13\src\editor\serialization\SceneExporter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

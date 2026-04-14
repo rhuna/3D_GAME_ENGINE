@@ -102,8 +102,15 @@ namespace fw
 
     void OpenWorldRuntimeScene::OnEnter(Application& app)
     {
-        (void)app;
-        DisableCursor();
+        if (app.IsEditorMenuModeActive() || app.IsVisualBuilderVisible())
+        {
+            EnableCursor();
+            ShowCursor();
+        }
+        else
+        {
+            DisableCursor();
+        }
 
         GameProjectDefinition bootstrapProject;
         GameStarterScaffold::EnsureStarterProject("assets", bootstrapProject);
@@ -113,7 +120,7 @@ namespace fw
         m_pipeline.LoadAll("assets");
         m_regionDebugOrder = BuildRegionDebugOrder(m_pipeline);
         m_routines.LoadFromDirectory("assets/routines");
-        m_layouts.LoadFromDirectory("assets/regions");
+        m_layouts.LoadDefaults();
         m_factionSystem.Reset();
         ApplyProjectBootstrap(m_project);
 
@@ -168,6 +175,15 @@ namespace fw
 
     void OpenWorldRuntimeScene::Update(Application& app, float dt)
     {
+        const bool editorMenuMode = app.IsEditorMenuModeActive() || app.IsVisualBuilderVisible();
+        if (editorMenuMode)
+        {
+            EnableCursor();
+            ShowCursor();
+            app.GetCamera() = m_camera;
+            return;
+        }
+
         m_interactionPrompt.clear();
         if (m_statusTextTimer > 0.0f) { m_statusTextTimer -= dt; if (m_statusTextTimer <= 0.0f) { m_statusText.clear(); m_statusTextTimer = 0.0f; } }
 
@@ -214,28 +230,31 @@ namespace fw
             RebuildRegionState(app);
         }
 
-        Vector2 md = GetMouseDelta();
-        m_cameraYaw += md.x * 0.003f;
-        m_cameraPitch -= md.y * 0.003f;
-        m_cameraPitch = std::clamp(m_cameraPitch, -0.6f, 1.0f);
-
-        Vector3 camForward = Vector3Normalize({sinf(m_cameraYaw) * cosf(m_cameraPitch), 0.0f, cosf(m_cameraYaw) * cosf(m_cameraPitch)});
-        Vector3 camRight = Vector3Normalize(Vector3CrossProduct(camForward, {0,1,0}));
-
-        Vector3 move{};
-        if (IsKeyDown(KEY_W)) move = Vector3Add(move, camForward);
-        if (IsKeyDown(KEY_S)) move = Vector3Subtract(move, camForward);
-        if (IsKeyDown(KEY_A)) move = Vector3Subtract(move, camRight);
-        if (IsKeyDown(KEY_D)) move = Vector3Add(move, camRight);
-
-        if (Vector3Length(move) > 0.001f)
+        if (!editorMenuMode)
         {
-            move = Vector3Normalize(move);
-            float speed = IsKeyDown(KEY_LEFT_SHIFT) ? 8.5f : 5.5f;
-            m_profile.playerPosition = Vector3Add(m_profile.playerPosition, Vector3Scale({move.x, 0.0f, move.z}, speed * dt));
-        }
+            Vector2 md = GetMouseDelta();
+            m_cameraYaw += md.x * 0.003f;
+            m_cameraPitch -= md.y * 0.003f;
+            m_cameraPitch = std::clamp(m_cameraPitch, -0.6f, 1.0f);
 
-        if (m_grounded && IsKeyPressed(KEY_SPACE)) { m_verticalVelocity = 6.5f; m_grounded = false; }
+            Vector3 camForward = Vector3Normalize({sinf(m_cameraYaw) * cosf(m_cameraPitch), 0.0f, cosf(m_cameraYaw) * cosf(m_cameraPitch)});
+            Vector3 camRight = Vector3Normalize(Vector3CrossProduct(camForward, {0,1,0}));
+
+            Vector3 move{};
+            if (IsKeyDown(KEY_W)) move = Vector3Add(move, camForward);
+            if (IsKeyDown(KEY_S)) move = Vector3Subtract(move, camForward);
+            if (IsKeyDown(KEY_A)) move = Vector3Subtract(move, camRight);
+            if (IsKeyDown(KEY_D)) move = Vector3Add(move, camRight);
+
+            if (Vector3Length(move) > 0.001f)
+            {
+                move = Vector3Normalize(move);
+                float speed = IsKeyDown(KEY_LEFT_SHIFT) ? 8.5f : 5.5f;
+                m_profile.playerPosition = Vector3Add(m_profile.playerPosition, Vector3Scale({move.x, 0.0f, move.z}, speed * dt));
+            }
+
+            if (m_grounded && IsKeyPressed(KEY_SPACE)) { m_verticalVelocity = 6.5f; m_grounded = false; }
+        }
         m_verticalVelocity -= 18.0f * dt;
         m_profile.playerPosition.y += m_verticalVelocity * dt;
         if (m_profile.playerPosition.y <= 1.0f) { m_profile.playerPosition.y = 1.0f; m_verticalVelocity = 0.0f; m_grounded = true; }

@@ -1,7 +1,0 @@
-{
-  "id": "trail_bandits",
-  "pattern": "bandit_ambush_light",
-  "faction": "bandits",
-  "recommendedLevel": 2,
-  "enemyPrefabs": ["encounter_bandit", "enemy_runner"]
-}

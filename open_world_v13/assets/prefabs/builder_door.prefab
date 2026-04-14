@@ -1,0 +1,13 @@
+name=builder_door
+tag=structure
+visible=true
+drawCube=true
+drawSphere=false
+primitiveShape=cube
+scale=1.25,2.2,0.25
+cubeSize=1.0
+sphereRadius=0.5
+color=110,72,42,255
+colliderHalfExtents=0.625,1.1,0.125
+colliderIsTrigger=false
+colliderIsStatic=true

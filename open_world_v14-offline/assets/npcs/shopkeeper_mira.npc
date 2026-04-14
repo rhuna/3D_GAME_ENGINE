@@ -1,0 +1,6 @@
+id=shopkeeper_mira
+displayName=Shopkeeper Mira
+regionId=starter_village
+dialogueId=shopkeeper_mira_intro
+factionId=villagers
+homeRegionId=starter_village

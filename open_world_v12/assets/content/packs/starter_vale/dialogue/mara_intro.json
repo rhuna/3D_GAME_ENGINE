@@ -1,9 +1,0 @@
-{
-  "id": "mara_intro",
-  "speaker": "herbalist_mara",
-  "lines": [
-    "I am short on field medicine again.",
-    "Bring me a fresh batch and I will pay you for your trouble."
-  ],
-  "grantsQuest": "first_medicine"
-}

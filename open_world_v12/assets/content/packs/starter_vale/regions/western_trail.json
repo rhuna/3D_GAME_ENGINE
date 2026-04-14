@@ -1,9 +1,0 @@
-{
-    "id": "western_trail",
-    "displayName": "Western Trail",
-    "scene": "assets/scenes/western_trail.scene",
-    "description": "A rough road west of Starter vale.",
-    "links": [
-        { "targetRegion": "starter_vale_core", "anchorId": "to_vale" }
-    ]
-}

@@ -1,0 +1,13 @@
+name=builder_barrel
+tag=prop
+visible=true
+drawCube=false
+drawSphere=true
+primitiveShape=sphere
+scale=0.9,1.1,0.9
+cubeSize=1.0
+sphereRadius=0.5
+color=116,74,38,255
+colliderHalfExtents=0.45,0.55,0.45
+colliderIsTrigger=false
+colliderIsStatic=true

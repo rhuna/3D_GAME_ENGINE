@@ -1,0 +1,25 @@
+V71 - Data-Driven Starter Pack Focus
+
+What changed:
+- Region layouts can now load from assets/regions/*.json.
+- starter_village and starter_forest are authored as real region layout files.
+- NPC ids, gather resources, and travel targets now come from region asset files.
+- Runtime region hotkeys now use the loaded region list instead of fixed hardcoded ids.
+- Added _template_region.json for copy-edit-create workflow.
+
+Main files:
+- src/game/world/RegionLayoutDatabase.h
+- src/game/world/RegionLayoutDatabase.cpp
+- src/game/world/RegionEcsLoader.cpp
+- src/game/scenes/OpenWorldRuntimeScene.cpp
+- src/game/scenes/OpenWorldFoundationScene.cpp
+- src/game/project/GameStarterScaffold.cpp
+- assets/regions/starter_village.json
+- assets/regions/starter_forest.json
+- assets/regions/_template_region.json
+
+How to use:
+1. Extract over open_world_v12.
+2. Rebuild.
+3. Edit assets/regions/starter_village.json and starter_forest.json.
+4. Duplicate _template_region.json to create new regions.

@@ -1,0 +1,13 @@
+V77 Visual World Builder
+
+What this patch adds:
+- F8 toggles a new Visual World Builder panel.
+- Clickable build buttons for terrain, structures, props, and gameplay markers.
+- Quick placement tools for floor, wall, door, crate, barrel, torch, table, NPC, enemy marker, chest, gather node, and region exit.
+- Basic first-pass terrain shaping buttons: Raise, Lower, Flatten on selected pieces.
+- Rotation, duplicate, and delete buttons inside the builder panel.
+- New builder prefab assets for wall, floor, door, barrel, torch, and table.
+
+Important scope note:
+- Terrain shaping in this version is block-based / selection-based, not full sculpted terrain mesh editing yet.
+- This version is focused on making environment creation easier with on-screen buttons and click placement.

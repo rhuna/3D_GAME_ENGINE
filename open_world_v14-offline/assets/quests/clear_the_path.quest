@@ -1,0 +1,9 @@
+id=clear_the_path
+title=Clear the Path
+description=Defeat 2 wolves in the starter forest and report back.
+giverNpcId=village_elder
+targetEnemyType=wolf
+targetRegionId=starter_forest
+targetCount=2
+rewardItemId=healing_potion
+rewardGold=40

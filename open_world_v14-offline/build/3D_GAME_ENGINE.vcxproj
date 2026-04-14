@@ -1,0 +1,519 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{16CCBFE1-79C4-3BDD-A572-25AC4FAAC36D}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>3D_GAME_ENGINE</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">3D_GAME_ENGINE.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">3D_GAME_ENGINE</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">3D_GAME_ENGINE.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">3D_GAME_ENGINE</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">3D_GAME_ENGINE.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">3D_GAME_ENGINE</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">3D_GAME_ENGINE.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">3D_GAME_ENGINE</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-src\src;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-src\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;PLATFORM_DESKTOP;GRAPHICS_API_OPENGL_33;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;PLATFORM_DESKTOP;GRAPHICS_API_OPENGL_33;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-src\src;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-src\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-src\src;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-src\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>_deps\raylib-build\raylib\Debug\raylib.lib;opengl32.lib;glu32.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <DataExecutionPrevention></DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
+      <ImportLibrary>C:/dev/3D_GAME_ENGINE/open_world_v14-offline/build/Debug/3D_GAME_ENGINE.lib</ImportLibrary>
+      <LinkErrorReporting></LinkErrorReporting>
+      <ProgramDataBaseFile>C:/dev/3D_GAME_ENGINE/open_world_v14-offline/build/Debug/3D_GAME_ENGINE.pdb</ProgramDataBaseFile>
+      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-src\src;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-src\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;PLATFORM_DESKTOP;GRAPHICS_API_OPENGL_33;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;PLATFORM_DESKTOP;GRAPHICS_API_OPENGL_33;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-src\src;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-src\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-src\src;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-src\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>_deps\raylib-build\raylib\Release\raylib.lib;opengl32.lib;glu32.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <DataExecutionPrevention></DataExecutionPrevention>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
+      <ImportLibrary>C:/dev/3D_GAME_ENGINE/open_world_v14-offline/build/Release/3D_GAME_ENGINE.lib</ImportLibrary>
+      <LinkErrorReporting></LinkErrorReporting>
+      <ProgramDataBaseFile>C:/dev/3D_GAME_ENGINE/open_world_v14-offline/build/Release/3D_GAME_ENGINE.pdb</ProgramDataBaseFile>
+      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-src\src;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-src\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;PLATFORM_DESKTOP;GRAPHICS_API_OPENGL_33;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;PLATFORM_DESKTOP;GRAPHICS_API_OPENGL_33;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-src\src;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-src\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-src\src;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-src\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>_deps\raylib-build\raylib\MinSizeRel\raylib.lib;opengl32.lib;glu32.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <DataExecutionPrevention></DataExecutionPrevention>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
+      <ImportLibrary>C:/dev/3D_GAME_ENGINE/open_world_v14-offline/build/MinSizeRel/3D_GAME_ENGINE.lib</ImportLibrary>
+      <LinkErrorReporting></LinkErrorReporting>
+      <ProgramDataBaseFile>C:/dev/3D_GAME_ENGINE/open_world_v14-offline/build/MinSizeRel/3D_GAME_ENGINE.pdb</ProgramDataBaseFile>
+      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-src\src;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-src\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ForceConformanceInForLoopScope></ForceConformanceInForLoopScope>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <MinimalRebuild></MinimalRebuild>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RemoveUnreferencedCodeData></RemoveUnreferencedCodeData>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <SupportJustMyCode></SupportJustMyCode>
+      <TreatWChar_tAsBuiltInType></TreatWChar_tAsBuiltInType>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;PLATFORM_DESKTOP;GRAPHICS_API_OPENGL_33;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ScanSourceForModuleDependencies>false</ScanSourceForModuleDependencies>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;PLATFORM_DESKTOP;GRAPHICS_API_OPENGL_33;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-src\src;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-src\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-src\src;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-src\src\external\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>_deps\raylib-build\raylib\RelWithDebInfo\raylib.lib;opengl32.lib;glu32.lib;winmm.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <DataExecutionPrevention></DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImageHasSafeExceptionHandlers></ImageHasSafeExceptionHandlers>
+      <ImportLibrary>C:/dev/3D_GAME_ENGINE/open_world_v14-offline/build/RelWithDebInfo/3D_GAME_ENGINE.lib</ImportLibrary>
+      <LinkErrorReporting></LinkErrorReporting>
+      <ProgramDataBaseFile>C:/dev/3D_GAME_ENGINE/open_world_v14-offline/build/RelWithDebInfo/3D_GAME_ENGINE.pdb</ProgramDataBaseFile>
+      <RandomizedBaseAddress></RandomizedBaseAddress>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/dev/3D_GAME_ENGINE/open_world_v14-offline/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/dev/3D_GAME_ENGINE/open_world_v14-offline -BC:/dev/3D_GAME_ENGINE/open_world_v14-offline/build --check-stamp-file C:/dev/3D_GAME_ENGINE/open_world_v14-offline/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\ExternalProject\shared_internal_commands.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\FetchContent.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\FetchContent\CMakeLists.cmake.in;C:\Program Files\CMake\share\cmake-4.1\Modules\FindGit.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Internal\CMakeCLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Linker\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Linker\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Linker\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Linker\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\WindowsPaths.cmake;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\CMakeFiles\4.1.1\CMakeCCompiler.cmake;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\CMakeFiles\4.1.1\CMakeCXXCompiler.cmake;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\CMakeFiles\4.1.1\CMakeRCCompiler.cmake;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\CMakeFiles\4.1.1\CMakeSystem.cmake;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\CMakeFiles\cmake.verify_globs;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/dev/3D_GAME_ENGINE/open_world_v14-offline/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/dev/3D_GAME_ENGINE/open_world_v14-offline -BC:/dev/3D_GAME_ENGINE/open_world_v14-offline/build --check-stamp-file C:/dev/3D_GAME_ENGINE/open_world_v14-offline/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\ExternalProject\shared_internal_commands.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\FetchContent.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\FetchContent\CMakeLists.cmake.in;C:\Program Files\CMake\share\cmake-4.1\Modules\FindGit.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Internal\CMakeCLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Linker\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Linker\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Linker\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Linker\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\WindowsPaths.cmake;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\CMakeFiles\4.1.1\CMakeCCompiler.cmake;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\CMakeFiles\4.1.1\CMakeCXXCompiler.cmake;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\CMakeFiles\4.1.1\CMakeRCCompiler.cmake;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\CMakeFiles\4.1.1\CMakeSystem.cmake;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\CMakeFiles\cmake.verify_globs;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/dev/3D_GAME_ENGINE/open_world_v14-offline/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/dev/3D_GAME_ENGINE/open_world_v14-offline -BC:/dev/3D_GAME_ENGINE/open_world_v14-offline/build --check-stamp-file C:/dev/3D_GAME_ENGINE/open_world_v14-offline/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\ExternalProject\shared_internal_commands.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\FetchContent.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\FetchContent\CMakeLists.cmake.in;C:\Program Files\CMake\share\cmake-4.1\Modules\FindGit.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Internal\CMakeCLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Linker\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Linker\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Linker\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Linker\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\WindowsPaths.cmake;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\CMakeFiles\4.1.1\CMakeCCompiler.cmake;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\CMakeFiles\4.1.1\CMakeCXXCompiler.cmake;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\CMakeFiles\4.1.1\CMakeRCCompiler.cmake;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\CMakeFiles\4.1.1\CMakeSystem.cmake;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\CMakeFiles\cmake.verify_globs;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/dev/3D_GAME_ENGINE/open_world_v14-offline/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/dev/3D_GAME_ENGINE/open_world_v14-offline -BC:/dev/3D_GAME_ENGINE/open_world_v14-offline/build --check-stamp-file C:/dev/3D_GAME_ENGINE/open_world_v14-offline/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\ExternalProject\shared_internal_commands.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\FetchContent.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\FetchContent\CMakeLists.cmake.in;C:\Program Files\CMake\share\cmake-4.1\Modules\FindGit.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Internal\CMakeCLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Internal\CMakeCXXLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Internal\CMakeCommonLinkerInformation.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Linker\MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Linker\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Linker\MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Linker\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Linker\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Linker\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-Initialize.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-4.1\Modules\Platform\WindowsPaths.cmake;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\CMakeFiles\4.1.1\CMakeCCompiler.cmake;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\CMakeFiles\4.1.1\CMakeCXXCompiler.cmake;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\CMakeFiles\4.1.1\CMakeRCCompiler.cmake;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\CMakeFiles\4.1.1\CMakeSystem.cmake;C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\CMakeFiles\cmake.verify_globs;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\assets\AssetManager.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\assets\AssetRegistry.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\content\ContentRegistry.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\core\Application.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\core\EngineConfig.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\core\FileSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\core\Input.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\core\Logger.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\core\ServiceLocator.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\core\Time.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\ecs\World.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\ecs\components\EditorMetadataComponent.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\ecs\systems\CollisionSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\ecs\systems\MovementSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\editor\runtime\BuildAssetWorkshop.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\editor\runtime\EditorGizmo.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\editor\runtime\EditorPicking.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\editor\runtime\EditorSceneAuthoring.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\editor\runtime\EditorSelection.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\editor\runtime\InspectorPanel.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\editor\runtime\KitLibrary.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\editor\runtime\KitPlacement.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\editor\serialization\SceneExporter.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\editor\ui\GameBuilderPanel.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\editor\ui\VisualBuilderPanel.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\editor\validation\ContentValidator.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\animation\AnimationSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\audio\AudioBus.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\combat\CombatSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\combat\EnemySystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\content\ContentPackLoader.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\content\ContentPipeline.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\content\DialogueDatabase.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\content\EncounterDatabase.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\content\ItemDatabase.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\content\LootTableDatabase.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\content\NpcDatabase.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\content\QuestDatabase.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\content\RegionDatabase.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\dialogue\DialogueState.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\faction\FactionSystem.cpp">
+      <ObjectFileName>$(IntDir)/src/game/faction/FactionSystem.cpp.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\gameplay\GatheringSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\gameplay\InteractionSystem.cpp">
+      <ObjectFileName>$(IntDir)/src/game/gameplay/InteractionSystem.cpp.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\gameplay\QuestGameplaySystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\interaction\InteractionSystem.cpp">
+      <ObjectFileName>$(IntDir)/src/game/interaction/InteractionSystem.cpp.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\inventory\InventorySystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\loot\LootSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\progression\CampaignProfile.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\progression\EquipmentSystem.cpp">
+      <ObjectFileName>$(IntDir)/src/game/progression/EquipmentSystem.cpp.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\progression\ProgressionSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\progression\StatSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\project\GameProjectLoader.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\project\GameStarterScaffold.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\quests\QuestState.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\render\VisibilityCullingSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\render\WorldRenderer.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\rules\WaveDirector.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\save\SaveGameProfile.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\scenes\ArenaGameScene.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\scenes\OpenWorldRuntimeScene.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\simulation\NpcRoutineSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\simulation\RoutineDatabase.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\simulation\WorldClock.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\systems\BuildingInteriorSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\systems\CombatFeedbackSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\systems\CompanionSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\systems\DamageSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\systems\DialogueSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\systems\EnemyAISystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\systems\EquipmentSystem.cpp">
+      <ObjectFileName>$(IntDir)/src/game/systems/EquipmentSystem.cpp.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\systems\FactionSystem.cpp">
+      <ObjectFileName>$(IntDir)/src/game/systems/FactionSystem.cpp.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\systems\GatheringNodeSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\systems\InteractionPromptSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\systems\LootContainerSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\systems\MerchantSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\systems\PatrolSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\systems\PickupSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\systems\PlayerControllerSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\systems\PowerupSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\systems\QuestSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\systems\RangedEnemyAISystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\systems\RespawnSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\systems\RoamingEncounterSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\systems\SpawnPersistenceSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\tooling\AssetBudgetAudit.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\tooling\StreamingDebugOverlay.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\ui\ArenaSelectMenu.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\ui\CraftingWindow.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\ui\DialogueBox.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\ui\DialogueWindow.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\ui\EndScreen.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\ui\EquipmentPanel.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\ui\GameHud.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\ui\InventoryWindow.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\ui\MainMenu.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\ui\OpenWorldHud.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\ui\QuestLogPanel.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\ui\QuestLogWindow.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\ui\RegionBanner.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\ui\ShopWindow.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\world\EncounterManager.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\world\PersistentWorldRegistry.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\world\RegionEcsLoader.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\world\RegionLayoutDatabase.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\world\RegionManager.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\world\RegionSimulationState.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\world\RespawnProfile.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\world\WorldChunkStreamingSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\world\WorldContentDeltaSerializer.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\game\world\WorldStatePersistence.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\gameplay\GameplayTags.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\gameplay\Spawn.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\gameplay\prefabs\PrefabDefinition.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\gameplay\prefabs\PrefabLibrary.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\gameplay\prefabs\PrefabVariantDefinition.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\gameplay\registry\SystemRegistry.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\gameplay\systems\ProjectileCleanupSystem.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\main.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\render\DebugOverlay.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\render\Renderer.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\scene\SceneManager.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\scene\data\SceneDefinition.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\scene\data\SceneLibrary.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\scene\scenes\ContentScene.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\scene\scenes\SandboxScene.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\scene\spawning\SceneSpawner.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\serialization\WorldSerializer.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\util\Math.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\util\StringUtil.cpp" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\ZERO_CHECK.vcxproj">
+      <Project>{5E358B8A-8DE7-3D01-A070-39EACE96EEF9}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-build\raylib\external\glfw\src\glfw.vcxproj">
+      <Project>{1CD6BABD-9655-3797-9595-0A9E82940B3D}</Project>
+      <Name>glfw</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\build\_deps\raylib-build\raylib\raylib.vcxproj">
+      <Project>{E711A9D8-602D-3AA8-B0A6-004AAB479270}</Project>
+      <Name>raylib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
