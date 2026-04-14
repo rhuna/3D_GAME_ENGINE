@@ -1,0 +1,7 @@
+{
+  "sceneId": "starter_hut_interior",
+  "entities": [
+    {"name": "ExitTrigger", "prefab": "building_exit_trigger", "position": [0.0, 0.0, -2.0]},
+    {"name": "CraftingBench", "prefab": "starter_crafting_bench", "position": [1.5, 0.0, 1.0]}
+  ]
+}

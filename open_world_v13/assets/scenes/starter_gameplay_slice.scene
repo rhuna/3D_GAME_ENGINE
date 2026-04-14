@@ -1,0 +1,16 @@
+scene=starter_gameplay_slice
+display_name=Starter Gameplay Slice
+gameplay_mode=standard
+player_prefab=player
+auto_spawn_player=true
+preload=
+spawn=prefab=ground;tag=ground;position=0,-0.5,0;scale=30,1,30;color=78,108,78,255
+spawn=prefab=starter_merchant;tag=merchant;position=6,1,4
+spawn=prefab=starter_save_point;tag=save_point;position=-6,1,3
+spawn=prefab=starter_herb_node;tag=herb_node;position=4,1,-4
+spawn=prefab=starter_herb_node;tag=herb_node;position=8,1,-5
+spawn=prefab=enemy_walker;tag=enemy;position=-10,1,-8
+spawn=prefab=enemy_runner;tag=enemy;position=-13,1,-10
+spawn=prefab=chest_small;tag=chest;position=12,1,-2
+spawn=variant=crate_blue_large;tag=dynamic_crate;position=2,1,8
+spawn=variant=crate_red;tag=dynamic_crate;position=-2,1,9

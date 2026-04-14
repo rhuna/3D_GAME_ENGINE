@@ -1,0 +1,19 @@
+{
+  "anchors": [
+    {
+      "id": "trailhead_west",
+      "regionId": "starter_vale",
+      "spawnMarkerId": "trail_exit"
+    },
+    {
+      "id": "western_trail_entry",
+      "regionId": "western_trail",
+      "spawnMarkerId": "trail_entry"
+    },
+    {
+      "id": "river_bridge_entry",
+      "regionId": "river_crossing",
+      "spawnMarkerId": "bridge_entry"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+id=guard_daily
+step=0,8,Gate Watch,north_gate
+step=8,16,Patrol,village_paths
+step=16,24,Gate Watch,south_gate

@@ -1,0 +1,6 @@
+scene=starter_gameplay_encounters
+display_name=Starter Gameplay Encounters
+gameplay_mode=content
+spawn=prefab=enemy_walker;position=-8.0,1.0,-6.0
+spawn=prefab=enemy_runner;position=9.0,1.0,-7.0
+spawn=prefab=health_pickup;position=0.0,1.0,-4.0

@@ -1,0 +1,7 @@
+scene=starter_gameplay_base
+display_name=Starter Gameplay Base
+gameplay_mode=content
+spawn=prefab=ground;position=0.0,-0.5,0.0;scale=40.0,1.0,40.0;color=80,110,80,255
+spawn=prefab=starter_merchant;position=6.0,1.0,4.0
+spawn=prefab=starter_save_point;position=-4.0,1.0,3.0
+spawn=prefab=starter_herb_node;position=8.0,0.5,-3.0

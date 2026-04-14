@@ -1,0 +1,8 @@
+scene=starter_gameplay_slice
+display_name=Starter Gameplay Slice
+gameplay_mode=content
+player_prefab=player
+auto_spawn_player=true
+include=starter_gameplay_base,starter_gameplay_encounters
+content_pack=starter_template
+preload=

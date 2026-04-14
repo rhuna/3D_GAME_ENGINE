@@ -1,0 +1,7 @@
+# V60 game bootstrap file
+project=starter_game
+
+display_name=Starter Game Project
+start_scene=starter_gameplay_slice
+content_pack=starter_template
+preload=
