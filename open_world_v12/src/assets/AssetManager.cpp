@@ -1,9 +1,21 @@
 #include "assets/AssetManager.h"
 
+#include <algorithm>
+#include <filesystem>
+
 #include "core/FileSystem.h"
 #include "core/Logger.h"
 
 namespace fw {
+
+namespace {
+
+bool HasExtension(const std::string& path, const char* ext) {
+    const std::filesystem::path p(path);
+    return p.has_extension() && p.extension() == ext;
+}
+
+} // namespace
 
 AssetManager::~AssetManager() {
     UnloadAll();
@@ -39,10 +51,6 @@ Model* AssetManager::LoadModelCached(const std::string& path) {
     return inserted ? &it->second : nullptr;
 }
 
-Model* AssetManager::GetModel(const std::string& path) {
-    return LoadModelCached(path);
-}
-
 Shader* AssetManager::LoadShaderCached(const std::string& vertexPath, const std::string& fragmentPath) {
     const std::string key = vertexPath + "|" + fragmentPath;
     if (auto it = m_shaders.find(key); it != m_shaders.end()) {
@@ -62,20 +70,62 @@ Shader* AssetManager::LoadShaderCached(const std::string& vertexPath, const std:
 }
 
 
+Texture2D* AssetManager::GetTexture(const std::string& path) {
+    return LoadTextureCached(path);
+}
+
+Model* AssetManager::GetModel(const std::string& path) {
+    return LoadModelCached(path);
+}
+
+Shader* AssetManager::GetShader(const std::string& vertexPath, const std::string& fragmentPath) {
+    return LoadShaderCached(vertexPath, fragmentPath);
+}
+
 void AssetManager::PreloadAssets(const std::vector<std::string>& assetPaths) {
     for (const std::string& path : assetPaths) {
         if (path.empty()) {
             continue;
         }
 
-        const auto dot = path.find_last_of('.');
-        const std::string ext = dot == std::string::npos ? std::string{} : path.substr(dot + 1);
-        if (ext == "png" || ext == "jpg" || ext == "jpeg" || ext == "bmp" || ext == "tga" || ext == "qoi") {
-            LoadTextureCached(path);
-        } else if (ext == "glb" || ext == "gltf" || ext == "obj" || ext == "iqm") {
-            LoadModelCached(path);
+        const std::string category = GuessAssetCategory(path);
+        if (category == "Model") {
+            (void)LoadModelCached(path);
+        } else if (category == "Texture") {
+            (void)LoadTextureCached(path);
         }
     }
+}
+void AssetManager::ScanAssetBrowser(const std::string& rootDirectory) {
+    m_assetBrowserEntries.clear();
+
+    for (const std::string& file : FileSystem::ListFilesRecursive(rootDirectory)) {
+        const std::string category = GuessAssetCategory(file);
+        if (category.empty()) continue;
+        m_assetBrowserEntries.push_back(AssetBrowserEntry{category, BasenameWithoutExtension(file), file});
+    }
+
+    std::sort(m_assetBrowserEntries.begin(), m_assetBrowserEntries.end(), [](const AssetBrowserEntry& a, const AssetBrowserEntry& b) {
+        if (a.category == b.category) return a.path < b.path;
+        return a.category < b.category;
+    });
+
+    Logger::Info("Asset browser entries scanned: " + std::to_string(m_assetBrowserEntries.size()));
+}
+
+std::string AssetManager::GuessAssetCategory(const std::string& path) {
+    if (HasExtension(path, ".glb") || HasExtension(path, ".gltf") || HasExtension(path, ".obj") || HasExtension(path, ".fbx") || HasExtension(path, ".iqm")) return "Model";
+    if (HasExtension(path, ".png") || HasExtension(path, ".jpg") || HasExtension(path, ".jpeg") || HasExtension(path, ".bmp") || HasExtension(path, ".tga")) return "Texture";
+    if (HasExtension(path, ".prefab")) return "Prefab";
+    if (HasExtension(path, ".variant")) return "Variant";
+    if (HasExtension(path, ".scene")) return "Scene";
+    if (HasExtension(path, ".wav") || HasExtension(path, ".ogg") || HasExtension(path, ".mp3")) return "Audio";
+    return {};
+}
+
+std::string AssetManager::BasenameWithoutExtension(const std::string& path) {
+    const std::filesystem::path p(path);
+    return p.stem().string();
 }
 
 void AssetManager::UnloadAll() {

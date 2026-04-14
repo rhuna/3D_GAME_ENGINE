@@ -354,6 +354,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   <ItemGroup>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v12\src\assets\AssetManager.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v12\src\assets\AssetRegistry.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v12\src\content\PrefabLibrary.cpp">
+      <ObjectFileName>$(IntDir)/src/content/PrefabLibrary.cpp.obj</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v12\src\core\Application.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v12\src\core\EngineConfig.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v12\src\core\FileSystem.cpp" />
@@ -371,6 +374,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v12\src\editor\runtime\EditorSelection.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v12\src\editor\runtime\InspectorPanel.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v12\src\editor\serialization\SceneExporter.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v12\src\editor\ui\GameBuilderPanel.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v12\src\editor\ui\VisualBuilderPanel.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v12\src\editor\validation\ContentValidator.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v12\src\game\animation\AnimationSystem.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v12\src\game\audio\AudioBus.cpp" />
@@ -470,7 +475,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v12\src\gameplay\GameplayTags.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v12\src\gameplay\Spawn.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v12\src\gameplay\prefabs\PrefabDefinition.cpp" />
-    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v12\src\gameplay\prefabs\PrefabLibrary.cpp" />
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v12\src\gameplay\prefabs\PrefabLibrary.cpp">
+      <ObjectFileName>$(IntDir)/src/gameplay/prefabs/PrefabLibrary.cpp.obj</ObjectFileName>
+    </ClCompile>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v12\src\gameplay\prefabs\PrefabVariantDefinition.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v12\src\gameplay\registry\SystemRegistry.cpp" />
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v12\src\gameplay\systems\ProjectileCleanupSystem.cpp" />

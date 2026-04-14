@@ -12,8 +12,8 @@
 #include "editor/runtime/EditorGizmo.h"
 #include "editor/runtime/EditorSceneAuthoring.h"
 #include "editor/runtime/InspectorPanel.h"
+#include "editor/ui/VisualBuilderPanel.h"
 #include "editor/validation/ContentValidator.h"
-#include "game/project/GameProjectDefinition.h"
 #include "gameplay/prefabs/PrefabLibrary.h"
 #include "gameplay/registry/SystemRegistry.h"
 #include "raylib.h"
@@ -62,7 +62,7 @@ public:
     [[nodiscard]] const EditorSelection& GetEditorSelection() const { return m_editorSelection; }
     [[nodiscard]] const EditorGizmo& GetEditorGizmo() const { return m_editorGizmo; }
     [[nodiscard]] const EditorSceneAuthoring& GetEditorSceneAuthoring() const { return m_editorAuthoring; }
-    [[nodiscard]] const GameProjectDefinition& GetProjectDefinition() const { return m_projectDefinition; }
+    [[nodiscard]] const VisualBuilderPanel& GetVisualBuilderPanel() const { return m_visualBuilderPanel; }
 
 private:
     void Initialize();
@@ -84,10 +84,10 @@ private:
     EditorSelection m_editorSelection {};
     EditorGizmo m_editorGizmo {};
     EditorSceneAuthoring m_editorAuthoring {};
+    VisualBuilderPanel m_visualBuilderPanel {};
     std::vector<ValidationMessage> m_validationMessages {};
     std::string m_lastExportPath;
     Camera3D m_camera {};
-    GameProjectDefinition m_projectDefinition {};
 
     bool m_initialized = false;
     bool m_isRunning = true;

@@ -7,13 +7,7 @@
 
 #include "core/Logger.h"
 #include "editor/serialization/SceneExporter.h"
-#include "game/content/ContentPackLoader.h"
-#include "game/project/GameProjectLoader.h"
-#include "game/scenes/ArenaGameScene.h"
 #include "game/scenes/OpenWorldRuntimeScene.h"
-#include "scene/Scene.h"
-#include "scene/data/SceneDefinition.h"
-#include "scene/scenes/ContentScene.h"
 #include "serialization/WorldSerializer.h"
 
 namespace fw {
@@ -37,9 +31,11 @@ int Application::Run() {
         if (m_input.IsKeyPressed(KEY_F5)) ReloadStartScene();
         if (m_input.IsKeyPressed(KEY_F6)) WorldSerializer::SaveToFile(m_world, "assets/saves/open_world_snapshot.txt");
         if (m_input.IsKeyPressed(KEY_F7)) WorldSerializer::LoadFromFile(m_world, "assets/saves/open_world_snapshot.txt");
+        if (m_input.IsKeyPressed(KEY_F8)) m_visualBuilderPanel.ToggleVisible();
         if (m_input.IsKeyPressed(KEY_TAB)) m_showInspector = !m_showInspector;
         if (m_input.IsKeyPressed(KEY_F11)) ToggleFullscreen();
 
+        m_visualBuilderPanel.Update(*this, m_world, m_editorSelection, m_prefabs, m_sceneLibrary);
         UpdateCameraController(m_time.DeltaTime());
         m_sceneManager.Update(*this, m_time.DeltaTime());
         m_editorAuthoring.Update(*this, m_world, m_editorSelection, m_prefabs, m_sceneLibrary);
@@ -65,8 +61,9 @@ int Application::Run() {
         if (m_showInspector) {
             m_inspectorPanel.Draw(m_world, m_editorSelection);
         }
+        m_visualBuilderPanel.Draw(*this, m_prefabs, m_sceneLibrary);
 
-        if (!m_mouseLookActive) {
+        if (!m_mouseLookActive && !m_visualBuilderPanel.IsMouseOverUi()) {
             const Vector2 mousePos = GetMousePosition();
             DrawCircleV(mousePos, 4.0f, SKYBLUE);
             DrawCircleLines(static_cast<int>(mousePos.x), static_cast<int>(mousePos.y), 10.0f, Fade(SKYBLUE, 0.75f));
@@ -79,33 +76,13 @@ int Application::Run() {
 }
 
 void Application::ReloadStartScene() {
-    const std::string targetScene = !m_projectDefinition.startScene.empty() ? m_projectDefinition.startScene : m_config.startScene;
-
-    SceneDefinition resolvedScene;
-    std::unique_ptr<Scene> nextScene;
-    if (m_sceneLibrary.BuildResolvedScene(targetScene, resolvedScene)) {
-        if (resolvedScene.gameplayMode == "open_world") {
-            nextScene = std::make_unique<OpenWorldRuntimeScene>();
-        } else if (resolvedScene.gameplayMode == "arena") {
-            nextScene = std::make_unique<ArenaGameScene>();
-        } else {
-            nextScene = std::make_unique<ContentScene>(targetScene);
-        }
-    } else if (targetScene == "arena_game") {
-        nextScene = std::make_unique<ArenaGameScene>();
-    } else if (targetScene == "open_world") {
-        nextScene = std::make_unique<OpenWorldRuntimeScene>();
-    } else {
-        nextScene = std::make_unique<ContentScene>(targetScene.empty() ? "sandbox" : targetScene);
-    }
-
-    m_sceneManager.ChangeScene(*this, std::move(nextScene));
+    m_sceneManager.ChangeScene(*this, std::make_unique<OpenWorldRuntimeScene>());
     m_editorSelection.Clear();
-    Logger::Info("Reloaded start scene: " + targetScene);
+    Logger::Info("Reloaded start scene.");
 }
 
 void Application::RunContentValidation() {
-    m_validationMessages = ContentValidator::ValidateAll(m_prefabs, m_sceneLibrary, &m_projectDefinition);
+    m_validationMessages = ContentValidator::ValidateAll(m_prefabs, m_sceneLibrary);
     Logger::Info("Content validation ran. Message count: " + std::to_string(m_validationMessages.size()));
 }
 
@@ -138,15 +115,9 @@ void Application::Initialize() {
     m_camera.fovy = 60.0f;
     m_camera.projection = CAMERA_PERSPECTIVE;
 
-    m_projectDefinition = GameProjectLoader::LoadFromFile("assets/game/game.project");
-
     m_prefabs.LoadFromDirectory("assets/prefabs");
     m_prefabs.LoadVariantsFromDirectory("assets/prefab_variants");
     m_sceneLibrary.LoadFromDirectory("assets/scenes");
-
-    ContentPackLoader::LoadEnabledPacks("assets/content/packs", m_projectDefinition.enabledContentPacks, m_prefabs, m_sceneLibrary);
-    m_assets.PreloadAssets(m_projectDefinition.startupPreloadAssets);
-
     RunContentValidation();
 
     ReloadStartScene();
@@ -163,7 +134,8 @@ void Application::Shutdown() {
 }
 
 void Application::UpdateCameraController(float deltaTime) {
-    const bool activateLook = m_input.IsMouseButtonDown(MOUSE_BUTTON_RIGHT);
+    const bool uiCapturing = m_visualBuilderPanel.IsMouseOverUi();
+    const bool activateLook = !uiCapturing && m_input.IsMouseButtonDown(MOUSE_BUTTON_RIGHT);
     if (activateLook && !m_mouseLookActive) {
         DisableCursor();
         m_mouseLookActive = true;
