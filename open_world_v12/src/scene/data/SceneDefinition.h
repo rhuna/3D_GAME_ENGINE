@@ -12,6 +12,7 @@ struct SceneSpawnEntry {
     std::string prefabName;
     std::string variantName;
     std::string tagOverride;
+    std::string kitName;
 
     bool hasPosition = false;
     bool hasRotation = false;
@@ -25,12 +26,10 @@ struct SceneSpawnEntry {
 struct SceneDefinition {
     std::string name;
     std::string displayName;
-    std::string gameplayMode = "content";
-    std::string playerPrefab = "player";
-    std::string contentPack;
+    std::string playerPrefab;
     bool autoSpawnPlayer = false;
-    std::vector<std::string> includeScenes;
     std::vector<std::string> preloadAssets;
+    std::vector<std::string> includedScenes;
     std::vector<SceneSpawnEntry> entries;
 };
 

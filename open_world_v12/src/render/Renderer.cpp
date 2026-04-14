@@ -1,30 +1,8 @@
 #include "render/Renderer.h"
 
 #include "assets/AssetManager.h"
-#include "raymath.h"
 
 namespace fw {
-namespace {
-
-std::string SelectMeshId(const RenderComponent& render, const Vector3& worldPosition, const Camera3D& camera) {
-    const float distance = Vector3Distance(worldPosition, camera.position);
-
-    if (!render.lod2MeshId.empty() && distance >= render.lod2Distance) {
-        return render.lod2MeshId;
-    }
-    if (!render.lod1MeshId.empty() && distance >= render.lod1Distance) {
-        return render.lod1MeshId;
-    }
-    if (!render.lod0MeshId.empty()) {
-        return render.lod0MeshId;
-    }
-    if (!render.meshId.empty()) {
-        return render.meshId;
-    }
-    return render.modelPath;
-}
-
-} // namespace
 
 void Renderer::BeginFrame() {
     BeginDrawing();
@@ -35,7 +13,7 @@ void Renderer::Begin3D(const Camera3D& camera) {
     BeginMode3D(camera);
 }
 
-void Renderer::DrawWorld(const World& world, AssetManager& assets, const Camera3D& camera) const {
+void Renderer::DrawWorld(const World& world, AssetManager& assets) const {
     for (const Entity entity : world.Entities()) {
         const TransformComponent* transform = world.GetComponent<TransformComponent>(entity);
         const RenderComponent* render = world.GetComponent<RenderComponent>(entity);
@@ -43,18 +21,15 @@ void Renderer::DrawWorld(const World& world, AssetManager& assets, const Camera3
             continue;
         }
 
-        if (render->useModel) {
-            const std::string meshId = SelectMeshId(*render, transform->position, camera);
-            if (!meshId.empty()) {
-                if (Model* model = assets.GetModel(meshId)) {
-                    DrawModelEx(*model,
-                                transform->position,
-                                Vector3{0.0f, 1.0f, 0.0f},
-                                transform->rotationEuler.y,
-                                transform->scale,
-                                render->tint);
-                    continue;
-                }
+        if (render->useModel && !render->modelPath.empty()) {
+            if (Model* model = assets.LoadModelCached(render->modelPath)) {
+                DrawModelEx(*model,
+                            transform->position,
+                            Vector3{0.0f, 1.0f, 0.0f},
+                            transform->rotationEuler.y,
+                            transform->scale,
+                            render->tint);
+                continue;
             }
         }
 
@@ -73,6 +48,13 @@ void Renderer::DrawWorld(const World& world, AssetManager& assets, const Camera3
             DrawSphereWires(transform->position, render->sphereRadius * transform->scale.x, 8, 8, BLACK);
         }
     }
+}
+
+
+void Renderer::DrawWorld(const World& world, AssetManager& assets, const Camera3D& camera) {
+    Begin3D(camera);
+    DrawWorld(world, assets);
+    End3D();
 }
 
 void Renderer::DrawGrid(int slices, float spacing) const {

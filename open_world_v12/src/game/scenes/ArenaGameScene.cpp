@@ -200,7 +200,7 @@ void ArenaGameScene::FixedUpdate(Application& app, float fixedDeltaTime) {
 
 void ArenaGameScene::Render(Application& app) {
     app.GetRenderer().DrawGrid(40, 1.0f);
-    app.GetRenderer().DrawWorld(app.GetWorld(), app.GetAssets(), app.GetCamera());
+    app.GetRenderer().DrawWorld(app.GetWorld(), app.GetAssets());
     app.GetSystemRegistry().RenderAll(app, app.GetWorld());
 }
 

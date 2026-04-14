@@ -6,7 +6,6 @@
 namespace fw {
 class PrefabLibrary;
 class SceneLibrary;
-class GameProjectDefinition;
 
 struct ValidationMessage {
     std::string severity;
@@ -15,9 +14,7 @@ struct ValidationMessage {
 
 class ContentValidator {
 public:
-    static std::vector<ValidationMessage> ValidateAll(const PrefabLibrary& prefabs,
-                                                      const SceneLibrary& scenes,
-                                                      const GameProjectDefinition* project = nullptr);
+    static std::vector<ValidationMessage> ValidateAll(const PrefabLibrary& prefabs, const SceneLibrary& scenes);
 };
 
 } // namespace fw

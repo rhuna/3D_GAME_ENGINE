@@ -94,7 +94,7 @@ void SandboxScene::FixedUpdate(Application& app, float fixedDeltaTime) {
 
 void SandboxScene::Render(Application& app) {
     app.GetRenderer().DrawGrid(40, 1.0f);
-    app.GetRenderer().DrawWorld(app.GetWorld(), app.GetAssets(), app.GetCamera());
+    app.GetRenderer().DrawWorld(app.GetWorld(), app.GetAssets());
 }
 
 } // namespace fw

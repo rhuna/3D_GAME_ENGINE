@@ -404,7 +404,7 @@ namespace fw
         const RegionLayout* layout = m_layouts.Find(m_profile.currentRegion);
 
         app.GetRenderer().DrawGrid(40, 2.0f);
-        app.GetRenderer().DrawWorld(app.GetWorld(), app.GetAssets(), app.GetCamera());
+        app.GetRenderer().DrawWorld(app.GetWorld(), app.GetAssets());
 
         if (layout)
         {

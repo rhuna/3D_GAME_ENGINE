@@ -1,6 +1,3 @@
-# for non-coders
-
-
 # 3D_GAME_ENGINE v28 — Dynamic Region Pressure + Patrols
 
 This version adds a more dynamic world loop on top of faction/world reactions.

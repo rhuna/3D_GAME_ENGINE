@@ -15,12 +15,18 @@ public:
     void Register(SceneDefinition definition);
     const SceneDefinition* Find(const std::string& name) const;
     bool LoadSceneFile(const std::string& filePath);
-    bool BuildResolvedScene(const std::string& name, SceneDefinition& outScene) const;
+
+    // Newer code path.
+    SceneDefinition BuildResolvedScene(const std::string& name) const;
+
+    // Compatibility overload for older ContentScene.cpp implementations that expect:
+    //   if (sceneLibrary.BuildResolvedScene(id, resolved)) { ... }
+    bool BuildResolvedScene(const std::string& name, SceneDefinition& outDefinition) const;
+
     const std::unordered_map<std::string, SceneDefinition>& Scenes() const { return m_scenes; }
     std::size_t SceneCount() const { return m_scenes.size(); }
 
 private:
-    bool BuildResolvedSceneRecursive(const std::string& name, SceneDefinition& outScene, std::unordered_map<std::string, bool>& stack) const;
     std::unordered_map<std::string, SceneDefinition> m_scenes;
 };
 

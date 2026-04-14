@@ -127,25 +127,12 @@ bool PrefabLibrary::LoadFromDirectory(const std::string& directoryPath) {
     return loadedAny;
 }
 
-bool PrefabLibrary::LoadVariantsFromDirectory(const std::string& directoryPath) {
-    m_variants.clear();
-    namespace fs = std::filesystem;
-    if (!fs::exists(directoryPath)) {
-        Logger::Warn("Prefab variant directory not found: " + directoryPath);
-        return false;
-    }
-    bool loadedAny = false;
-    for (const auto& entry : fs::directory_iterator(directoryPath)) {
-        if (!entry.is_regular_file() || entry.path().extension() != ".variant") continue;
-        loadedAny = LoadVariantFile(entry.path().string()) || loadedAny;
-    }
-    Logger::Info("Loaded prefab variant count: " + std::to_string(m_variants.size()));
-    return loadedAny;
-}
+
 
 bool PrefabLibrary::AppendFromDirectory(const std::string& directoryPath) {
     namespace fs = std::filesystem;
     if (!fs::exists(directoryPath)) {
+        Logger::Warn("Prefab directory not found: " + directoryPath);
         return false;
     }
     bool loadedAny = false;
@@ -159,6 +146,7 @@ bool PrefabLibrary::AppendFromDirectory(const std::string& directoryPath) {
 bool PrefabLibrary::AppendVariantsFromDirectory(const std::string& directoryPath) {
     namespace fs = std::filesystem;
     if (!fs::exists(directoryPath)) {
+        Logger::Warn("Prefab variant directory not found: " + directoryPath);
         return false;
     }
     bool loadedAny = false;
@@ -166,6 +154,22 @@ bool PrefabLibrary::AppendVariantsFromDirectory(const std::string& directoryPath
         if (!entry.is_regular_file() || entry.path().extension() != ".variant") continue;
         loadedAny = LoadVariantFile(entry.path().string()) || loadedAny;
     }
+    return loadedAny;
+}
+
+bool PrefabLibrary::LoadVariantsFromDirectory(const std::string& directoryPath) {
+    m_variants.clear();
+    namespace fs = std::filesystem;
+    if (!fs::exists(directoryPath)) {
+        Logger::Warn("Prefab variant directory not found: " + directoryPath);
+        return false;
+    }
+    bool loadedAny = false;
+    for (const auto& entry : fs::directory_iterator(directoryPath)) {
+        if (!entry.is_regular_file() || entry.path().extension() != ".variant") continue;
+        loadedAny = LoadVariantFile(entry.path().string()) || loadedAny;
+    }
+    Logger::Info("Loaded prefab variant count: " + std::to_string(m_variants.size()));
     return loadedAny;
 }
 

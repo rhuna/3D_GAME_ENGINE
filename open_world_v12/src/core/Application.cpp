@@ -26,16 +26,30 @@ int Application::Run() {
         if (m_input.IsKeyPressed(KEY_ESCAPE)) m_isRunning = false;
         if (m_input.IsKeyPressed(KEY_F1)) m_showDebugOverlay = !m_showDebugOverlay;
         if (m_input.IsKeyPressed(KEY_F2)) m_editorSelection.SelectNext(m_world);
+        m_editorSelection.PruneDead(m_world);
         if (m_input.IsKeyPressed(KEY_F3)) ExportCurrentScene();
         if (m_input.IsKeyPressed(KEY_F4)) RunContentValidation();
         if (m_input.IsKeyPressed(KEY_F5)) ReloadStartScene();
         if (m_input.IsKeyPressed(KEY_F6)) WorldSerializer::SaveToFile(m_world, "assets/saves/open_world_snapshot.txt");
         if (m_input.IsKeyPressed(KEY_F7)) WorldSerializer::LoadFromFile(m_world, "assets/saves/open_world_snapshot.txt");
-        if (m_input.IsKeyPressed(KEY_F8)) m_visualBuilderPanel.ToggleVisible();
         if (m_input.IsKeyPressed(KEY_TAB)) m_showInspector = !m_showInspector;
         if (m_input.IsKeyPressed(KEY_F11)) ToggleFullscreen();
 
-        m_visualBuilderPanel.Update(*this, m_world, m_editorSelection, m_prefabs, m_sceneLibrary);
+        const bool ctrlDown = IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_RIGHT_CONTROL);
+        if (!m_mouseLookActive && ctrlDown && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+            m_editorSelection.BeginBoxSelect(GetMousePosition());
+        }
+        if (m_editorSelection.IsBoxSelecting()) {
+            m_editorSelection.UpdateBoxSelect(GetMousePosition());
+            if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
+                m_editorSelection.EndBoxSelect(m_world, m_camera, ctrlDown);
+            }
+        }
+
+        if (ctrlDown && m_input.IsKeyPressed(KEY_D)) DuplicateSelectionGroup();
+        if (m_input.IsKeyPressed(KEY_M)) MirrorSelectionGroupX();
+        if (m_input.IsKeyPressed(KEY_DELETE)) DeleteSelectionGroup();
+
         UpdateCameraController(m_time.DeltaTime());
         m_sceneManager.Update(*this, m_time.DeltaTime());
         m_editorAuthoring.Update(*this, m_world, m_editorSelection, m_prefabs, m_sceneLibrary);
@@ -58,12 +72,16 @@ int Application::Run() {
             m_debugOverlay.Draw(m_time, m_world, m_camera, m_sceneManager.CurrentSceneName(), m_editorSelection.Selected(), m_validationMessages, m_lastExportPath, m_showInspector);
         }
         m_editorGizmo.Draw(m_world, m_editorSelection);
+        if (m_editorSelection.IsBoxSelecting()) {
+            const Rectangle rect = m_editorSelection.BoxSelectRect();
+            DrawRectangleLinesEx(rect, 2.0f, SKYBLUE);
+            DrawRectangleRec(rect, Fade(SKYBLUE, 0.18f));
+        }
         if (m_showInspector) {
             m_inspectorPanel.Draw(m_world, m_editorSelection);
         }
-        m_visualBuilderPanel.Draw(*this, m_prefabs, m_sceneLibrary);
 
-        if (!m_mouseLookActive && !m_visualBuilderPanel.IsMouseOverUi()) {
+        if (!m_mouseLookActive) {
             const Vector2 mousePos = GetMousePosition();
             DrawCircleV(mousePos, 4.0f, SKYBLUE);
             DrawCircleLines(static_cast<int>(mousePos.x), static_cast<int>(mousePos.y), 10.0f, Fade(SKYBLUE, 0.75f));
@@ -93,6 +111,67 @@ void Application::ExportCurrentScene() {
     } else {
         Logger::Warn("Failed to export scene to: " + m_lastExportPath);
     }
+}
+
+
+void Application::DuplicateSelectionGroup() {
+    const auto selected = m_editorSelection.SelectedEntities();
+    if (selected.empty()) return;
+
+    std::vector<Entity> duplicates;
+    for (Entity entity : selected) {
+        if (!m_world.IsAlive(entity)) continue;
+        const Entity clone = m_world.CreateEntity();
+
+        if (const auto* tag = m_world.GetComponent<TagComponent>(entity)) m_world.AddComponent<TagComponent>(clone, *tag);
+        if (const auto* transform = m_world.GetComponent<TransformComponent>(entity)) {
+            TransformComponent copy = *transform;
+            copy.position.x += 1.5f;
+            copy.position.z += 1.5f;
+            m_world.AddComponent<TransformComponent>(clone, copy);
+        }
+        if (const auto* render = m_world.GetComponent<RenderComponent>(entity)) m_world.AddComponent<RenderComponent>(clone, *render);
+        if (const auto* collider = m_world.GetComponent<BoxColliderComponent>(entity)) m_world.AddComponent<BoxColliderComponent>(clone, *collider);
+        if (const auto* meta = m_world.GetComponent<EditorMetadataComponent>(entity)) m_world.AddComponent<EditorMetadataComponent>(clone, *meta);
+        duplicates.push_back(clone);
+    }
+
+    m_editorSelection.Clear();
+    for (Entity entity : duplicates) m_editorSelection.ToggleSelection(entity);
+}
+
+void Application::MirrorSelectionGroupX() {
+    const auto selected = m_editorSelection.SelectedEntities();
+    if (selected.empty()) return;
+
+    Vector3 pivot {0.0f, 0.0f, 0.0f};
+    int count = 0;
+    for (Entity entity : selected) {
+        if (const auto* transform = m_world.GetComponent<TransformComponent>(entity)) {
+            pivot = Vector3Add(pivot, transform->position);
+            ++count;
+        }
+    }
+    if (count == 0) return;
+    pivot = Vector3Scale(pivot, 1.0f / static_cast<float>(count));
+
+    for (Entity entity : selected) {
+        if (auto* transform = m_world.GetComponent<TransformComponent>(entity)) {
+            const float dx = transform->position.x - pivot.x;
+            transform->position.x = pivot.x - dx;
+            transform->rotationEuler.y = -transform->rotationEuler.y;
+        }
+    }
+}
+
+void Application::DeleteSelectionGroup() {
+    const auto selected = m_editorSelection.SelectedEntities();
+    if (selected.empty()) return;
+
+    for (Entity entity : selected) {
+        m_world.DestroyEntity(entity);
+    }
+    m_editorSelection.Clear();
 }
 
 void Application::Initialize() {
@@ -134,8 +213,7 @@ void Application::Shutdown() {
 }
 
 void Application::UpdateCameraController(float deltaTime) {
-    const bool uiCapturing = m_visualBuilderPanel.IsMouseOverUi();
-    const bool activateLook = !uiCapturing && m_input.IsMouseButtonDown(MOUSE_BUTTON_RIGHT);
+    const bool activateLook = m_input.IsMouseButtonDown(MOUSE_BUTTON_RIGHT);
     if (activateLook && !m_mouseLookActive) {
         DisableCursor();
         m_mouseLookActive = true;

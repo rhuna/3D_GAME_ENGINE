@@ -5,6 +5,36 @@
 #include "raylib.h"
 
 namespace fw {
+
+struct PrimitiveShape {
+    enum Value {
+        None = 0,
+        Cube,
+        Sphere,
+        Cylinder,
+        Plane
+    } value = Cube;
+
+    PrimitiveShape() = default;
+    PrimitiveShape(Value v) : value(v) {}
+
+    PrimitiveShape& operator=(Value v) {
+        value = v;
+        return *this;
+    }
+
+    PrimitiveShape& operator=(const std::string& text) {
+        if (text == "cube") value = Cube;
+        else if (text == "sphere") value = Sphere;
+        else if (text == "cylinder") value = Cylinder;
+        else if (text == "plane") value = Plane;
+        else value = None;
+        return *this;
+    }
+
+    operator Value() const { return value; }
+};
+
 struct RenderComponent {
     Color tint {255, 255, 255, 255};
     bool visible = true;
@@ -12,18 +42,17 @@ struct RenderComponent {
     bool drawSphere = false;
     float cubeSize = 1.0f;
     float sphereRadius = 0.5f;
-    bool useModel = false;
 
-    // Legacy direct-path support. V58 keeps this so older content still works.
+    bool useModel = false;
     std::string modelPath;
 
-    // V58 asset-id based rendering fields.
+    PrimitiveShape primitiveShape = PrimitiveShape::Cube;
+    float primitiveSize = 1.0f;
+    float primitiveRadius = 0.5f;
+    float primitiveHeight = 1.0f;
+
     std::string meshId;
     std::string textureId;
-    std::string lod0MeshId;
-    std::string lod1MeshId;
-    std::string lod2MeshId;
-    float lod1Distance = 25.0f;
-    float lod2Distance = 60.0f;
 };
-}
+
+} // namespace fw

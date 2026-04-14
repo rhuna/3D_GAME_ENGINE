@@ -34,44 +34,95 @@ float SelectionRadius(const World& world, Entity entity) {
     const float avgScale = (transform->scale.x + transform->scale.y + transform->scale.z) / 3.0f;
     return avgScale * 0.75f + 0.15f;
 }
-} // namespace
+
+Vector3 GroupPivot(const World& world, const EditorSelection& selection) {
+    Vector3 pivot {0.0f, 0.0f, 0.0f};
+    int count = 0;
+    for (Entity entity : selection.SelectedEntities()) {
+        const TransformComponent* transform = world.GetComponent<TransformComponent>(entity);
+        if (!transform) continue;
+        pivot = Vector3Add(pivot, transform->position);
+        ++count;
+    }
+    if (count == 0) return pivot;
+    return Vector3Scale(pivot, 1.0f / static_cast<float>(count));
+}
+}
 
 void EditorGizmo::Update(Application& app, World& world, EditorSelection& selection, float deltaTime) {
     (void)app;
+    selection.PruneDead(world);
     if (!selection.HasSelection(world)) return;
 
-    TransformComponent* transform = world.GetComponent<TransformComponent>(selection.Selected());
-    if (!transform) return;
+    if (IsKeyPressed(KEY_W) || IsKeyPressed(KEY_ONE)) m_mode = GizmoMode::Translate;
+    if (IsKeyPressed(KEY_E) || IsKeyPressed(KEY_TWO)) m_mode = GizmoMode::Rotate;
+    if (IsKeyPressed(KEY_R) || IsKeyPressed(KEY_THREE)) m_mode = GizmoMode::Scale;
+
+    Vector3 translationDelta {0.0f, 0.0f, 0.0f};
+    Vector3 rotationDelta {0.0f, 0.0f, 0.0f};
+    Vector3 scaleDelta {0.0f, 0.0f, 0.0f};
 
     const float moveSpeed = kTranslateSpeed * deltaTime;
     const float rotateSpeed = kRotateSpeed * deltaTime;
     const float scaleSpeed = kScaleSpeed * deltaTime;
 
-    if (IsKeyPressed(KEY_ONE)) m_mode = GizmoMode::Translate;
-    if (IsKeyPressed(KEY_TWO)) m_mode = GizmoMode::Rotate;
-    if (IsKeyPressed(KEY_THREE)) m_mode = GizmoMode::Scale;
-
     if (m_mode == GizmoMode::Translate) {
-        if (IsKeyDown(KEY_J)) transform->position.x -= moveSpeed;
-        if (IsKeyDown(KEY_L)) transform->position.x += moveSpeed;
-        if (IsKeyDown(KEY_I)) transform->position.z -= moveSpeed;
-        if (IsKeyDown(KEY_K)) transform->position.z += moveSpeed;
-        if (IsKeyDown(KEY_U)) transform->position.y += moveSpeed;
-        if (IsKeyDown(KEY_O)) transform->position.y -= moveSpeed;
+        if (IsKeyDown(KEY_J)) translationDelta.x -= moveSpeed;
+        if (IsKeyDown(KEY_L)) translationDelta.x += moveSpeed;
+        if (IsKeyDown(KEY_I)) translationDelta.z -= moveSpeed;
+        if (IsKeyDown(KEY_K)) translationDelta.z += moveSpeed;
+        if (IsKeyDown(KEY_U)) translationDelta.y += moveSpeed;
+        if (IsKeyDown(KEY_O)) translationDelta.y -= moveSpeed;
     } else if (m_mode == GizmoMode::Rotate) {
-        if (IsKeyDown(KEY_J)) transform->rotationEuler.y -= rotateSpeed;
-        if (IsKeyDown(KEY_L)) transform->rotationEuler.y += rotateSpeed;
-        if (IsKeyDown(KEY_I)) transform->rotationEuler.x -= rotateSpeed;
-        if (IsKeyDown(KEY_K)) transform->rotationEuler.x += rotateSpeed;
-        if (IsKeyDown(KEY_U)) transform->rotationEuler.z -= rotateSpeed;
-        if (IsKeyDown(KEY_O)) transform->rotationEuler.z += rotateSpeed;
+        if (IsKeyDown(KEY_J)) rotationDelta.y -= rotateSpeed;
+        if (IsKeyDown(KEY_L)) rotationDelta.y += rotateSpeed;
+        if (IsKeyDown(KEY_I)) rotationDelta.x -= rotateSpeed;
+        if (IsKeyDown(KEY_K)) rotationDelta.x += rotateSpeed;
+        if (IsKeyDown(KEY_U)) rotationDelta.z -= rotateSpeed;
+        if (IsKeyDown(KEY_O)) rotationDelta.z += rotateSpeed;
     } else {
-        if (IsKeyDown(KEY_L)) transform->scale.x += scaleSpeed;
-        if (IsKeyDown(KEY_J)) transform->scale.x = transform->scale.x > scaleSpeed ? transform->scale.x - scaleSpeed : 0.1f;
-        if (IsKeyDown(KEY_U)) transform->scale.y += scaleSpeed;
-        if (IsKeyDown(KEY_O)) transform->scale.y = transform->scale.y > scaleSpeed ? transform->scale.y - scaleSpeed : 0.1f;
-        if (IsKeyDown(KEY_I)) transform->scale.z += scaleSpeed;
-        if (IsKeyDown(KEY_K)) transform->scale.z = transform->scale.z > scaleSpeed ? transform->scale.z - scaleSpeed : 0.1f;
+        if (IsKeyDown(KEY_L)) scaleDelta.x += scaleSpeed;
+        if (IsKeyDown(KEY_J)) scaleDelta.x -= scaleSpeed;
+        if (IsKeyDown(KEY_U)) scaleDelta.y += scaleSpeed;
+        if (IsKeyDown(KEY_O)) scaleDelta.y -= scaleSpeed;
+        if (IsKeyDown(KEY_I)) scaleDelta.z += scaleSpeed;
+        if (IsKeyDown(KEY_K)) scaleDelta.z -= scaleSpeed;
+    }
+
+    const Vector3 pivot = GroupPivot(world, selection);
+
+    for (Entity entity : selection.SelectedEntities()) {
+        TransformComponent* transform = world.GetComponent<TransformComponent>(entity);
+        if (!transform) continue;
+
+        if (m_mode == GizmoMode::Translate) {
+            transform->position = Vector3Add(transform->position, translationDelta);
+        } else if (m_mode == GizmoMode::Rotate) {
+            transform->rotationEuler = Vector3Add(transform->rotationEuler, rotationDelta);
+
+            if (rotationDelta.y != 0.0f) {
+                Vector3 relative = Vector3Subtract(transform->position, pivot);
+                const float radians = rotationDelta.y * DEG2RAD;
+                const float cs = std::cos(radians);
+                const float sn = std::sin(radians);
+                Vector3 rotated {
+                    relative.x * cs - relative.z * sn,
+                    relative.y,
+                    relative.x * sn + relative.z * cs
+                };
+                transform->position = Vector3Add(pivot, rotated);
+            }
+        } else {
+            transform->scale.x = (transform->scale.x + scaleDelta.x > 0.1f) ? transform->scale.x + scaleDelta.x : 0.1f;
+            transform->scale.y = (transform->scale.y + scaleDelta.y > 0.1f) ? transform->scale.y + scaleDelta.y : 0.1f;
+            transform->scale.z = (transform->scale.z + scaleDelta.z > 0.1f) ? transform->scale.z + scaleDelta.z : 0.1f;
+
+            Vector3 relative = Vector3Subtract(transform->position, pivot);
+            relative.x *= (scaleDelta.x >= 0.0f) ? 1.0f + (scaleDelta.x * 0.25f) : 1.0f / (1.0f + (-scaleDelta.x * 0.25f));
+            relative.y *= (scaleDelta.y >= 0.0f) ? 1.0f + (scaleDelta.y * 0.25f) : 1.0f / (1.0f + (-scaleDelta.y * 0.25f));
+            relative.z *= (scaleDelta.z >= 0.0f) ? 1.0f + (scaleDelta.z * 0.25f) : 1.0f / (1.0f + (-scaleDelta.z * 0.25f));
+            transform->position = Vector3Add(pivot, relative);
+        }
     }
 }
 
@@ -85,24 +136,32 @@ void EditorGizmo::Draw(const World& world, const EditorSelection& selection) con
 
     if (!selection.HasSelection(world)) return;
 
-    const TransformComponent* transform = world.GetComponent<TransformComponent>(selection.Selected());
-    if (!transform) return;
+    const Vector3 pivot = GroupPivot(world, selection);
+    float avgRadius = 0.8f;
+    int count = 0;
+    for (Entity entity : selection.SelectedEntities()) {
+        const TransformComponent* transform = world.GetComponent<TransformComponent>(entity);
+        if (!transform) continue;
+        DrawSphereWires(transform->position, SelectionRadius(world, entity), 10, 10, YELLOW);
+        avgRadius += SelectionRadius(world, entity);
+        ++count;
+    }
+    if (count > 0) avgRadius /= static_cast<float>(count);
 
-    const Vector3 center = transform->position;
-    const float axisLength = 1.5f * (transform->scale.x + transform->scale.y + transform->scale.z) / 3.0f;
+    const float axisLength = 1.8f + avgRadius;
+    DrawLine3D(pivot, Vector3Add(pivot, Vector3{axisLength, 0.0f, 0.0f}), RED);
+    DrawLine3D(pivot, Vector3Add(pivot, Vector3{0.0f, axisLength, 0.0f}), GREEN);
+    DrawLine3D(pivot, Vector3Add(pivot, Vector3{0.0f, 0.0f, axisLength}), BLUE);
+    DrawSphereWires(pivot, avgRadius * 0.55f, 12, 12, ORANGE);
 
-    DrawLine3D(center, Vector3Add(center, Vector3{axisLength, 0.0f, 0.0f}), RED);
-    DrawLine3D(center, Vector3Add(center, Vector3{0.0f, axisLength, 0.0f}), GREEN);
-    DrawLine3D(center, Vector3Add(center, Vector3{0.0f, 0.0f, axisLength}), BLUE);
-    DrawSphereWires(center, SelectionRadius(world, selection.Selected()), 10, 10, YELLOW);
-
-    DrawRectangle(10, 430, 500, 94, Color{0, 0, 0, 160});
-    DrawText("Gizmo", 20, 440, 24, RAYWHITE);
+    DrawRectangle(10, 430, 560, 112, Color{0, 0, 0, 160});
+    DrawText("V68 Gizmo", 20, 440, 24, RAYWHITE);
 
     char buffer[256];
-    std::snprintf(buffer, sizeof(buffer), "Mode: %s  (1/2/3)", GizmoModeName(m_mode));
+    std::snprintf(buffer, sizeof(buffer), "Mode: %s  (W/E/R or 1/2/3)  Selected: %d", GizmoModeName(m_mode), static_cast<int>(selection.SelectedEntities().size()));
     DrawText(buffer, 20, 470, 20, RAYWHITE);
-    DrawText("LMB select, MMB focus camera, RMB hold to look, Shift+LMB fire.", 20, 494, 18, LIGHTGRAY);
+    DrawText("Ctrl+drag = box select | Ctrl+D = duplicate group | M = mirror X | Delete = remove", 20, 496, 18, LIGHTGRAY);
+    DrawText("J/L = X axis | I/K = Z axis | U/O = Y axis", 20, 518, 18, LIGHTGRAY);
 }
 
 } // namespace fw
