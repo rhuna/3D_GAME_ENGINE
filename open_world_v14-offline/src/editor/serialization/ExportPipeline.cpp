@@ -16,9 +16,10 @@
 
 #ifdef _WIN32
 extern "C" __declspec(dllimport) unsigned long __stdcall GetModuleFileNameA(
-    void *hModule,
-    char *lpFilename,
-    unsigned long nSize);
+    void* hModule,
+    char* lpFilename,
+    unsigned long nSize
+);
 static constexpr unsigned long FW_MAX_PATH = 260;
 #endif
 
@@ -97,20 +98,17 @@ std::string CurrentTimestampText() {
     return buffer;
 }
 
-std::string ResolveExecutablePath()
-{
+std::string ResolveExecutablePath() {
 #ifdef _WIN32
-    char buffer[FW_MAX_PATH]{};
+    char buffer[FW_MAX_PATH] {};
     const unsigned long length = GetModuleFileNameA(nullptr, buffer, FW_MAX_PATH);
-    if (length > 0 && length < FW_MAX_PATH)
-    {
+    if (length > 0 && length < FW_MAX_PATH) {
         return std::string(buffer, length);
     }
 #elif defined(__linux__)
     std::error_code ec;
     const fs::path resolved = fs::read_symlink("/proc/self/exe", ec);
-    if (!ec && !resolved.empty())
-    {
+    if (!ec && !resolved.empty()) {
         return resolved.string();
     }
 #endif

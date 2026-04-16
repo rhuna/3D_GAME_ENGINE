@@ -47,3 +47,10 @@ If raylib is not installed and you do not have `third_party/raylib`, configure w
 ```powershell
 cmake -S . -B build -G "Visual Studio 17 2022" -DFW_OFFLINE_ONLY=OFF
 ```
+
+
+## V115
+
+- Builder tab body rendering repaired
+- Builder now captures editor/world input while open
+- Windows export pipeline compile fix for `ExportPipeline.cpp`

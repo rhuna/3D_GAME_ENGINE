@@ -43,9 +43,9 @@ int Application::Run() {
 // Use one authoritative builder toggle path so the panel state is not being
 // changed by competing code paths in the same frame.
 const bool builderToggleRequested =
-    m_input.IsKeyPressed(KEY_F10) ||
-    m_input.IsKeyPressed(KEY_F9) ||
-    ((IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_RIGHT_CONTROL)) && m_input.IsKeyPressed(KEY_B));
+    ::IsKeyPressed(KEY_F10) ||
+    ::IsKeyPressed(KEY_F9) ||
+    ((::IsKeyDown(KEY_LEFT_CONTROL) || ::IsKeyDown(KEY_RIGHT_CONTROL)) && ::IsKeyPressed(KEY_B));
 
 if (builderToggleRequested) {
     const bool newState = !m_gameBuilderPanel.IsVisible();
@@ -61,7 +61,8 @@ if (m_input.IsKeyPressed(KEY_TAB)) m_showInspector = !m_showInspector;
 
         const bool ctrlDown = IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_RIGHT_CONTROL);
         const bool mouseOverBuilder = m_gameBuilderPanel.IsMouseOverUi();
-        if (!m_mouseLookActive && !mouseOverBuilder && ctrlDown && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+        const bool builderVisibleForInput = m_gameBuilderPanel.IsVisible();
+        if (!m_mouseLookActive && !builderVisibleForInput && !mouseOverBuilder && ctrlDown && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
             m_editorSelection.BeginBoxSelect(GetMousePosition());
         }
         if (m_editorSelection.IsBoxSelecting()) {
@@ -71,16 +72,23 @@ if (m_input.IsKeyPressed(KEY_TAB)) m_showInspector = !m_showInspector;
             }
         }
 
-        if (ctrlDown && m_input.IsKeyPressed(KEY_D)) DuplicateSelectionGroup();
-        if (m_input.IsKeyPressed(KEY_M)) MirrorSelectionGroupX();
-        if (m_input.IsKeyPressed(KEY_DELETE)) DeleteSelectionGroup();
+        if (!builderVisibleForInput) {
+            if (ctrlDown && m_input.IsKeyPressed(KEY_D)) DuplicateSelectionGroup();
+            if (m_input.IsKeyPressed(KEY_M)) MirrorSelectionGroupX();
+            if (m_input.IsKeyPressed(KEY_DELETE)) DeleteSelectionGroup();
+        }
+
+        const bool builderVisible = m_gameBuilderPanel.IsVisible();
 
         UpdateCameraController(m_time.DeltaTime());
         m_sceneManager.Update(*this, m_time.DeltaTime());
-        m_gameBuilderPanel.Update(*this, m_contentRegistry);
-        m_editorAuthoring.Update(*this, m_world, m_editorSelection, m_prefabs, m_sceneLibrary);
-        m_editorGizmo.Update(*this, m_world, m_editorSelection, m_time.DeltaTime());
-        if (m_showInspector) m_inspectorPanel.Update(*this, m_world, m_editorSelection, m_time.DeltaTime());
+        if (!builderVisible) {
+            m_editorAuthoring.Update(*this, m_world, m_editorSelection, m_prefabs, m_sceneLibrary);
+            m_editorGizmo.Update(*this, m_world, m_editorSelection, m_time.DeltaTime());
+            if (m_showInspector) {
+                m_inspectorPanel.Update(*this, m_world, m_editorSelection, m_time.DeltaTime());
+            }
+        }
 
         accumulator += m_time.DeltaTime();
         while (accumulator >= m_config.fixedTimestep) {
@@ -106,6 +114,10 @@ if (m_input.IsKeyPressed(KEY_TAB)) m_showInspector = !m_showInspector;
         if (m_showInspector) {
             m_inspectorPanel.Draw(m_world, m_editorSelection);
         }
+
+        // The builder tab body uses immediate-mode raylib drawing inside the
+        // panel handlers, so update it only after the active drawing frame has started.
+        m_gameBuilderPanel.Update(*this, m_contentRegistry);
         m_gameBuilderPanel.Draw(*this, m_contentRegistry);
 
         if (!m_mouseLookActive) {

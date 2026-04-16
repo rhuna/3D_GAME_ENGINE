@@ -105,6 +105,10 @@ void GameBuilderPanel::ToggleVisible() {
 
 void GameBuilderPanel::SetVisible(bool visible) {
     m_visible = visible;
+    if (!m_visible) {
+        m_activeTextField = 0;
+    }
+    m_status = m_visible ? "Builder open" : "Builder closed";
     SaveSessionState();
 }
 
@@ -263,10 +267,15 @@ void GameBuilderPanel::WriteVersionMetadata() const {
     for (const auto& [path, text] : notes) FileSystem::WriteTextFile(path, text);
     FileSystem::WriteTextFile("version_notes/V113_NOTES.md", "# V113 Notes\n\nOffline build bootstrap hardening plus builder session persistence.\n");
     FileSystem::WriteTextFile("version_notes/V114_NOTES.md", "# V114 Notes\n\nReal export bundle staging plus builder toggle hardening and close button support.\n");
+    FileSystem::WriteTextFile("version_notes/V115_NOTES.md", "# V115 Notes\n\nBuilder render/input repair plus Windows export pipeline compile fix.\n");
 }
 
 void GameBuilderPanel::Update(Application& app, ContentRegistry& registry) {
     if (!m_visible) return;
+
+    const float width = std::min(760.0f, static_cast<float>(GetScreenWidth()) - 36.0f);
+    const float height = std::min(700.0f, static_cast<float>(GetScreenHeight()) - 36.0f);
+    m_bounds = Rectangle{18.0f, 18.0f, std::max(560.0f, width), std::max(620.0f, height)};
 
     const Rectangle closeRect = CloseButtonRect();
     if (PointInRect(closeRect, GetMousePosition()) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
@@ -933,7 +942,7 @@ void GameBuilderPanel::Draw(Application& app, const ContentRegistry& registry) c
     DrawRectangleRec(m_bounds, Color{8, 12, 18, 230});
     DrawRectangleLinesEx(m_bounds, 2.0f, SKYBLUE);
     DrawBuilderVisibilityText(m_visible);
-    DrawText("V114 Real Engine Builder", static_cast<int>(m_bounds.x + 16.0f), static_cast<int>(m_bounds.y + 4.0f), 22, RAYWHITE);
+    DrawText("V115 Builder Repair and Export Pipeline", static_cast<int>(m_bounds.x + 16.0f), static_cast<int>(m_bounds.y + 4.0f), 22, RAYWHITE);
 
     const Rectangle closeRect = CloseButtonRect();
     DrawButtonVisual(closeRect, "X", PointInRect(closeRect, GetMousePosition()), Color{90, 36, 36, 255});
@@ -957,7 +966,7 @@ void GameBuilderPanel::Draw(Application& app, const ContentRegistry& registry) c
     }
 
     DrawBuilderVisibilityText(m_visible);
-    DrawText("F10, F9, or Ctrl+B toggles builder. Builder mouse-capture is disabled while the panel is open.", static_cast<int>(m_bounds.x + 20.0f), static_cast<int>(m_bounds.y + 92.0f), 16, LIGHTGRAY);
+    DrawText("F10, F9, or Ctrl+B toggles builder. Builder now captures editor input while open and renders its tab body inside the active frame.", static_cast<int>(m_bounds.x + 20.0f), static_cast<int>(m_bounds.y + 92.0f), 16, LIGHTGRAY);
 
     if (m_activeTab == Tab::Quest) {
         DrawBuilderVisibilityText(m_visible);
