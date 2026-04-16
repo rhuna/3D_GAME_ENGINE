@@ -22,6 +22,7 @@
 #include "render/Renderer.h"
 #include "scene/SceneManager.h"
 #include "scene/data/SceneLibrary.h"
+#include "editor/serialization/ExportPipeline.h"
 
 namespace fw {
 
@@ -35,6 +36,7 @@ public:
     void ReloadStartScene();
     void RunContentValidation();
     void ExportCurrentScene();
+    ExportBundleResult StageExportBundle(const ExportBundleSettings& settings);
 
     [[nodiscard]] const EngineConfig& GetConfig() const { return m_config; }
     [[nodiscard]] Time& GetTime() { return m_time; }

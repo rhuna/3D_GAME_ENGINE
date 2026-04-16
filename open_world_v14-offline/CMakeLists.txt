@@ -1,13 +1,13 @@
-# V113 Offline Build Bootstrap and Builder Session Persistence Snapshot
+# V114 Export Pipeline Staging and Builder Toggle Hardening Snapshot
 # This root CMake file remains the only required build entry point for the repo.
 # There is intentionally no src/CMakeLists.txt in this project structure.
 
 cmake_minimum_required(VERSION 3.20)
-project(3D_GAME_ENGINE VERSION 113.0 LANGUAGES C CXX)
+project(3D_GAME_ENGINE VERSION 114.0 LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# V113 improves dependency discovery so the repo behaves better on offline
+# V114 keeps the offline-friendly dependency discovery so the repo behaves better on offline
 # machines. The build now tries these paths in order:
 #   1. system-installed raylib package config
 #   2. vendored third_party/raylib checkout
@@ -17,22 +17,22 @@ option(FW_OFFLINE_ONLY "Require local raylib sources or an installed raylib pack
 set(FW_RAYLIB_TARGET "")
 find_package(raylib CONFIG QUIET)
 if (TARGET raylib)
-  message(STATUS "V113: Using installed raylib package")
+  message(STATUS "V114: Using installed raylib package")
   set(FW_RAYLIB_TARGET raylib)
 elseif (EXISTS "${CMAKE_SOURCE_DIR}/third_party/raylib/CMakeLists.txt")
-  message(STATUS "V113: Using vendored third_party/raylib")
+  message(STATUS "V114: Using vendored third_party/raylib")
   add_subdirectory(third_party/raylib)
   set(FW_RAYLIB_TARGET raylib)
 elseif (FW_OFFLINE_ONLY)
   message(FATAL_ERROR
-    "V113: raylib was not found locally.\n"
+    "V114: raylib was not found locally.\n"
     "Provide one of the following before configuring again:\n"
     "  - install raylib so find_package(raylib CONFIG) succeeds\n"
     "  - place a checkout in third_party/raylib\n"
     "  - rerun with -DFW_OFFLINE_ONLY=OFF to allow FetchContent\n")
 else()
   include(FetchContent)
-  message(STATUS "V113: Local raylib not found, using FetchContent")
+  message(STATUS "V114: Local raylib not found, using FetchContent")
   FetchContent_Declare(
     raylib
     GIT_REPOSITORY https://github.com/raysan5/raylib.git

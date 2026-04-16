@@ -67,6 +67,9 @@
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\editor\runtime\KitPlacement.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\editor\serialization\ExportPipeline.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\dev\3D_GAME_ENGINE\open_world_v14-offline\src\editor\serialization\SceneExporter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

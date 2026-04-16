@@ -1,0 +1,7 @@
+V114 Export Pipeline Checklist
+[OK] Release tab can still write release metadata
+[OK] Release tab can now stage an export bundle
+[OK] Export bundle includes runtime scene snapshot
+[OK] Export bundle writes Windows launcher and package scripts
+[OK] Builder disables mouse-look while visible
+[OK] Builder includes a close button

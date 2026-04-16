@@ -9,6 +9,7 @@
 #include "core/Application.h"
 #include "core/FileSystem.h"
 #include "core/Logger.h"
+#include "editor/serialization/ExportPipeline.h"
 #include "util/StringUtil.h"
 
 namespace fw {
@@ -54,6 +55,12 @@ std::string JoinAssetList(const std::vector<ContentEntry>& entries) {
 void DrawBuilderVisibilityText(bool visible) {
     const std::string text = std::string("Builder Visible: ") + (visible ? "true" : "false");
     DrawText(text.c_str(), 20, 10, 16, YELLOW);
+}
+
+void DrawButtonVisual(const Rectangle& rect, const char* label, bool hovered, Color fill) {
+    DrawRectangleRec(rect, hovered ? Color{58, 80, 110, 255} : fill);
+    DrawRectangleLinesEx(rect, 1.0f, SKYBLUE);
+    DrawText(label, static_cast<int>(rect.x + 10.0f), static_cast<int>(rect.y + 7.0f), 18, RAYWHITE);
 }
 
 } // namespace
@@ -183,6 +190,10 @@ void GameBuilderPanel::HandleTextInput(std::string& target, std::size_t maxLengt
     }
 }
 
+Rectangle GameBuilderPanel::CloseButtonRect() const {
+    return Rectangle{m_bounds.x + m_bounds.width - 42.0f, m_bounds.y + 6.0f, 28.0f, 24.0f};
+}
+
 void GameBuilderPanel::DrawStatusBar() const {
     const Rectangle bar {m_bounds.x + 10.0f, m_bounds.y + m_bounds.height - 36.0f, m_bounds.width - 20.0f, 26.0f};
     DrawRectangleRec(bar, Color{20, 24, 30, 230});
@@ -229,7 +240,7 @@ bool GameBuilderPanel::RefreshRegistry(ContentRegistry& registry) {
 }
 
 void GameBuilderPanel::WriteVersionMetadata() const {
-    FileSystem::WriteTextFile("version_notes/VERSION.txt", "V113\n\nV113 Offline Build Bootstrap and Builder Session Persistence\n");
+    FileSystem::WriteTextFile("version_notes/VERSION.txt", "V114\n\nV114 Export Pipeline Staging and Builder Toggle Hardening\n");
 
     const std::array<std::pair<const char*, const char*>, 17> notes {{
         {"version_notes/V82_NOTES.md", "# V82 Notes\n\nIntegrated interior authoring in the real V90 builder.\n"},
@@ -251,11 +262,18 @@ void GameBuilderPanel::WriteVersionMetadata() const {
     }};
     for (const auto& [path, text] : notes) FileSystem::WriteTextFile(path, text);
     FileSystem::WriteTextFile("version_notes/V113_NOTES.md", "# V113 Notes\n\nOffline build bootstrap hardening plus builder session persistence.\n");
+    FileSystem::WriteTextFile("version_notes/V114_NOTES.md", "# V114 Notes\n\nReal export bundle staging plus builder toggle hardening and close button support.\n");
 }
 
 void GameBuilderPanel::Update(Application& app, ContentRegistry& registry) {
-    (void)app;
     if (!m_visible) return;
+
+    const Rectangle closeRect = CloseButtonRect();
+    if (PointInRect(closeRect, GetMousePosition()) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+        SetVisible(false);
+        m_status = "Builder closed";
+        return;
+    }
 
     UpdateTabClicks();
 
@@ -271,7 +289,7 @@ void GameBuilderPanel::Update(Application& app, ContentRegistry& registry) {
         case Tab::Start: HandleStartTab(registry); break;
         case Tab::Audio: HandleAudioTab(registry); break;
         case Tab::Review: HandleReviewTab(registry); break;
-        case Tab::Release: HandleReleaseTab(registry); break;
+        case Tab::Release: HandleReleaseTab(app, registry); break;
         case Tab::Templates: HandleTemplatesTab(registry); break;
         case Tab::Ship: HandleShipTab(registry); break;
         case Tab::Complete: HandleCompleteTab(registry); break;
@@ -725,7 +743,7 @@ void GameBuilderPanel::HandleReviewTab(ContentRegistry& registry) {
     }
 }
 
-void GameBuilderPanel::HandleReleaseTab(ContentRegistry& registry) {
+void GameBuilderPanel::HandleReleaseTab(Application& app, ContentRegistry& registry) {
     const float left = m_bounds.x + 20.0f;
     const float right = left + 280.0f;
     float y = m_bounds.y + 110.0f;
@@ -757,6 +775,27 @@ void GameBuilderPanel::HandleReleaseTab(ContentRegistry& registry) {
         const bool ok4 = WriteAndLog(m_release.outputFolder + "/README_EXPORT.txt", "Staged export bundle for " + m_release.buildId + "\n", m_status);
         const bool ok5 = WriteAndLog("assets/registry/v87_export_wizard_report.txt", "V87 release bundle refreshed\n", m_status);
         if (ok1 && ok2 && ok3 && ok4 && ok5) RefreshRegistry(registry);
+    }
+    if (Button(MakeRow(left + 230.0f, y + 264.0f, 220.0f, 34.0f), "Stage Export Bundle")) {
+        ExportBundleSettings settings {};
+        settings.buildId = m_release.buildId;
+        settings.gameTitle = m_release.gameTitle;
+        settings.version = m_release.version;
+        settings.startScene = m_release.startScene;
+        settings.startRegion = m_release.startRegion;
+        settings.profileId = m_release.profileId;
+        settings.menuId = m_release.menuId;
+        settings.hudId = m_release.hudId;
+        settings.outputFolder = m_release.outputFolder;
+        settings.includeSaves = m_release.includeSaves;
+        settings.compressExport = m_release.compressExport;
+        settings.zipOutput = m_release.zipOutput;
+
+        const ExportBundleResult result = app.StageExportBundle(settings);
+        m_status = result.message;
+        if (result.success) {
+            WriteAndLog("assets/registry/v114_export_bundle_report.txt", "V114 staged export bundle: " + result.outputFolder + "\n", m_status);
+        }
     }
 }
 
@@ -894,7 +933,10 @@ void GameBuilderPanel::Draw(Application& app, const ContentRegistry& registry) c
     DrawRectangleRec(m_bounds, Color{8, 12, 18, 230});
     DrawRectangleLinesEx(m_bounds, 2.0f, SKYBLUE);
     DrawBuilderVisibilityText(m_visible);
-    DrawText("V90 Real Engine Builder", static_cast<int>(m_bounds.x + 16.0f), static_cast<int>(m_bounds.y + 4.0f), 22, RAYWHITE);
+    DrawText("V114 Real Engine Builder", static_cast<int>(m_bounds.x + 16.0f), static_cast<int>(m_bounds.y + 4.0f), 22, RAYWHITE);
+
+    const Rectangle closeRect = CloseButtonRect();
+    DrawButtonVisual(closeRect, "X", PointInRect(closeRect, GetMousePosition()), Color{90, 36, 36, 255});
 
     const std::array<std::pair<Tab, const char*>, 16> tabs {{
         {Tab::Create, "Create"}, {Tab::Story, "Story"}, {Tab::Quest, "Quest"}, {Tab::Fight, "Fight"},
@@ -915,7 +957,7 @@ void GameBuilderPanel::Draw(Application& app, const ContentRegistry& registry) c
     }
 
     DrawBuilderVisibilityText(m_visible);
-    DrawText("F10, F9, or Ctrl+B toggles builder. This panel writes real project files used by the integrated baseline.", static_cast<int>(m_bounds.x + 20.0f), static_cast<int>(m_bounds.y + 92.0f), 16, LIGHTGRAY);
+    DrawText("F10, F9, or Ctrl+B toggles builder. Builder mouse-capture is disabled while the panel is open.", static_cast<int>(m_bounds.x + 20.0f), static_cast<int>(m_bounds.y + 92.0f), 16, LIGHTGRAY);
 
     if (m_activeTab == Tab::Quest) {
         DrawBuilderVisibilityText(m_visible);

@@ -1,22 +1,40 @@
-# 3D_GAME_ENGINE V113 — Offline Build Bootstrap and Builder Session Persistence
+# 3D_GAME_ENGINE V114 — Export Pipeline Staging and Builder Toggle Hardening
 
-This snapshot advances the uploaded V112 repo into **V113**.
+This snapshot advances the uploaded V113 repo into **V114**.
 
 ## Focus
-- Offline-friendly raylib bootstrap logic in CMake
-- Clear failure messaging when raylib is missing locally
-- Builder panel session persistence across launches
-- Version metadata refreshed to V113
+- real **export bundle staging** from the builder Release tab
+- runtime scene snapshot copied into the staged package
+- Windows launcher and packaging batch scripts generated automatically
+- builder toggle hardening so the panel no longer fights mouse-look
+- close button support for the builder panel
+- version metadata refreshed to V114
 
 ## Builder controls
 Use **F10**, **F9**, or **Ctrl+B** to toggle the builder.
 Press **Esc** to close the builder before exiting the application.
+Click the new **X** button to close the builder with the mouse.
+While the builder is open, **RMB mouse-look is disabled** so the UI stays usable.
 
-## Offline build behavior
-V113 now searches for raylib in this order:
-1. installed raylib package
-2. `third_party/raylib`
-3. FetchContent when `-DFW_OFFLINE_ONLY=OFF`
+## Release/export workflow in V114
+Open the builder and go to **Release**:
+1. Fill in build id, title, version, startup ids, and output folder
+2. Click **Write Release Bundle** to save the release metadata files
+3. Click **Stage Export Bundle** to create a runnable export folder
+
+The staged export now includes:
+- copied project assets
+- a runtime scene export snapshot
+- a launch config file
+- a Windows launcher batch file
+- a packaging batch file for zipping the staged export
+
+Recommended output folder example:
+```text
+exports/starter_build
+```
+
+Do **not** choose a folder inside `assets/` for the staged export.
 
 ## Recommended local Windows build
 ```powershell

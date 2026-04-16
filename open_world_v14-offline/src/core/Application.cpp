@@ -7,6 +7,7 @@
 
 #include "core/Logger.h"
 #include "editor/serialization/SceneExporter.h"
+#include "editor/serialization/ExportPipeline.h"
 #include "game/scenes/OpenWorldRuntimeScene.h"
 #include "serialization/WorldSerializer.h"
 
@@ -49,6 +50,10 @@ const bool builderToggleRequested =
 if (builderToggleRequested) {
     const bool newState = !m_gameBuilderPanel.IsVisible();
     m_gameBuilderPanel.SetVisible(newState);
+    if (newState && m_mouseLookActive) {
+        EnableCursor();
+        m_mouseLookActive = false;
+    }
     Logger::Info(std::string("Builder visibility set to: ") + (newState ? "true" : "false"));
 }
 if (m_input.IsKeyPressed(KEY_TAB)) m_showInspector = !m_showInspector;
@@ -135,6 +140,16 @@ void Application::ExportCurrentScene() {
     }
 }
 
+ExportBundleResult Application::StageExportBundle(const ExportBundleSettings& settings) {
+    ExportBundleResult result = ExportPipeline::StageBundle(settings, m_world, m_prefabs);
+    if (result.success) {
+        m_lastExportPath = result.outputFolder;
+        Logger::Info(result.message);
+    } else {
+        Logger::Warn(result.message);
+    }
+    return result;
+}
 
 void Application::DuplicateSelectionGroup() {
     const auto selected = m_editorSelection.SelectedEntities();
@@ -239,7 +254,8 @@ void Application::Shutdown() {
 }
 
 void Application::UpdateCameraController(float deltaTime) {
-    const bool activateLook = m_input.IsMouseButtonDown(MOUSE_BUTTON_RIGHT);
+    const bool builderBlockingLook = m_gameBuilderPanel.IsVisible();
+    const bool activateLook = !builderBlockingLook && m_input.IsMouseButtonDown(MOUSE_BUTTON_RIGHT);
     if (activateLook && !m_mouseLookActive) {
         DisableCursor();
         m_mouseLookActive = true;

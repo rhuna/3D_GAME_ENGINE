@@ -219,6 +219,7 @@ private:
     void HandleTextInput(std::string& target, std::size_t maxLength = 96);
     void UpdateTabClicks();
     void DrawStatusBar() const;
+    [[nodiscard]] Rectangle CloseButtonRect() const;
 
     void HandleCreateTab(ContentRegistry& registry);
     void HandleStoryTab(ContentRegistry& registry);
@@ -231,7 +232,7 @@ private:
     void HandleStartTab(ContentRegistry& registry);
     void HandleAudioTab(ContentRegistry& registry);
     void HandleReviewTab(ContentRegistry& registry);
-    void HandleReleaseTab(ContentRegistry& registry);
+    void HandleReleaseTab(Application& app, ContentRegistry& registry);
     void HandleTemplatesTab(ContentRegistry& registry);
     void HandleShipTab(ContentRegistry& registry);
     void HandleCompleteTab(ContentRegistry& registry);
