@@ -1,0 +1,8 @@
+bundleId=first_steps_bundle
+questId=first_steps
+questFile=assets/quests/first_steps.quest
+graphFile=assets/questgraphs/first_steps.questgraph
+giverNpcId=guide_mira
+dialogueId=guide_mira_intro
+rewardItemId=healing_potion
+nextQuestId=return_to_mira

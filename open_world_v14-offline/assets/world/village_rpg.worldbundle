@@ -1,0 +1,4 @@
+worldBundleId=village_rpg
+regions=starter_village,western_forest
+travelLinks=starter_town_gate,forest_return_path
+interiors=starter_shop

@@ -1,0 +1,6 @@
+worldStateId=starter_persistence
+profileId=starter
+regionState=starter_village:active
+questState=first_steps:available
+merchantState=starter_market:open
+respawnState=starter_wolves:armed

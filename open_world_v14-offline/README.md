@@ -1,18 +1,36 @@
-# 3D_GAME_ENGINE v28 — Dynamic Region Pressure + Patrols
+# 3D_GAME_ENGINE V103 — Real Builder Toggle Fix
 
-This version adds a more dynamic world loop on top of faction/world reactions.
+# 3D_GAME_ENGINE V99 — Real Repo Integration Repair Snapshot
 
-## Added
-- patrol pressure that can spawn new hostiles in unsafe regions
-- secured routes that can generate support caches
-- dynamic regional danger tied to encounter state and faction standing
-- stronger feeling that the world is changing while you move through it
+# 3D_GAME_ENGINE V97 — Real Repo Integration Baseline
 
+# 3D_GAME_ENGINE V90
 
-## V57 Large World + High Detail Branch
-- LOD scaffolding
-- Visibility culling scaffolding
-- Chunk streaming scaffolding
-- Material budget scaffolding
-- Animation runtime scaffolding
-- Streaming and asset budget tooling scaffolding
+This snapshot represents V90: completion milestone baseline.
+
+Key focus:
+- 1.0-style completion scaffolding
+- creator workflow consolidation
+- foundation profile and milestone readiness outputs
+- final baseline for low-code game creation and release prep
+
+Note:
+This is a repo snapshot for your local compile/test cycle.
+
+## Completion status
+This snapshot is the **completion baseline** for the current repo line.
+
+It consolidates:
+- real repo integration
+- compile blocker repairs
+- builder/runtime wiring
+- content registry alignment
+- playable slice authored content
+- versioned documentation and diagnostics
+
+Final status note:
+- structurally complete as a repo snapshot
+- pending final local Windows compile, launch, runtime, and export verification
+
+## Builder access
+Use **F10**, **F9**, or **Ctrl+B** to toggle the builder.

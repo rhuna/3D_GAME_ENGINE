@@ -1,0 +1,12 @@
+exportPresetId=starter_release
+buildId=starter_release
+copyAssets=true
+copyConfig=true
+copyMenus=true
+copyHud=true
+copyDialogue=true
+copyQuests=true
+copyEncounters=true
+copyItems=true
+copyRegions=true
+zipOutput=true

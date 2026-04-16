@@ -1,0 +1,9 @@
+V94 Windows Compile Checklist
+[OK] Vendored raylib path supported
+[OK] Registry diagnostics writer present
+[OK] Runtime verification writer present
+[OK] Builder status interface present
+[TODO] Run local MSVC Release build
+[TODO] Launch executable
+[TODO] Toggle builder with runtime input
+[TODO] Confirm registry and runtime report files are written

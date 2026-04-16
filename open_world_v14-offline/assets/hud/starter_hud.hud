@@ -1,0 +1,9 @@
+hudId=starter_hud
+showHealthBar=true
+showStaminaBar=true
+showGoldCounter=true
+showQuestTracker=true
+showMiniPrompt=true
+inventoryHotkey=I
+questLogHotkey=J
+pauseHotkey=Escape

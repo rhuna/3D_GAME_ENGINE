@@ -1,0 +1,9 @@
+V92.1 Local Verification Checklist
+[ ] Configure project locally
+[ ] Build Debug successfully
+[ ] Build Release successfully
+[ ] Launch runtime successfully
+[ ] Rebuild registry successfully
+[ ] Open builder successfully
+[ ] Load one playable slice successfully
+[ ] Stage one export successfully

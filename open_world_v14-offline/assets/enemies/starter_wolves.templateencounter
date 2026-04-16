@@ -1,0 +1,6 @@
+templateEncounterId=starter_wolves
+templateId=village_rpg
+enemyId=wolf_raider
+count=3
+radius=10
+lootTable=starter_wolf_loot

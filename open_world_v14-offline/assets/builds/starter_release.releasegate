@@ -1,0 +1,7 @@
+releaseGateId=starter_release
+validationReport=assets/registry/v86_validation_report.txt
+exportReadiness=assets/registry/v86_export_readiness.txt
+templateReport=assets/registry/v88_template_report.txt
+shipMode=assets/ship/starter_release.shipmode
+contentLock=assets/ship/starter_release.contentlock
+status=provisional_pass

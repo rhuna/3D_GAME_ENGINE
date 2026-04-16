@@ -21,7 +21,7 @@ namespace fw
         std::vector<Vector3> out;
         if (!layout) return out;
         for (size_t i = 0; i < active.size() && i < layout->npcSpawns.size(); ++i)
-            out.push_back(layout->npcSpawns[i]);
+            out.push_back(layout->npcSpawns[i].position);
         return out;
     }
 
@@ -113,8 +113,7 @@ namespace fw
         m_pipeline.LoadAll("assets");
         m_regionDebugOrder = BuildRegionDebugOrder(m_pipeline);
         m_routines.LoadFromDirectory("assets/routines");
-        if (!m_layouts.LoadFromDirectory("assets/regions"))
-            m_layouts.LoadDefaults();
+        m_layouts.LoadFromDirectory("assets/regions");
         m_factionSystem.Reset();
         ApplyProjectBootstrap(m_project);
 

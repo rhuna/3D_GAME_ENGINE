@@ -1,0 +1,11 @@
+V105 Builder Autostart Checklist
+[OK] Real Application.cpp builder toggle path patched
+[OK] Builder auto-open on startup added
+[OK] Alternate builder shortcuts added
+[OK] Builder toggle logging added
+[OK] GameBuilderPanel array size repaired
+[OK] ContentRegistry diagnostics string literals repaired
+[TODO] Clean configure from repo root
+[TODO] Clean Release build
+[TODO] Launch executable
+[TODO] Verify builder is visible on startup

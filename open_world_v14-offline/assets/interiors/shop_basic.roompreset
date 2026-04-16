@@ -1,0 +1,4 @@
+id=shop_basic
+category=shop
+layout=square_small
+fixtures=counter,shelves,crate_stack,lantern

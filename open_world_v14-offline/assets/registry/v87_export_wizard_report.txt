@@ -1,0 +1,6 @@
+V87 Export Wizard Report
+- build profile scaffolded
+- export preset scaffolded
+- manifest scaffolded
+- staged export folder scaffolded
+- runtime compile verification not performed in this environment

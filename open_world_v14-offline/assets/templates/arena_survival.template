@@ -1,0 +1,13 @@
+templateId=arena_survival
+displayName=Arena Survival
+projectId=arena_survival_project
+startScene=arena_start
+startRegion=arena_bowl
+profileId=arena_profile
+menuId=main_menu
+hudId=starter_hud
+regions=arena_bowl
+quests=survive_wave_one
+dialogue=arena_keeper_intro
+encounters=arena_wave_one
+economy=arena_vendor

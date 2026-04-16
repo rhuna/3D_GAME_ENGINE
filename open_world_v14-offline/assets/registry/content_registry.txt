@@ -1,4 +1,6 @@
 # V71 local content registry
+entry=id=starter_village;kind=audio;path=assets/ambience\starter_village.ambience;category=ambience;tags=ambience
+entry=id=starter_village;kind=audio;path=assets/music\starter_village.musiczone;category=music;tags=music
 entry=id=arena_wall;kind=prefab;path=assets/prefabs\arena_wall.prefab;category=prefabs
 entry=id=building_enter_trigger;kind=prefab;path=assets/prefabs\building_enter_trigger.prefab;category=prefabs
 entry=id=building_exit_trigger;kind=prefab;path=assets/prefabs\building_exit_trigger.prefab;category=prefabs
@@ -31,8 +33,10 @@ entry=id=starter_herb_node;kind=prefab;path=assets/prefabs\starter_herb_node.pre
 entry=id=starter_merchant;kind=prefab;path=assets/prefabs\starter_merchant.prefab;category=prefabs
 entry=id=starter_save_point;kind=prefab;path=assets/prefabs\starter_save_point.prefab;category=prefabs
 entry=id=western_trail_broken_cart_lod;kind=prefab;path=assets/prefabs\western_trail_broken_cart_lod.prefab;category=prefabs
-entry=id=game;kind=project;path=assets/game.project;category=root;tags=startup
 entry=id=game;kind=project;path=assets/game\game.project;category=game
+entry=id=game;kind=project;path=assets/game.project;category=root;tags=startup
+entry=id=v90_creator_baseline;kind=project;path=assets/projects\v90_creator_baseline.project;category=projects
+entry=id=village_rpg_project;kind=project;path=assets/projects\village_rpg_project.project;category=projects
 entry=id=arena_game;kind=scene;path=assets/scenes\arena_game.scene;category=scenes
 entry=id=arena_game_02;kind=scene;path=assets/scenes\arena_game_02.scene;category=scenes
 entry=id=arena_game_03;kind=scene;path=assets/scenes\arena_game_03.scene;category=scenes
@@ -42,16 +46,21 @@ entry=id=herbalist_hut_interior;kind=scene;path=assets/scenes\herbalist_hut_inte
 entry=id=road_region;kind=scene;path=assets/scenes\road_region.scene;category=scenes
 entry=id=ruins_region;kind=scene;path=assets/scenes\ruins_region.scene;category=scenes
 entry=id=sandbox;kind=scene;path=assets/scenes\sandbox.scene;category=scenes
+entry=id=sandbox_edited;kind=scene;path=assets/scenes\sandbox_edited.scene;category=scenes
 entry=id=starter_gameplay_slice;kind=scene;path=assets/scenes\starter_gameplay_slice.scene;category=scenes
 entry=id=starter_hut_interior;kind=scene;path=assets/scenes\starter_hut_interior.scene;category=scenes
 entry=id=starter_vale;kind=scene;path=assets/scenes\starter_vale.scene;category=scenes
 entry=id=village_region;kind=scene;path=assets/scenes\village_region.scene;category=scenes
+entry=id=arena_survival;kind=template;path=assets/templates\arena_survival.template;category=templates
 entry=id=deprecated_paths;kind=template;path=assets/template\hardening\deprecated_paths.json;category=hardening
+entry=id=dungeon_crawler;kind=template;path=assets/templates\dungeon_crawler.template;category=templates
+entry=id=exploration_quest;kind=template;path=assets/templates\exploration_quest.template;category=templates
 entry=id=large_world_scalability_manifest;kind=template;path=assets/template\scalability\large_world_scalability_manifest.json;category=scalability
 entry=id=second_region_seed;kind=template;path=assets/template\examples\second_region_seed.json;category=examples
 entry=id=starter_base_completion;kind=template;path=assets/template\completion\starter_base_completion.json;category=completion
 entry=id=starter_base_contract;kind=template;path=assets/template\hardening\starter_base_contract.json;category=hardening
 entry=id=starter_template;kind=template;path=assets/template\starter_template.json;category=template
+entry=id=village_rpg;kind=template;path=assets/templates\village_rpg.template;category=templates
 entry=id=crate_blue;kind=variant;path=assets/prefab_variants\crate_blue.variant;category=prefab_variants
 entry=id=crate_blue_large;kind=variant;path=assets/prefab_variants\crate_blue_large.variant;category=prefab_variants
 entry=id=crate_red;kind=variant;path=assets/prefab_variants\crate_red.variant;category=prefab_variants

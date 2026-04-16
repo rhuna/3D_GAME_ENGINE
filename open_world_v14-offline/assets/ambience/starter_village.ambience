@@ -1,0 +1,7 @@
+ambienceId=starter_village
+regionId=starter_village
+dayLoop=audio/ambience/village_day.ogg
+nightLoop=audio/ambience/village_night.ogg
+windLevel=0.20
+wildlifeLevel=0.35
+fireLevel=0.10

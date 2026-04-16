@@ -1,0 +1,12 @@
+graphId=guide_mira_intro
+speakerNpcId=guide_mira
+speakerName=Guide Mira
+startNode=start
+node=start|text=Welcome to Starter Vale. What do you need?|choices=2
+choice=start|label=I need work.|next=accept_work|action=grantQuest:first_steps
+choice=start|label=Show me your wares.|next=open_shop|action=openMerchant:guide_mira_shop
+node=accept_work|text=Take this first job and return when you are done.|choices=1
+choice=accept_work|label=I will handle it.|next=end|action=setObjective:first_steps
+node=open_shop|text=Take a look at what I have in stock.|choices=1
+choice=open_shop|label=Back.|next=end|action=none
+node=end|text=Safe travels.|choices=0

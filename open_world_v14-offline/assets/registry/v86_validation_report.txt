@@ -1,0 +1,6 @@
+V86 Playtest and Debug Review Report
+- playtest profile scaffolded
+- debug review profile scaffolded
+- missing-content review output scaffolded
+- export-readiness check scaffolded
+- runtime compile verification not performed in this environment

@@ -1,0 +1,4 @@
+id=starter_town
+interiors=starter_shop
+room_presets=shop_basic
+links=starter_shop_interior

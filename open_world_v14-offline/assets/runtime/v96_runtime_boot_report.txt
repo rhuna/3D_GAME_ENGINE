@@ -1,0 +1,5 @@
+V96 Runtime Boot Report
+- executable launch contract documented
+- builder toggle contract documented
+- runtime boot diagnostics path documented
+- awaiting local runtime boot confirmation

@@ -1,0 +1,10 @@
+V104 Builder Access Checklist
+[OK] Real Application.cpp builder toggle path patched
+[OK] Alternate builder shortcuts added
+[OK] Builder toggle logging added
+[OK] GameBuilderPanel array size repaired
+[OK] ContentRegistry diagnostics string literals repaired
+[TODO] Clean configure from repo root
+[TODO] Clean Release build
+[TODO] Launch executable
+[TODO] Verify builder opens with F10, F9, or Ctrl+B

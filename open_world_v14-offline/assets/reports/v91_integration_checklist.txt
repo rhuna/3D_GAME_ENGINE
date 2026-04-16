@@ -1,0 +1,10 @@
+V91 Integration Checklist
+[OK] Builder panel is wired into the application runtime.
+[OK] Builder visibility toggle is available on F10.
+[OK] Content registry rebuild is called during startup.
+[OK] Registry output is written to assets/registry/content_registry.txt.
+[OK] Template, project, ambience, and music directories are scanned.
+[OK] Offline CMake mode remains available through FW_OFFLINE_ONLY.
+[TODO] Run a clean local Windows configure/build/test pass.
+[TODO] Verify one playable slice from editor to runtime.
+[TODO] Verify one export bundle locally.

@@ -23,7 +23,14 @@ int Application::Run() {
         m_time.BeginFrame();
         m_input.BeginFrame();
 
-        if (m_input.IsKeyPressed(KEY_ESCAPE)) m_isRunning = false;
+        if (m_input.IsKeyPressed(KEY_ESCAPE)) {
+    if (m_gameBuilderPanel.IsVisible()) {
+        m_gameBuilderPanel.SetVisible(false);
+        Logger::Info("Builder closed with Escape.");
+    } else {
+        m_isRunning = false;
+    }
+}
         if (m_input.IsKeyPressed(KEY_F1)) m_showDebugOverlay = !m_showDebugOverlay;
         if (m_input.IsKeyPressed(KEY_F2)) m_editorSelection.SelectNext(m_world);
         m_editorSelection.PruneDead(m_world);
@@ -32,12 +39,24 @@ int Application::Run() {
         if (m_input.IsKeyPressed(KEY_F5)) ReloadStartScene();
         if (m_input.IsKeyPressed(KEY_F6)) WorldSerializer::SaveToFile(m_world, "assets/saves/open_world_snapshot.txt");
         if (m_input.IsKeyPressed(KEY_F7)) WorldSerializer::LoadFromFile(m_world, "assets/saves/open_world_snapshot.txt");
-        if (m_input.IsKeyPressed(KEY_TAB)) m_showInspector = !m_showInspector;
-        if (m_input.IsKeyPressed(KEY_F10)) m_gameBuilderPanel.ToggleVisible();
+// Support multiple builder shortcuts because some keyboards require Fn
+// for function keys, which can make the builder seem broken even when
+// the toggle code path exists.
+const bool builderToggleRequested =
+    m_input.IsKeyPressed(KEY_F10) ||
+    m_input.IsKeyPressed(KEY_F9) ||
+    ((IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_RIGHT_CONTROL)) && m_input.IsKeyPressed(KEY_B));
+
+if (builderToggleRequested) {
+    m_gameBuilderPanel.ToggleVisible();
+    Logger::Info(std::string("Builder visibility toggled: ") + (m_gameBuilderPanel.IsVisible() ? "open" : "closed"));
+}
+if (m_input.IsKeyPressed(KEY_TAB)) m_showInspector = !m_showInspector;
         if (m_input.IsKeyPressed(KEY_F11)) ToggleFullscreen();
 
         const bool ctrlDown = IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_RIGHT_CONTROL);
-        if (!m_mouseLookActive && ctrlDown && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+        const bool mouseOverBuilder = m_gameBuilderPanel.IsMouseOverUi();
+        if (!m_mouseLookActive && !mouseOverBuilder && ctrlDown && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
             m_editorSelection.BeginBoxSelect(GetMousePosition());
         }
         if (m_editorSelection.IsBoxSelecting()) {
@@ -53,7 +72,7 @@ int Application::Run() {
 
         UpdateCameraController(m_time.DeltaTime());
         m_sceneManager.Update(*this, m_time.DeltaTime());
-        m_gameBuilderPanel.Update(*this, m_time.DeltaTime());
+        m_gameBuilderPanel.Update(*this, m_contentRegistry);
         m_editorAuthoring.Update(*this, m_world, m_editorSelection, m_prefabs, m_sceneLibrary);
         m_editorGizmo.Update(*this, m_world, m_editorSelection, m_time.DeltaTime());
         if (m_showInspector) m_inspectorPanel.Update(*this, m_world, m_editorSelection, m_time.DeltaTime());
@@ -73,7 +92,6 @@ int Application::Run() {
         if (m_showDebugOverlay) {
             m_debugOverlay.Draw(m_time, m_world, m_camera, m_sceneManager.CurrentSceneName(), m_editorSelection.Selected(), m_validationMessages, m_lastExportPath, m_showInspector);
         }
-        m_gameBuilderPanel.Draw(*this);
         m_editorGizmo.Draw(m_world, m_editorSelection);
         if (m_editorSelection.IsBoxSelecting()) {
             const Rectangle rect = m_editorSelection.BoxSelectRect();
@@ -83,6 +101,7 @@ int Application::Run() {
         if (m_showInspector) {
             m_inspectorPanel.Draw(m_world, m_editorSelection);
         }
+        m_gameBuilderPanel.Draw(*this, m_contentRegistry);
 
         if (!m_mouseLookActive) {
             const Vector2 mousePos = GetMousePosition();
@@ -105,11 +124,6 @@ void Application::ReloadStartScene() {
 void Application::RunContentValidation() {
     m_validationMessages = ContentValidator::ValidateAll(m_prefabs, m_sceneLibrary);
     Logger::Info("Content validation ran. Message count: " + std::to_string(m_validationMessages.size()));
-}
-
-void Application::RefreshContentRegistry() {
-    m_contentRegistry.RebuildFromProject();
-    m_contentRegistry.SaveToFile("assets/registry/content_registry.txt");
 }
 
 void Application::ExportCurrentScene() {
@@ -205,7 +219,8 @@ void Application::Initialize() {
     m_prefabs.LoadFromDirectory("assets/prefabs");
     m_prefabs.LoadVariantsFromDirectory("assets/prefab_variants");
     m_sceneLibrary.LoadFromDirectory("assets/scenes");
-    RefreshContentRegistry();
+    m_contentRegistry.RebuildFromProject();
+    m_contentRegistry.SaveToFile("assets/registry/content_registry.txt");
     RunContentValidation();
 
     ReloadStartScene();
@@ -269,3 +284,5 @@ void Application::UpdateCameraController(float deltaTime) {
 }
 
 } // namespace fw
+
+

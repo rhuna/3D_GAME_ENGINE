@@ -1,0 +1,10 @@
+V92 Local Verification Checklist
+[ ] Configure the project locally
+[ ] Build Debug successfully
+[ ] Build Release successfully
+[ ] Launch runtime/editor successfully
+[ ] Verify GameBuilderPanel opens and responds
+[ ] Verify ContentRegistry sees modern and legacy content folders
+[ ] Verify one playable slice loads
+[ ] Verify one export bundle stages correctly
+[ ] Review warnings and fix remaining drift issues

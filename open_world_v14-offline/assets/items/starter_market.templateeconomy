@@ -1,0 +1,5 @@
+templateEconomyId=starter_market
+templateId=village_rpg
+merchantId=starter_merchant
+stock=healing_potion,bread,wood_sword
+lootTable=starter_field_loot

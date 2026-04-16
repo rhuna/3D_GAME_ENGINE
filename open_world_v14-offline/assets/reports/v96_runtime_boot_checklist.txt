@@ -1,0 +1,11 @@
+V96 Runtime Boot Checklist
+[OK] Vendored raylib path supported
+[OK] Registry diagnostics writer present
+[OK] Runtime verification writer present
+[OK] Build success writer present
+[OK] Runtime boot writer present
+[OK] Builder runtime boot state interface present
+[TODO] Run local MSVC Release build
+[TODO] Launch executable
+[TODO] Toggle builder
+[TODO] Confirm runtime boot diagnostics file is written

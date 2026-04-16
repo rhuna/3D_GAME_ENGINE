@@ -1,0 +1,11 @@
+buildId=starter_release
+gameTitle=Starter Adventure
+version=0.1.0
+startScene=starter_village
+startRegion=starter_village
+profileId=starter
+menuId=main_menu
+hudId=starter_hud
+includeSaves=false
+compressExport=true
+outputFolder=exports/starter_build

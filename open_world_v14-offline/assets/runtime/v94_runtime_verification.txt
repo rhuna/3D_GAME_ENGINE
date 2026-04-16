@@ -1,0 +1,5 @@
+V94 Runtime Verification
+- application startup contract documented
+- builder visibility contract documented
+- runtime diagnostics export contract documented
+- awaiting local executable verification

@@ -1,0 +1,10 @@
+shipModeId=starter_release
+buildId=starter_release
+contentLock=true
+allowMissingAssets=false
+allowBrokenLinks=false
+allowMissingStartupFlow=false
+allowUnreviewedEncounters=false
+requireValidationReport=true
+requireExportReadiness=true
+requireTemplateSelection=true

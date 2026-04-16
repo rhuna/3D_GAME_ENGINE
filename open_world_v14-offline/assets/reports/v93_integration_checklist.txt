@@ -1,0 +1,7 @@
+V93 Integration Checklist
+[OK] Registry folder roots aligned
+[OK] Safe diagnostics string formatting restored
+[OK] Offline vendored raylib path documented
+[TODO] Run local Windows configure/build
+[TODO] Run builder open/toggle verification
+[TODO] Export runtime registry diagnostics from real executable

@@ -1,0 +1,9 @@
+playtestId=starter_slice
+scene=starter_village
+region=starter_village
+checkQuestLinks=true
+checkDialogueLinks=true
+checkEncounterLinks=true
+checkLootAssignments=true
+checkTravelLinks=true
+checkMissingAssets=true

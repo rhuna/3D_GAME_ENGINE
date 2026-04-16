@@ -1,0 +1,7 @@
+startupId=starter_startup
+profileId=starter
+bootMenu=main_menu
+bootHud=starter_hud
+newGameScene=starter_village
+continueSlot=slot_01
+pauseMenu=pause_menu

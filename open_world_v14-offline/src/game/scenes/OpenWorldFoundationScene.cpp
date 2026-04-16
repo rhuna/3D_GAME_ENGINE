@@ -13,7 +13,7 @@ namespace fw
         std::vector<Vector3> out;
         if (!layout) return out;
         for (size_t i = 0; i < active.size() && i < layout->npcSpawns.size(); ++i)
-            out.push_back(layout->npcSpawns[i]);
+            out.push_back(layout->npcSpawns[i].position);
         return out;
     }
 
@@ -61,8 +61,7 @@ namespace fw
         DisableCursor();
         m_pipeline.LoadAll("assets");
         m_routines.LoadFromDirectory("assets/routines");
-        if (!m_layouts.LoadFromDirectory("assets/regions"))
-            m_layouts.LoadDefaults();
+        m_layouts.LoadFromDirectory("assets/regions");
         m_factionSystem.Reset();
 
         m_profile.ResetToDefaults();
@@ -267,8 +266,8 @@ namespace fw
         {
             for (size_t i = 0; i < layout->travelPoints.size(); ++i)
             {
-                float d = Vector3Distance(layout->travelPoints[i], m_profile.playerPosition);
-                candidates.push_back({"travel", std::to_string((int)i), layout->travelPoints[i], d, "Press E to travel"});
+                float d = Vector3Distance(layout->travelPoints[i].position, m_profile.playerPosition);
+                candidates.push_back({"travel", layout->travelPoints[i].targetRegion, layout->travelPoints[i].position, d, "Press E to travel"});
             }
         }
         for (const auto& d : state.lootDrops)
@@ -338,9 +337,7 @@ namespace fw
             }
             else if (best->kind == "travel")
             {
-                if (m_profile.currentRegion == "village_region") m_profile.currentRegion = "forest_region";
-                else if (m_profile.currentRegion == "forest_region") m_profile.currentRegion = "ruins_region";
-                else m_profile.currentRegion = "village_region";
+                m_profile.currentRegion = best->id;
                 EnsureCurrentRegionState();
                 if (const RegionLayout* newLayout = m_layouts.Find(m_profile.currentRegion)) m_profile.playerPosition = newLayout->playerSpawn;
                 RebuildRegionState();

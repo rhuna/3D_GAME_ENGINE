@@ -1,0 +1,13 @@
+templateId=exploration_quest
+displayName=Exploration Quest
+projectId=exploration_quest_project
+startScene=trailhead
+startRegion=trailhead
+profileId=explorer_profile
+menuId=main_menu
+hudId=starter_hud
+regions=trailhead,high_pass,ruin_outlook
+quests=pathfinder_trial
+dialogue=scout_elin_intro
+encounters=ridge_wolves
+economy=trail_supplies

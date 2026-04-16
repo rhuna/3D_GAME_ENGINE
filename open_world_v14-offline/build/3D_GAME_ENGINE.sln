@@ -36,23 +36,18 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ZERO_CHECK", "ZERO_CHECK.vc
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glfw", "_deps\raylib-build\raylib\external\glfw\src\glfw.vcxproj", "{1CD6BABD-9655-3797-9595-0A9E82940B3D}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glfw", "third_party\raylib\raylib\external\glfw\src\glfw.vcxproj", "{1CD6BABD-9655-3797-9595-0A9E82940B3D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{5E358B8A-8DE7-3D01-A070-39EACE96EEF9} = {5E358B8A-8DE7-3D01-A070-39EACE96EEF9}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "raylib", "_deps\raylib-build\raylib\raylib.vcxproj", "{E711A9D8-602D-3AA8-B0A6-004AAB479270}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "raylib", "third_party\raylib\raylib\raylib.vcxproj", "{E711A9D8-602D-3AA8-B0A6-004AAB479270}"
 	ProjectSection(ProjectDependencies) = postProject
 		{5E358B8A-8DE7-3D01-A070-39EACE96EEF9} = {5E358B8A-8DE7-3D01-A070-39EACE96EEF9}
 		{1CD6BABD-9655-3797-9595-0A9E82940B3D} = {1CD6BABD-9655-3797-9595-0A9E82940B3D}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "uninstall", "_deps\raylib-build\uninstall.vcxproj", "{1AD7C660-35FA-34E2-B89F-C5C0E9D5C4F7}"
-	ProjectSection(ProjectDependencies) = postProject
-		{5E358B8A-8DE7-3D01-A070-39EACE96EEF9} = {5E358B8A-8DE7-3D01-A070-39EACE96EEF9}
-	EndProjectSection
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "update_mappings", "_deps\raylib-build\raylib\external\glfw\src\update_mappings.vcxproj", "{A17D2D6F-D4DA-3FC0-A1F5-361C073FA06B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "update_mappings", "third_party\raylib\raylib\external\glfw\src\update_mappings.vcxproj", "{A17D2D6F-D4DA-3FC0-A1F5-361C073FA06B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{5E358B8A-8DE7-3D01-A070-39EACE96EEF9} = {5E358B8A-8DE7-3D01-A070-39EACE96EEF9}
 	EndProjectSection
@@ -113,10 +108,6 @@ Global
 		{E711A9D8-602D-3AA8-B0A6-004AAB479270}.MinSizeRel|x64.Build.0 = MinSizeRel|x64
 		{E711A9D8-602D-3AA8-B0A6-004AAB479270}.RelWithDebInfo|x64.ActiveCfg = RelWithDebInfo|x64
 		{E711A9D8-602D-3AA8-B0A6-004AAB479270}.RelWithDebInfo|x64.Build.0 = RelWithDebInfo|x64
-		{1AD7C660-35FA-34E2-B89F-C5C0E9D5C4F7}.Debug|x64.ActiveCfg = Debug|x64
-		{1AD7C660-35FA-34E2-B89F-C5C0E9D5C4F7}.Release|x64.ActiveCfg = Release|x64
-		{1AD7C660-35FA-34E2-B89F-C5C0E9D5C4F7}.MinSizeRel|x64.ActiveCfg = MinSizeRel|x64
-		{1AD7C660-35FA-34E2-B89F-C5C0E9D5C4F7}.RelWithDebInfo|x64.ActiveCfg = RelWithDebInfo|x64
 		{A17D2D6F-D4DA-3FC0-A1F5-361C073FA06B}.Debug|x64.ActiveCfg = Debug|x64
 		{A17D2D6F-D4DA-3FC0-A1F5-361C073FA06B}.Release|x64.ActiveCfg = Release|x64
 		{A17D2D6F-D4DA-3FC0-A1F5-361C073FA06B}.MinSizeRel|x64.ActiveCfg = MinSizeRel|x64

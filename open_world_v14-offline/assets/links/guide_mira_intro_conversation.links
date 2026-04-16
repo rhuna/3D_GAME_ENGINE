@@ -1,0 +1,9 @@
+bundleId=guide_mira_intro_conversation
+npcId=guide_mira
+dialogueId=guide_mira_intro
+dialogueFile=assets/dialogue/guide_mira_intro.dialogue
+graphFile=assets/dialogue/guide_mira_intro.dialoguegraph
+questId=first_steps
+merchantId=guide_mira_shop
+acceptChoice=I need work.
+shopChoice=Show me your wares.

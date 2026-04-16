@@ -1,0 +1,6 @@
+graphId=starter_wolves
+node_01=spawn_group,start,wolf_raider
+node_02=loot,after_combat,starter_supplies
+node_03=region,return,starter_vale
+edge_01=node_01,node_02
+edge_02=node_02,node_03

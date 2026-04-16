@@ -1,0 +1,5 @@
+V93 Runtime Registry Report
+- registry diagnostics output path established
+- template/project/ambience/music roots included
+- safe escaped newline formatting restored
+- ready for local Windows compile verification

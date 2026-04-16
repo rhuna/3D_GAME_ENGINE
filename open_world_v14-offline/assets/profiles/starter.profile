@@ -1,0 +1,8 @@
+profileId=starter
+displayName=Starter Profile
+startScene=starter_village
+startRegion=starter_village
+startSpawn=player_start
+startingGold=25
+startingQuest=first_steps
+startingInventory=healing_potion,wood_sword

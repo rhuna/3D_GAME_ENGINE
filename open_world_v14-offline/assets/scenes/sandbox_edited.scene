@@ -1,0 +1,6 @@
+scene=sandbox_edited
+spawn=prefab=dynamic_crate;tag=player_start;position=0,1,0;rotationEuler=0,0,0;scale=0.8,1.8,0.8;color=220,70,70,255
+spawn=prefab=ground;tag=ground;position=0,0,0;rotationEuler=0,0,0;scale=5,1,5;color=92,118,92,255
+spawn=prefab=save_point;tag=save_point;position=-4,1,2;rotationEuler=0,0,0;scale=1,1,1;color=170,140,255,255
+spawn=prefab=dynamic_crate;tag=travel_marker;position=24,1,0;rotationEuler=0,0,0;scale=1,1,1;color=90,180,255,255
+spawn=prefab=save_point;tag=save_point;position=-8,1,-4;rotationEuler=0,0,0;scale=1.2,0.6,1.2;color=255,120,70,255

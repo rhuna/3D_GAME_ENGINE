@@ -1,0 +1,10 @@
+projectId=v90_creator_baseline
+displayName=V90 Creator Baseline
+template=village_rpg
+profile=starter
+startupFlow=starter_startup
+hud=starter_hud
+menu=main_menu
+build=starter_release
+shipMode=starter_release
+foundation=v90

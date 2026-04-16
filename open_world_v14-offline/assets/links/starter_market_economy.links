@@ -1,0 +1,5 @@
+bundleId=starter_market_economy
+item=assets/items/healing_potion.item
+itemGraph=assets/itemgraphs/healing_potion.itemgraph
+merchant=assets/npcs/guide_mira_shop.merchant
+loot=assets/loot/starter_supplies.loot

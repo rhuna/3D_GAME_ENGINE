@@ -1,0 +1,9 @@
+Starter Release Ship Checklist
+[OK] Startup flow configured
+[OK] Main menu configured
+[OK] HUD configured
+[OK] Build profile present
+[OK] Export preset present
+[OK] Template selected
+[WARN] Review encounter loot balance before final ship
+[OK] Content lock scaffolded

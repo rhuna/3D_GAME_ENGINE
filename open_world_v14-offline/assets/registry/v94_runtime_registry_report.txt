@@ -1,0 +1,5 @@
+V94 Runtime Registry Report
+- registry diagnostics path established
+- runtime verification path established
+- template/project/ambience/music roots included
+- ready for local Windows verification

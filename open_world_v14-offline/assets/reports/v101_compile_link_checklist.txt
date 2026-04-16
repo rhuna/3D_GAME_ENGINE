@@ -1,0 +1,7 @@
+V101 Compile and Link Checklist
+[OK] Real repo snapshot preserved
+[OK] V100 source repairs carried forward
+[OK] Root build structure preserved
+[TODO] Clean configure from repo root
+[TODO] Clean Release build
+[TODO] Verify no linker errors

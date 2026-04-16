@@ -1,0 +1,8 @@
+templateLinkId=village_rpg_template
+templateId=village_rpg
+project=village_rpg_project
+world=village_rpg
+dialogue=guide_mira_intro
+quest=first_steps
+encounter=starter_wolves
+economy=starter_market

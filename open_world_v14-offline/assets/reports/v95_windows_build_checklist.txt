@@ -1,0 +1,10 @@
+V95 Windows Build Checklist
+[OK] Vendored raylib path supported
+[OK] Registry diagnostics writer present
+[OK] Runtime verification writer present
+[OK] Build success writer present
+[OK] Builder verification state interface present
+[TODO] Run local MSVC Release build
+[TODO] Launch executable
+[TODO] Toggle builder
+[TODO] Confirm diagnostics output files are written

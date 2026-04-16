@@ -1,0 +1,6 @@
+musicZoneId=starter_village
+regionId=starter_village
+dayTrack=audio/music/town_theme_day.ogg
+nightTrack=audio/music/town_theme_night.ogg
+combatTrack=audio/music/town_combat.ogg
+priority=10

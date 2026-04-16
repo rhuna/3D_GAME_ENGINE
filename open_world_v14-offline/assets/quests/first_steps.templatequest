@@ -1,0 +1,7 @@
+templateQuestId=first_steps
+templateId=village_rpg
+objectiveType=collect
+objectiveTarget=forest_herb
+rewardItem=healing_potion
+rewardGold=25
+nextQuestId=wolf_watch

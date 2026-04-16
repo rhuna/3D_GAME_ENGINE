@@ -1,0 +1,5 @@
+V95 Runtime Registry Report
+- registry diagnostics path established
+- runtime verification path established
+- build success report path established
+- ready for local Windows Release verification

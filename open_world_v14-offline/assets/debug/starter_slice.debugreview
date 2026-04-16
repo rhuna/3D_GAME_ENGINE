@@ -1,0 +1,7 @@
+reviewId=starter_slice
+missingAssets=0
+missingDialogueLinks=0
+missingQuestLinks=0
+missingEncounterLoot=1
+invalidTravelTargets=0
+notes=Starter wolves encounter references a loot table that still needs tuning.

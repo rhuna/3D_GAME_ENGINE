@@ -1,0 +1,6 @@
+building=starter_shop_exterior
+interior=starter_shop
+entry_marker=shop_front_door
+destination_scene=starter_shop_interior
+destination_spawn=entry_spawn
+room_preset=shop_basic

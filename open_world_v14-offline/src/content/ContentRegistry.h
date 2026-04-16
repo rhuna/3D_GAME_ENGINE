@@ -33,6 +33,7 @@ public:
     bool RebuildFromProject();
     bool SaveToFile(const std::string& filePath) const;
     bool LoadFromFile(const std::string& filePath);
+    bool SaveDiagnosticsReport(const std::string& filePath) const;
 
     const std::vector<ContentEntry>& Entries() const { return m_entries; }
     std::size_t Count() const { return m_entries.size(); }

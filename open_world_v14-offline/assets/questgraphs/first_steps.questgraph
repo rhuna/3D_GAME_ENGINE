@@ -1,0 +1,9 @@
+graphId=first_steps
+startNode=offer
+node=offer|title=First Steps|objectiveType=collect|target=camp_supply
+node=active|title=In Progress|region=starter_vale|targetCount=1
+node=turn_in|title=Turn In|rewardItem=healing_potion|rewardGold=25
+node=complete|title=Complete|nextQuestId=return_to_mira
+edge=offer->active|action=accept
+edge=active->turn_in|action=objective_complete
+edge=turn_in->complete|action=claim_reward

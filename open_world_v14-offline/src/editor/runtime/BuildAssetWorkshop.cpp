@@ -314,22 +314,10 @@ bool BuildAssetWorkshop::SaveGroupAsKit(const World& world, const EditorSelectio
         return false;
     }
 
-    std::ostringstream kit;
-    kit << "id=" << kitName << "\n";
-    kit << "displayName=" << kitName << "\n";
-    kit << "category=kit/generated\n";
-    kit << "tags=generated,placeable\n";
-    kit << "scene=" << scenePath << "\n";
-    const std::string kitPath = "assets/scenes/generated/" + kitName + ".kit";
-    if (!FileSystem::WriteTextFile(kitPath, kit.str())) {
-        m_statusText = "Failed to write kit metadata: " + kitPath;
-        return false;
-    }
-
     scenes.LoadFromDirectory("assets/scenes");
     m_lastSavedKitPath = scenePath;
-    m_statusText = "Saved kit + metadata. Use spawn=kit=" + kitName + ";position=x,y,z in a scene.";
-    Logger::Info("V71", "Saved asset kit: " + scenePath + " and metadata: " + kitPath);
+    m_statusText = "Saved kit. Use spawn=kit=" + kitName + ";position=x,y,z in a scene.";
+    Logger::Info("V66", "Saved asset kit: " + scenePath);
     return true;
 }
 

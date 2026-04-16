@@ -1,0 +1,5 @@
+V106 Completion Runtime Report
+- completion baseline snapshot packaged
+- runtime verification still pending target-machine execution
+- builder/runtime integration included
+- playable slice authored content included

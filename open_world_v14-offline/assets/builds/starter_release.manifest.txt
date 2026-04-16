@@ -1,0 +1,10 @@
+Starter Release Manifest
+- assets/scenes/starter_village.scene
+- assets/regions/starter_village.region
+- assets/dialogue/guide_mira_intro.dialogue
+- assets/quests/first_steps.quest
+- assets/enemies/wolf_raider.enemy
+- assets/items/healing_potion.item
+- assets/menus/main_menu.menu
+- assets/hud/starter_hud.hud
+- assets/ui/startup_flow.startup

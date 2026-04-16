@@ -1,0 +1,7 @@
+atmosphereId=starter_village
+fogEnabled=false
+sunTint=1.0,0.95,0.85
+ambientTint=0.75,0.78,0.82
+timePreset=clear_day
+ambienceId=starter_village
+musicZoneId=starter_village

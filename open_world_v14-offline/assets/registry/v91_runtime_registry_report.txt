@@ -1,0 +1,4 @@
+V91 Runtime Registry Report
+- Registry now serves as the runtime-facing summary of local authored content.
+- Project folders scanned include prefabs, variants, scenes, templates, projects, models, textures, audio, ambience, and music.
+- Use a local Windows runtime pass to verify every authored file type is consumed correctly.

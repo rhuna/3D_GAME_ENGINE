@@ -1,0 +1,13 @@
+foundationId=v90
+milestone=completion_baseline
+projectMode=creator_first_coder_capable
+requiresTemplates=true
+requiresStartupFlow=true
+requiresPersistence=true
+requiresAtmosphere=true
+requiresReview=true
+requiresReleaseGate=true
+requiresShipMode=true
+defaultTemplate=village_rpg
+defaultProfile=starter
+defaultBuild=starter_release

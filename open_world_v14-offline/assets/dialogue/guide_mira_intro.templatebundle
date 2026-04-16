@@ -1,0 +1,5 @@
+bundleId=guide_mira_intro
+templateId=village_rpg
+npcId=guide_mira
+dialogueId=guide_mira_intro
+questId=first_steps

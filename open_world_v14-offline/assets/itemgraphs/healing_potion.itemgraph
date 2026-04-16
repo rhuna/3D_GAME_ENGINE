@@ -1,0 +1,8 @@
+graphId=healing_potion
+node=item
+displayName=Healing Potion
+type=consumable
+value=25
+heal=35
+merchant=guide_mira_shop
+lootTable=starter_supplies

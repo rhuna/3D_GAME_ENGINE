@@ -1,0 +1,7 @@
+Export Readiness
+[OK] Scenes present
+[OK] Regions present
+[OK] Dialogue assets present
+[OK] Quest assets present
+[WARN] At least one encounter loot assignment should be reviewed
+[OK] Menu and startup flow files present

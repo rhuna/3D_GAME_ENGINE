@@ -1,0 +1,15 @@
+V90 Completion Checklist
+[OK] Templates available
+[OK] World authoring workflow available
+[OK] Dialogue authoring workflow available
+[OK] Quest authoring workflow available
+[OK] Encounter authoring workflow available
+[OK] Economy authoring workflow available
+[OK] Interior authoring workflow available
+[OK] Persistence workflow available
+[OK] Startup/UI workflow available
+[OK] Atmosphere/audio workflow available
+[OK] Review workflow available
+[OK] Release workflow available
+[OK] Ship mode workflow available
+[INFO] Use local compile/test pass to validate runtime integration

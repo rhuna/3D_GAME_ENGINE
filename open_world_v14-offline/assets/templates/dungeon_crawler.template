@@ -1,0 +1,13 @@
+templateId=dungeon_crawler
+displayName=Dungeon Crawler
+projectId=dungeon_crawler_project
+startScene=crypt_entry
+startRegion=crypt_entry
+profileId=dungeon_profile
+menuId=main_menu
+hudId=starter_hud
+regions=crypt_entry,crypt_depths
+quests=crypt_descent
+dialogue=grave_warden_intro
+encounters=crypt_skeletons
+economy=crypt_supplies

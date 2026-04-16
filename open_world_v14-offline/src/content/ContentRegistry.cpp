@@ -126,25 +126,37 @@ void ContentRegistry::ScanDirectory(const std::string& root, const std::vector<s
 bool ContentRegistry::RebuildFromProject() {
     Clear();
 
+    // Scan both the classic and newer low-code authoring folders so the
+    // registry reflects the real uploaded repo structure instead of only the
+    // earlier subset of content roots.
     ScanDirectory("assets/prefabs", {".prefab"}, ContentKind::Prefab);
     ScanDirectory("assets/prefab_variants", {".variant", ".prefabvariant", ".txt"}, ContentKind::Variant);
     ScanDirectory("assets/scenes", {".scene"}, ContentKind::Scene);
     ScanDirectory("assets/scenes/generated", {".kit"}, ContentKind::Kit);
-    ScanDirectory("assets/template", {".json"}, ContentKind::Template);
+
+    ScanDirectory("assets/template", {".json", ".template"}, ContentKind::Template);
+    ScanDirectory("assets/templates", {".json", ".template"}, ContentKind::Template);
+
     ScanDirectory("assets/game", {".project"}, ContentKind::Project);
+    ScanDirectory("assets/projects", {".project"}, ContentKind::Project);
     if (FileSystem::Exists("assets/game.project")) {
         AddEntry(ContentEntry{"game", ContentKind::Project, "assets/game.project", "root", {"startup"}});
     }
+
     ScanDirectory("assets/models", {".glb", ".gltf", ".fbx", ".obj", ".iqm"}, ContentKind::Model);
     ScanDirectory("assets/textures", {".png", ".jpg", ".jpeg", ".bmp", ".tga", ".webp"}, ContentKind::Texture);
-    ScanDirectory("assets/audio", {".wav", ".ogg", ".mp3"}, ContentKind::Audio);
+
+    // Keep legacy audio plus the newer ambience/music folders in one registry category.
+    ScanDirectory("assets/audio", {".wav", ".ogg", ".mp3"}, ContentKind::Audio, {"audio"});
+    ScanDirectory("assets/ambience", {".wav", ".ogg", ".mp3", ".ambience"}, ContentKind::Audio, {"ambience"});
+    ScanDirectory("assets/music", {".wav", ".ogg", ".mp3", ".musiczone"}, ContentKind::Audio, {"music"});
 
     std::sort(m_entries.begin(), m_entries.end(), [](const ContentEntry& a, const ContentEntry& b) {
         if (a.kind != b.kind) return std::string(KindToString(a.kind)) < std::string(KindToString(b.kind));
         return a.id < b.id;
     });
 
-    Logger::Info("V71", "Rebuilt local content registry with " + std::to_string(m_entries.size()) + " entries.");
+    Logger::Info("V97", "Rebuilt local content registry with " + std::to_string(m_entries.size()) + " entries.");
     return !m_entries.empty();
 }
 
@@ -227,6 +239,33 @@ std::vector<ContentEntry> ContentRegistry::Search(const std::string& text) const
         if (MatchesSearch(entry, needle)) results.push_back(entry);
     }
     return results;
+}
+
+// -----------------------------------------------------------------------------
+// SaveDiagnosticsReport
+// -----------------------------------------------------------------------------
+// Write a small registry diagnostics report to disk. This function must live
+// inside the fw namespace and on the ContentRegistry class, otherwise MSVC will
+// parse it as a free function and every class/member reference after that point
+// will collapse into cascading compile errors.
+// -----------------------------------------------------------------------------
+bool ContentRegistry::SaveDiagnosticsReport(const std::string& filePath) const {
+    std::ostringstream out;
+
+    // Emit a safe plain-text diagnostics summary using escaped newline sequences
+    // so MSVC does not hit the earlier "newline in constant" parser failure.
+    out << "# V103 content registry diagnostics";
+    out << "entryCount=" << m_entries.size() << "";
+    out << "prefabs=" << CountByKind(ContentKind::Prefab) << "";
+    out << "variants=" << CountByKind(ContentKind::Variant) << "";
+    out << "scenes=" << CountByKind(ContentKind::Scene) << "";
+    out << "kits=" << CountByKind(ContentKind::Kit) << "";
+    out << "templates=" << CountByKind(ContentKind::Template) << "";
+    out << "projects=" << CountByKind(ContentKind::Project) << "";
+    out << "models=" << CountByKind(ContentKind::Model) << "";
+    out << "textures=" << CountByKind(ContentKind::Texture) << "";
+    out << "audio=" << CountByKind(ContentKind::Audio) << "";
+    return FileSystem::WriteTextFile(filePath, out.str());
 }
 
 } // namespace fw

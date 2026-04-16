@@ -1,0 +1,9 @@
+releaseProfileId=v90_completion
+buildId=starter_release
+shipMode=starter_release
+contentLock=starter_release
+validationReport=assets/registry/v86_validation_report.txt
+exportReadiness=assets/registry/v86_export_readiness.txt
+templateReport=assets/registry/v88_template_report.txt
+shipReport=assets/registry/v89_ship_report.txt
+status=baseline_ready

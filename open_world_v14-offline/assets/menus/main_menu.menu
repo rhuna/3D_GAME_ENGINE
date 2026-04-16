@@ -1,0 +1,8 @@
+menuId=main_menu
+displayTitle=Starter Adventure
+showContinue=true
+showOptions=true
+showExit=true
+defaultSelection=new_game
+backgroundStyle=dark_fantasy
+titleTheme=gold_trim

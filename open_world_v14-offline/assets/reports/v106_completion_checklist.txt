@@ -1,0 +1,12 @@
+V106 Completion Checklist
+[OK] Real repo structure preserved
+[OK] Builder integration restored
+[OK] Application/runtime path aligned
+[OK] Content registry diagnostics present
+[OK] Compile blocker fixes from V99/V100 carried forward
+[OK] Playable slice assets present
+[OK] Versioned notes and docs present
+[TODO] Clean configure locally
+[TODO] Clean Release build locally
+[TODO] Launch executable locally
+[TODO] Verify export/package locally

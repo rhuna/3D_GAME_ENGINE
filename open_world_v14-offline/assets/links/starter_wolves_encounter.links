@@ -1,0 +1,5 @@
+bundleId=starter_wolves_encounter
+enemy=assets/enemies/wolf_raider.enemy
+encounter=assets/encounters/starter_wolves.encounter
+graph=assets/encountergraphs/starter_wolves.encountergraph
+loot=assets/loot/starter_supplies.loot

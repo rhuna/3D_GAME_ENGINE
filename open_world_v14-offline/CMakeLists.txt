@@ -1,14 +1,27 @@
+# V99 Real Repo Integration Repair Snapshot
+# This root CMake file remains the only required build entry point for the repo.
+# There is intentionally no src/CMakeLists.txt in this project structure.
+
+# V97 Real Repo Integration Baseline
+# This root CMake file is the real build entry point for the uploaded repo.
+# There is intentionally no src/CMakeLists.txt requirement in this project line.
+
 cmake_minimum_required(VERSION 3.20)
-project(3D_GAME_ENGINE LANGUAGES C CXX)
+project(3D_GAME_ENGINE VERSION 99.0 LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-option(FW_OFFLINE_ONLY "Disable network dependency resolution for offline repo setups" OFF)
+# Prefer a vendored local raylib checkout when it exists so the repo can build
+# offline on the user's machine. Fall back to FetchContent only when the local
+# dependency tree is not present.
+option(FW_OFFLINE_ONLY "Prefer local third_party dependencies when available" ON)
 
-include(FetchContent)
-if(FW_OFFLINE_ONLY)
+if (EXISTS "${CMAKE_SOURCE_DIR}/third_party/raylib/CMakeLists.txt")
+  message(STATUS "V99: Using vendored third_party/raylib")
   add_subdirectory(third_party/raylib)
 else()
+  include(FetchContent)
+  message(STATUS "V99: Vendored raylib not found, falling back to FetchContent")
   FetchContent_Declare(
     raylib
     GIT_REPOSITORY https://github.com/raysan5/raylib.git

@@ -1,0 +1,9 @@
+V102 Builder Open Checklist
+[OK] Alternate builder hotkeys added
+[OK] Builder toggle logging added
+[OK] ContentRegistry diagnostics string literals repaired
+[OK] GameBuilderPanel version metadata array size repaired
+[TODO] Clean configure from root
+[TODO] Clean Release build
+[TODO] Launch executable
+[TODO] Verify builder opens with F10, F9, or Ctrl+B

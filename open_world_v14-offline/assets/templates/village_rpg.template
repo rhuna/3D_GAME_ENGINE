@@ -1,0 +1,13 @@
+templateId=village_rpg
+displayName=Village RPG
+projectId=village_rpg_project
+startScene=starter_village
+startRegion=starter_village
+profileId=starter
+menuId=main_menu
+hudId=starter_hud
+regions=starter_village,western_forest
+quests=first_steps
+dialogue=guide_mira_intro
+encounters=starter_wolves
+economy=starter_market

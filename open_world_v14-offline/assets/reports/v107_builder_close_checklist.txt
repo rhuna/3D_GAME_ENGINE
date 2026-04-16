@@ -1,0 +1,12 @@
+V107 Builder Close Checklist
+[OK] Escape closes builder before quitting app
+[OK] Visible X Close button added
+[OK] Alternate builder shortcuts remain available
+[OK] GameBuilderPanel array size repair carried forward
+[OK] ContentRegistry diagnostics string literal repair carried forward
+[TODO] Clean configure from repo root
+[TODO] Clean Release build
+[TODO] Launch executable
+[TODO] Verify Esc closes builder
+[TODO] Verify X Close closes builder
+[TODO] Verify builder can reopen

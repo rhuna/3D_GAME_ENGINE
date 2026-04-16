@@ -4,7 +4,6 @@
 #include <vector>
 
 #include "assets/AssetManager.h"
-#include "content/ContentRegistry.h"
 #include "core/EngineConfig.h"
 #include "core/Input.h"
 #include "core/Time.h"
@@ -13,10 +12,11 @@
 #include "editor/runtime/EditorGizmo.h"
 #include "editor/runtime/EditorSceneAuthoring.h"
 #include "editor/runtime/InspectorPanel.h"
-#include "editor/ui/GameBuilderPanel.h"
 #include "editor/validation/ContentValidator.h"
+#include "editor/ui/GameBuilderPanel.h"
 #include "gameplay/prefabs/PrefabLibrary.h"
 #include "gameplay/registry/SystemRegistry.h"
+#include "content/ContentRegistry.h"
 #include "raylib.h"
 #include "render/DebugOverlay.h"
 #include "render/Renderer.h"
@@ -35,7 +35,6 @@ public:
     void ReloadStartScene();
     void RunContentValidation();
     void ExportCurrentScene();
-    void RefreshContentRegistry();
 
     [[nodiscard]] const EngineConfig& GetConfig() const { return m_config; }
     [[nodiscard]] Time& GetTime() { return m_time; }
@@ -64,8 +63,6 @@ public:
     [[nodiscard]] const EditorSelection& GetEditorSelection() const { return m_editorSelection; }
     [[nodiscard]] const EditorGizmo& GetEditorGizmo() const { return m_editorGizmo; }
     [[nodiscard]] const EditorSceneAuthoring& GetEditorSceneAuthoring() const { return m_editorAuthoring; }
-    [[nodiscard]] ContentRegistry& GetContentRegistry() { return m_contentRegistry; }
-    [[nodiscard]] const ContentRegistry& GetContentRegistry() const { return m_contentRegistry; }
 
 private:
     void Initialize();
@@ -86,12 +83,12 @@ private:
     PrefabLibrary m_prefabs {};
     SceneLibrary m_sceneLibrary {};
     SystemRegistry m_systemRegistry {};
-    ContentRegistry m_contentRegistry {};
     InspectorPanel m_inspectorPanel {};
+    GameBuilderPanel m_gameBuilderPanel {};
+    ContentRegistry m_contentRegistry {};
     EditorSelection m_editorSelection {};
     EditorGizmo m_editorGizmo {};
     EditorSceneAuthoring m_editorAuthoring {};
-    GameBuilderPanel m_gameBuilderPanel {};
     std::vector<ValidationMessage> m_validationMessages {};
     std::string m_lastExportPath;
     Camera3D m_camera {};

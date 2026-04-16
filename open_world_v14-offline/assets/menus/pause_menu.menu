@@ -1,0 +1,7 @@
+menuId=pause_menu
+showResume=true
+showSave=true
+showLoad=true
+showOptions=true
+showQuitToMenu=true
+defaultSelection=resume

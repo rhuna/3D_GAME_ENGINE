@@ -1,0 +1,6 @@
+V84 HUD/Menu/Start Report
+- main menu scaffolded
+- pause menu scaffolded
+- HUD profile scaffolded
+- startup flow scaffolded
+- runtime compile verification not performed in this environment

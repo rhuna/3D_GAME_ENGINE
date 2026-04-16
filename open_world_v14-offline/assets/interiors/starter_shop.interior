@@ -1,0 +1,7 @@
+id=starter_shop
+building=starter_shop_exterior
+display_name=Starter Shop
+entry_marker=shop_front_door
+destination_scene=starter_shop_interior
+destination_spawn=entry_spawn
+container_set=shop_shelves_basic

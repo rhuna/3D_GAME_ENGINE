@@ -1,0 +1,8 @@
+id=wolf_raider
+displayName=Wolf Raider
+prefabId=encounter_wolf
+behavior=roam
+health=45
+damage=8
+moveSpeed=2.6
+rewardLootTableId=starter_supplies
