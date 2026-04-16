@@ -16,6 +16,11 @@ namespace fw {
 namespace {
 
 constexpr float kHeaderHeight = 32.0f;
+constexpr float kTitleHeight = 36.0f;
+constexpr float kTabGridTop = 30.0f;
+constexpr float kTabGridRows = 4.0f;
+constexpr float kTabRowGap = 6.0f;
+constexpr float kTabGridBottomPadding = 14.0f;
 constexpr float kTabWidth = 126.0f;
 constexpr float kTabHeight = 28.0f;
 constexpr float kLeft = 32.0f;
@@ -129,6 +134,22 @@ bool GameBuilderPanel::IsMouseOverUi() const {
     return m_visible && PointInRect(m_bounds, GetMousePosition());
 }
 
+Rectangle GameBuilderPanel::ContentRect() const {
+    const float contentTop = ContentTop();
+    const float bottomPadding = 46.0f;
+    return Rectangle{
+        m_bounds.x + 18.0f,
+        contentTop,
+        m_bounds.width - 36.0f,
+        std::max(120.0f, (m_bounds.y + m_bounds.height - bottomPadding) - contentTop)
+    };
+}
+
+float GameBuilderPanel::ContentTop() const {
+    const float tabsBottom = m_bounds.y + kTabGridTop + (kTabGridRows * kTabHeight) + ((kTabGridRows - 1.0f) * kTabRowGap);
+    return tabsBottom + kTabGridBottomPadding;
+}
+
 void GameBuilderPanel::LoadSessionState() {
     const std::string text = FileSystem::ReadTextFile("assets/saves/builder_session.cfg");
     if (text.empty()) {
@@ -220,7 +241,7 @@ void GameBuilderPanel::UpdateTabClicks() {
         const int col = static_cast<int>(i % 4);
         const Rectangle rect {
             m_bounds.x + 10.0f + col * (kTabWidth + 8.0f),
-            m_bounds.y + 10.0f + row * (kTabHeight + 6.0f),
+            m_bounds.y + kTabGridTop + row * (kTabHeight + kTabRowGap),
             kTabWidth,
             kTabHeight
         };
@@ -308,7 +329,7 @@ void GameBuilderPanel::Update(Application& app, ContentRegistry& registry) {
 
 void GameBuilderPanel::HandleCreateTab(ContentRegistry& registry) {
     const float left = m_bounds.x + 20.0f;
-    float y = m_bounds.y + 110.0f;
+    float y = ContentTop();
     const Rectangle sceneRect = MakeRow(left, y);
     const Rectangle prefabRect = MakeRow(left, y + 54.0f);
     const Rectangle npcRect = MakeRow(left, y + 108.0f);
@@ -349,7 +370,7 @@ void GameBuilderPanel::HandleCreateTab(ContentRegistry& registry) {
 
 void GameBuilderPanel::HandleStoryTab(ContentRegistry& registry) {
     const float left = m_bounds.x + 20.0f;
-    float y = m_bounds.y + 110.0f;
+    float y = ContentTop();
     const std::array<std::pair<Rectangle, std::pair<int, std::string*>>, 5> fields {{
         {MakeRow(left, y), {11, &m_story.dialogueId}},
         {MakeRow(left, y + 54.0f), {12, &m_story.npcId}},
@@ -397,7 +418,7 @@ void GameBuilderPanel::HandleStoryTab(ContentRegistry& registry) {
 void GameBuilderPanel::HandleQuestTab(ContentRegistry& registry) {
     const float left = m_bounds.x + 20.0f;
     const float right = left + 280.0f;
-    float y = m_bounds.y + 110.0f;
+    float y = ContentTop();
     const Rectangle idRect = MakeRow(left, y);
     const Rectangle titleRect = MakeRow(left, y + 54.0f);
     const Rectangle typeRect = MakeRow(left, y + 108.0f);
@@ -450,7 +471,7 @@ void GameBuilderPanel::HandleQuestTab(ContentRegistry& registry) {
 void GameBuilderPanel::HandleFightTab(ContentRegistry& registry) {
     const float left = m_bounds.x + 20.0f;
     const float right = left + 280.0f;
-    float y = m_bounds.y + 110.0f;
+    float y = ContentTop();
     const std::array<std::pair<Rectangle, std::pair<int, std::string*>>, 6> fields {{
         {MakeRow(left, y), {31, &m_fight.enemyId}},
         {MakeRow(left, y + 54.0f), {32, &m_fight.displayName}},
@@ -491,7 +512,7 @@ void GameBuilderPanel::HandleFightTab(ContentRegistry& registry) {
 void GameBuilderPanel::HandleTradeTab(ContentRegistry& registry) {
     const float left = m_bounds.x + 20.0f;
     const float right = left + 280.0f;
-    float y = m_bounds.y + 110.0f;
+    float y = ContentTop();
     const std::array<std::pair<Rectangle, std::pair<int, std::string*>>, 5> fields {{
         {MakeRow(left, y), {41, &m_trade.itemId}},
         {MakeRow(left, y + 54.0f), {42, &m_trade.itemName}},
@@ -538,7 +559,7 @@ void GameBuilderPanel::HandleTradeTab(ContentRegistry& registry) {
 void GameBuilderPanel::HandleWorldTab(ContentRegistry& registry) {
     const float left = m_bounds.x + 20.0f;
     const float right = left + 280.0f;
-    float y = m_bounds.y + 110.0f;
+    float y = ContentTop();
     const std::array<std::pair<Rectangle, std::pair<int, std::string*>>, 5> fields {{
         {MakeRow(left, y), {51, &m_world.regionId}},
         {MakeRow(left, y + 54.0f), {52, &m_world.sceneId}},
@@ -571,7 +592,7 @@ void GameBuilderPanel::HandleWorldTab(ContentRegistry& registry) {
 void GameBuilderPanel::HandleInteriorTab(ContentRegistry& registry) {
     const float left = m_bounds.x + 20.0f;
     const float right = left + 280.0f;
-    float y = m_bounds.y + 110.0f;
+    float y = ContentTop();
     const std::array<std::pair<Rectangle, std::pair<int, std::string*>>, 6> fields {{
         {MakeRow(left, y), {61, &m_interior.buildingId}},
         {MakeRow(left, y + 54.0f), {62, &m_interior.interiorId}},
@@ -600,7 +621,7 @@ void GameBuilderPanel::HandleInteriorTab(ContentRegistry& registry) {
 void GameBuilderPanel::HandlePersistTab(ContentRegistry& registry) {
     const float left = m_bounds.x + 20.0f;
     const float right = left + 280.0f;
-    float y = m_bounds.y + 110.0f;
+    float y = ContentTop();
     const std::array<std::pair<Rectangle, std::pair<int, std::string*>>, 8> fields {{
         {MakeRow(left, y), {71, &m_persist.profileId}},
         {MakeRow(left, y + 54.0f), {72, &m_persist.startScene}},
@@ -640,7 +661,7 @@ void GameBuilderPanel::HandlePersistTab(ContentRegistry& registry) {
 void GameBuilderPanel::HandleStartTab(ContentRegistry& registry) {
     const float left = m_bounds.x + 20.0f;
     const float right = left + 280.0f;
-    float y = m_bounds.y + 110.0f;
+    float y = ContentTop();
     const std::array<std::pair<Rectangle, std::pair<int, std::string*>>, 7> fields {{
         {MakeRow(left, y), {81, &m_start.menuId}},
         {MakeRow(left, y + 54.0f), {82, &m_start.gameTitle}},
@@ -680,7 +701,7 @@ void GameBuilderPanel::HandleStartTab(ContentRegistry& registry) {
 void GameBuilderPanel::HandleAudioTab(ContentRegistry& registry) {
     const float left = m_bounds.x + 20.0f;
     const float right = left + 280.0f;
-    float y = m_bounds.y + 110.0f;
+    float y = ContentTop();
     const std::array<std::pair<Rectangle, std::pair<int, std::string*>>, 8> fields {{
         {MakeRow(left, y), {91, &m_audio.ambienceId}},
         {MakeRow(left, y + 54.0f), {92, &m_audio.regionId}},
@@ -722,7 +743,7 @@ void GameBuilderPanel::HandleAudioTab(ContentRegistry& registry) {
 void GameBuilderPanel::HandleReviewTab(ContentRegistry& registry) {
     const float left = m_bounds.x + 20.0f;
     const float right = left + 280.0f;
-    float y = m_bounds.y + 110.0f;
+    float y = ContentTop();
     const std::array<std::pair<Rectangle, std::pair<int, std::string*>>, 4> fields {{
         {MakeRow(left, y), {101, &m_review.playtestId}},
         {MakeRow(left, y + 54.0f), {102, &m_review.targetScene}},
@@ -755,7 +776,7 @@ void GameBuilderPanel::HandleReviewTab(ContentRegistry& registry) {
 void GameBuilderPanel::HandleReleaseTab(Application& app, ContentRegistry& registry) {
     const float left = m_bounds.x + 20.0f;
     const float right = left + 280.0f;
-    float y = m_bounds.y + 110.0f;
+    float y = ContentTop();
     const std::array<std::pair<Rectangle, std::pair<int, std::string*>>, 9> fields {{
         {MakeRow(left, y), {111, &m_release.buildId}},
         {MakeRow(left, y + 54.0f), {112, &m_release.gameTitle}},
@@ -811,7 +832,7 @@ void GameBuilderPanel::HandleReleaseTab(Application& app, ContentRegistry& regis
 void GameBuilderPanel::HandleTemplatesTab(ContentRegistry& registry) {
     const float left = m_bounds.x + 20.0f;
     const float right = left + 280.0f;
-    float y = m_bounds.y + 110.0f;
+    float y = ContentTop();
     const std::array<std::pair<Rectangle, std::pair<int, std::string*>>, 12> fields {{
         {MakeRow(left, y), {121, &m_template.templateId}},
         {MakeRow(left, y + 54.0f), {122, &m_template.displayName}},
@@ -847,7 +868,7 @@ void GameBuilderPanel::HandleTemplatesTab(ContentRegistry& registry) {
 void GameBuilderPanel::HandleShipTab(ContentRegistry& registry) {
     const float left = m_bounds.x + 20.0f;
     const float right = left + 280.0f;
-    float y = m_bounds.y + 110.0f;
+    float y = ContentTop();
     const std::array<std::pair<Rectangle, std::pair<int, std::string*>>, 4> fields {{
         {MakeRow(left, y), {141, &m_ship.shipModeId}},
         {MakeRow(left, y + 54.0f), {142, &m_ship.buildId}},
@@ -884,7 +905,7 @@ void GameBuilderPanel::HandleShipTab(ContentRegistry& registry) {
 void GameBuilderPanel::HandleCompleteTab(ContentRegistry& registry) {
     const float left = m_bounds.x + 20.0f;
     const float right = left + 280.0f;
-    float y = m_bounds.y + 110.0f;
+    float y = ContentTop();
     const std::array<std::pair<Rectangle, std::pair<int, std::string*>>, 6> fields {{
         {MakeRow(left, y), {151, &m_complete.foundationId}},
         {MakeRow(left, y + 54.0f), {152, &m_complete.milestoneLabel}},
@@ -923,7 +944,7 @@ void GameBuilderPanel::HandleCompleteTab(ContentRegistry& registry) {
 
 void GameBuilderPanel::HandleRegistryTab(ContentRegistry& registry) {
     const float left = m_bounds.x + 20.0f;
-    float y = m_bounds.y + 110.0f;
+    float y = ContentTop();
     const Rectangle searchRect = MakeRow(left, y, 340.0f, 30.0f);
     if (PointInRect(searchRect, GetMousePosition()) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) m_activeTextField = 201;
     if (m_activeTextField == 201) HandleTextInput(m_registrySearch, 120);
@@ -939,10 +960,17 @@ void GameBuilderPanel::Draw(Application& app, const ContentRegistry& registry) c
     (void)app;
     if (!m_visible) return;
 
-    DrawRectangleRec(m_bounds, Color{8, 12, 18, 230});
+    const Rectangle contentRect = ContentRect();
+    const Rectangle titleRect {m_bounds.x, m_bounds.y, m_bounds.width, kTitleHeight};
+
+    DrawRectangleRec(m_bounds, Color{8, 12, 18, 238});
     DrawRectangleLinesEx(m_bounds, 2.0f, SKYBLUE);
+    DrawRectangleRec(titleRect, Color{16, 22, 30, 245});
+    DrawRectangleRec(contentRect, Color{10, 14, 22, 228});
+    DrawRectangleLinesEx(contentRect, 1.0f, Fade(SKYBLUE, 0.45f));
+
     DrawBuilderVisibilityText(m_visible);
-    DrawText("V115 Builder Repair and Export Pipeline", static_cast<int>(m_bounds.x + 16.0f), static_cast<int>(m_bounds.y + 4.0f), 22, RAYWHITE);
+    DrawText("V117 Builder Layout and Input Capture", static_cast<int>(m_bounds.x + 16.0f), static_cast<int>(m_bounds.y + 6.0f), 22, RAYWHITE);
 
     const Rectangle closeRect = CloseButtonRect();
     DrawButtonVisual(closeRect, "X", PointInRect(closeRect, GetMousePosition()), Color{90, 36, 36, 255});
@@ -958,48 +986,47 @@ void GameBuilderPanel::Draw(Application& app, const ContentRegistry& registry) c
         const int col = static_cast<int>(i % 4);
         const Rectangle rect {
             m_bounds.x + 10.0f + col * (kTabWidth + 8.0f),
-            m_bounds.y + 30.0f + row * (kTabHeight + 6.0f),
+            m_bounds.y + kTabGridTop + row * (kTabHeight + kTabRowGap),
             kTabWidth,
             kTabHeight
         };
         DrawHeaderTab(rect, tabs[i].second, tabs[i].first);
     }
 
-    DrawBuilderVisibilityText(m_visible);
-    DrawText("F10, F9, or Ctrl+B toggles builder. Builder now captures editor input while open and renders its tab body inside the active frame.", static_cast<int>(m_bounds.x + 20.0f), static_cast<int>(m_bounds.y + 92.0f), 16, LIGHTGRAY);
+    DrawText("F10, F9, or Ctrl+B toggles builder. Builder captures camera/editor input while open.", static_cast<int>(contentRect.x + 2.0f), static_cast<int>(contentRect.y - 18.0f), 16, LIGHTGRAY);
 
     if (m_activeTab == Tab::Quest) {
         DrawBuilderVisibilityText(m_visible);
-    DrawText(TextFormat("Reward Gold: %d", m_quest.rewardGold), static_cast<int>(m_bounds.x + 320.0f), static_cast<int>(m_bounds.y + 236.0f), 18, GOLD);
+        DrawText(TextFormat("Reward Gold: %d", m_quest.rewardGold), static_cast<int>(contentRect.x + 300.0f), static_cast<int>(contentRect.y + 126.0f), 18, GOLD);
     }
     if (m_activeTab == Tab::Fight) {
         DrawBuilderVisibilityText(m_visible);
-    DrawText(TextFormat("Count: %d | Radius: %.1f", m_fight.count, m_fight.radius), static_cast<int>(m_bounds.x + 20.0f), static_cast<int>(m_bounds.y + 304.0f), 18, GOLD);
+        DrawText(TextFormat("Count: %d | Radius: %.1f", m_fight.count, m_fight.radius), static_cast<int>(contentRect.x + 2.0f), static_cast<int>(contentRect.y + 194.0f), 18, GOLD);
     }
     if (m_activeTab == Tab::Trade) {
         DrawBuilderVisibilityText(m_visible);
-    DrawText(TextFormat("Value: %d | Heal: %d | Stock: %d", m_trade.value, m_trade.healAmount, m_trade.stockCount), static_cast<int>(m_bounds.x + 20.0f), static_cast<int>(m_bounds.y + 304.0f), 18, GOLD);
+        DrawText(TextFormat("Value: %d | Heal: %d | Stock: %d", m_trade.value, m_trade.healAmount, m_trade.stockCount), static_cast<int>(contentRect.x + 2.0f), static_cast<int>(contentRect.y + 194.0f), 18, GOLD);
     }
     if (m_activeTab == Tab::Persist) {
         DrawBuilderVisibilityText(m_visible);
-    DrawText(TextFormat("Starting Gold: %d", m_persist.startingGold), static_cast<int>(m_bounds.x + 20.0f), static_cast<int>(m_bounds.y + 358.0f), 18, GOLD);
+        DrawText(TextFormat("Starting Gold: %d", m_persist.startingGold), static_cast<int>(contentRect.x + 2.0f), static_cast<int>(contentRect.y + 248.0f), 18, GOLD);
     }
     if (m_activeTab == Tab::Audio) {
         DrawBuilderVisibilityText(m_visible);
-    DrawText(TextFormat("Wind %d | Wildlife %d | Fire %d", m_audio.windLevel, m_audio.wildlifeLevel, m_audio.fireLevel), static_cast<int>(m_bounds.x + 20.0f), static_cast<int>(m_bounds.y + 358.0f), 18, GOLD);
+        DrawText(TextFormat("Wind %d | Wildlife %d | Fire %d", m_audio.windLevel, m_audio.wildlifeLevel, m_audio.fireLevel), static_cast<int>(contentRect.x + 2.0f), static_cast<int>(contentRect.y + 248.0f), 18, GOLD);
     }
     if (m_activeTab == Tab::Registry) {
         DrawBuilderVisibilityText(m_visible);
-    DrawText(TextFormat("Registry Entries: %i", static_cast<int>(registry.Count())), static_cast<int>(m_bounds.x + 20.0f), static_cast<int>(m_bounds.y + 170.0f), 18, GOLD);
+        DrawText(TextFormat("Registry Entries: %i", static_cast<int>(registry.Count())), static_cast<int>(contentRect.x + 2.0f), static_cast<int>(contentRect.y + 60.0f), 18, GOLD);
         const auto results = registry.Search(m_registrySearch);
-        const Rectangle listRect {m_bounds.x + 20.0f, m_bounds.y + 200.0f, m_bounds.width - 40.0f, 420.0f};
+        const Rectangle listRect {contentRect.x + 2.0f, contentRect.y + 90.0f, contentRect.width - 4.0f, std::min(420.0f, contentRect.height - 100.0f)};
         DrawRectangleRec(listRect, Color{12, 16, 24, 220});
         DrawRectangleLinesEx(listRect, 1.0f, Fade(SKYBLUE, 0.7f));
         int drawY = static_cast<int>(listRect.y + 8.0f);
         for (std::size_t i = 0; i < results.size() && i < 18; ++i) {
             const std::string line = results[i].id + " [" + ContentRegistry::KindToString(results[i].kind) + "]  " + results[i].path;
             DrawBuilderVisibilityText(m_visible);
-    DrawText(line.c_str(), static_cast<int>(listRect.x + 8.0f), drawY, 16, RAYWHITE);
+            DrawText(line.c_str(), static_cast<int>(listRect.x + 8.0f), drawY, 16, RAYWHITE);
             drawY += 22;
         }
     }

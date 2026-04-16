@@ -59,6 +59,8 @@ public:
     [[nodiscard]] bool IsDebugOverlayEnabled() const { return m_showDebugOverlay; }
     [[nodiscard]] bool IsInspectorVisible() const { return m_showInspector; }
     [[nodiscard]] bool IsMouseLookActive() const { return m_mouseLookActive; }
+    [[nodiscard]] bool IsBuilderVisible() const { return m_gameBuilderPanel.IsVisible(); }
+    [[nodiscard]] bool IsBuilderCapturingInput() const { return m_gameBuilderPanel.IsVisible() || m_gameBuilderPanel.IsMouseOverUi(); }
     [[nodiscard]] const std::vector<ValidationMessage>& GetValidationMessages() const { return m_validationMessages; }
     [[nodiscard]] const std::string& GetLastExportPath() const { return m_lastExportPath; }
     [[nodiscard]] EditorSelection& GetEditorSelection() { return m_editorSelection; }

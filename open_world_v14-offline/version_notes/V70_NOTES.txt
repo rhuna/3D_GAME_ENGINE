@@ -1,0 +1,19 @@
+V70 - Data-Driven Region Authoring Pass
+
+Focus:
+- make starter-pack world building easier
+- remove more hidden C++ assumptions from region layouts
+- make loaded region files drive debug region switching too
+
+Included changes:
+- RegionLayoutDatabase now loads layout blocks directly from assets/regions/*.json
+- richer layout data: npcId, gather resourceId, travel targetRegion, travel destinationSpawn
+- OpenWorldRuntimeScene now uses loaded region ids for 1-9 region jumping
+- RegionEcsLoader now uses travel targets and npc ids from region files
+- added assets/regions/_template_region.json for copy-and-edit region authoring
+- starter_village and starter_forest now ship as fully data-driven layout examples
+
+Recommended next version:
+- scene/prefab placement authored from region files too
+- starter quest reward + shop inventory pass
+- region authoring validation errors in editor UI

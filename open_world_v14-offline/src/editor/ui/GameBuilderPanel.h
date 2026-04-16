@@ -214,6 +214,8 @@ private:
 
     [[nodiscard]] bool Button(const Rectangle& rect, const char* label) const;
     [[nodiscard]] bool PointInRect(const Rectangle& rect, Vector2 point) const;
+    [[nodiscard]] Rectangle ContentRect() const;
+    [[nodiscard]] float ContentTop() const;
     void DrawHeaderTab(const Rectangle& rect, const char* label, Tab tab) const;
     void DrawTextField(const Rectangle& rect, const char* label, const std::string& value, int fieldId) const;
     void HandleTextInput(std::string& target, std::size_t maxLength = 96);

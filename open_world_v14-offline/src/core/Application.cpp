@@ -115,10 +115,10 @@ if (m_input.IsKeyPressed(KEY_TAB)) m_showInspector = !m_showInspector;
             m_inspectorPanel.Draw(m_world, m_editorSelection);
         }
 
-        // The builder tab body uses immediate-mode raylib drawing inside the
-        // panel handlers, so update it only after the active drawing frame has started.
-        m_gameBuilderPanel.Update(*this, m_contentRegistry);
+        // Draw the shell first, then let the panel update handlers draw the active
+        // tab contents on top of it inside the same frame.
         m_gameBuilderPanel.Draw(*this, m_contentRegistry);
+        m_gameBuilderPanel.Update(*this, m_contentRegistry);
 
         if (!m_mouseLookActive) {
             const Vector2 mousePos = GetMousePosition();

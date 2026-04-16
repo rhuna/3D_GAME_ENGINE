@@ -171,14 +171,16 @@ namespace fw
         m_interactionPrompt.clear();
         if (m_statusTextTimer > 0.0f) { m_statusTextTimer -= dt; if (m_statusTextTimer <= 0.0f) { m_statusText.clear(); m_statusTextTimer = 0.0f; } }
 
-        if (m_dialogue.active && (IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_E)))
+        const bool builderCapturingInput = app.IsBuilderCapturingInput();
+
+        if (m_dialogue.active && !builderCapturingInput && (IsKeyPressed(KEY_ENTER) || IsKeyPressed(KEY_E)))
         {
             m_dialogue.active = false;
             return;
         }
 
-        if (IsKeyPressed(KEY_TAB)) m_showQuestLog = !m_showQuestLog;
-        if (IsKeyPressed(KEY_I)) m_showEquipment = !m_showEquipment;
+        if (!builderCapturingInput && IsKeyPressed(KEY_TAB)) m_showQuestLog = !m_showQuestLog;
+        if (!builderCapturingInput && IsKeyPressed(KEY_I)) m_showEquipment = !m_showEquipment;
 
         if (IsKeyPressed(KEY_F5)) { m_profile.SaveToFile("savegame.profile"); m_statusText = "Profile saved."; m_statusTextTimer = 3.0f; }
         if (IsKeyPressed(KEY_F9)) { m_profile.LoadFromFile("savegame.profile"); EnsureCurrentRegionState(); RebuildRegionState(app); m_statusText = "Profile loaded."; m_statusTextTimer = 3.0f; }
@@ -214,19 +216,22 @@ namespace fw
             RebuildRegionState(app);
         }
 
-        Vector2 md = GetMouseDelta();
-        m_cameraYaw += md.x * 0.003f;
-        m_cameraPitch -= md.y * 0.003f;
-        m_cameraPitch = std::clamp(m_cameraPitch, -0.6f, 1.0f);
+        if (!builderCapturingInput)
+        {
+            Vector2 md = GetMouseDelta();
+            m_cameraYaw += md.x * 0.003f;
+            m_cameraPitch -= md.y * 0.003f;
+            m_cameraPitch = std::clamp(m_cameraPitch, -0.6f, 1.0f);
+        }
 
         Vector3 camForward = Vector3Normalize({sinf(m_cameraYaw) * cosf(m_cameraPitch), 0.0f, cosf(m_cameraYaw) * cosf(m_cameraPitch)});
         Vector3 camRight = Vector3Normalize(Vector3CrossProduct(camForward, {0,1,0}));
 
         Vector3 move{};
-        if (IsKeyDown(KEY_W)) move = Vector3Add(move, camForward);
-        if (IsKeyDown(KEY_S)) move = Vector3Subtract(move, camForward);
-        if (IsKeyDown(KEY_A)) move = Vector3Subtract(move, camRight);
-        if (IsKeyDown(KEY_D)) move = Vector3Add(move, camRight);
+        if (!builderCapturingInput && IsKeyDown(KEY_W)) move = Vector3Add(move, camForward);
+        if (!builderCapturingInput && IsKeyDown(KEY_S)) move = Vector3Subtract(move, camForward);
+        if (!builderCapturingInput && IsKeyDown(KEY_A)) move = Vector3Subtract(move, camRight);
+        if (!builderCapturingInput && IsKeyDown(KEY_D)) move = Vector3Add(move, camRight);
 
         if (Vector3Length(move) > 0.001f)
         {
@@ -235,7 +240,7 @@ namespace fw
             m_profile.playerPosition = Vector3Add(m_profile.playerPosition, Vector3Scale({move.x, 0.0f, move.z}, speed * dt));
         }
 
-        if (m_grounded && IsKeyPressed(KEY_SPACE)) { m_verticalVelocity = 6.5f; m_grounded = false; }
+        if (!builderCapturingInput && m_grounded && IsKeyPressed(KEY_SPACE)) { m_verticalVelocity = 6.5f; m_grounded = false; }
         m_verticalVelocity -= 18.0f * dt;
         m_profile.playerPosition.y += m_verticalVelocity * dt;
         if (m_profile.playerPosition.y <= 1.0f) { m_profile.playerPosition.y = 1.0f; m_verticalVelocity = 0.0f; m_grounded = true; }
