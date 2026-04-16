@@ -1,0 +1,6 @@
+V111 Compile Checklist
+[OK] ContentRegistry diagnostics block rewritten with escaped newlines
+[OK] ContentRegistry.cpp syntax-checked after repair
+[TODO] Clean configure from repo root
+[TODO] Clean Release build on Windows/MSVC
+[TODO] Capture the next first compiler or linker error if any remain

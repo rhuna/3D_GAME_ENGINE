@@ -1,0 +1,9 @@
+V109 Toggle Checklist
+[OK] Single authoritative builder toggle path in Application.cpp
+[OK] Escape closes builder before app exit
+[OK] ContentRegistry diagnostics output restored to line-separated text
+[TODO] Clean configure from repo root
+[TODO] Clean Release build
+[TODO] Launch executable
+[TODO] Verify top-left visibility text changes
+[TODO] Verify builder opens/closes with F10, F9, Ctrl+B, and Esc

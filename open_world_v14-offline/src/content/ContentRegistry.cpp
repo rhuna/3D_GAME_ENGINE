@@ -252,19 +252,21 @@ std::vector<ContentEntry> ContentRegistry::Search(const std::string& text) const
 bool ContentRegistry::SaveDiagnosticsReport(const std::string& filePath) const {
     std::ostringstream out;
 
-    // Emit a safe plain-text diagnostics summary using escaped newline sequences
-    // so MSVC does not hit the earlier "newline in constant" parser failure.
-    out << "# V103 content registry diagnostics";
-    out << "entryCount=" << m_entries.size() << "";
-    out << "prefabs=" << CountByKind(ContentKind::Prefab) << "";
-    out << "variants=" << CountByKind(ContentKind::Variant) << "";
-    out << "scenes=" << CountByKind(ContentKind::Scene) << "";
-    out << "kits=" << CountByKind(ContentKind::Kit) << "";
-    out << "templates=" << CountByKind(ContentKind::Template) << "";
-    out << "projects=" << CountByKind(ContentKind::Project) << "";
-    out << "models=" << CountByKind(ContentKind::Model) << "";
-    out << "textures=" << CountByKind(ContentKind::Texture) << "";
-    out << "audio=" << CountByKind(ContentKind::Audio) << "";
+    // Write a stable plain-text diagnostics report using escaped newline
+    // sequences so the generated text stays readable while the C++ source stays
+    // valid for MSVC and other compilers.
+    out << "# V111 content registry diagnostics\\n";
+    out << "entryCount=" << m_entries.size() << "\\n";
+    out << "prefabs=" << CountByKind(ContentKind::Prefab) << "\\n";
+    out << "variants=" << CountByKind(ContentKind::Variant) << "\\n";
+    out << "scenes=" << CountByKind(ContentKind::Scene) << "\\n";
+    out << "kits=" << CountByKind(ContentKind::Kit) << "\\n";
+    out << "templates=" << CountByKind(ContentKind::Template) << "\\n";
+    out << "projects=" << CountByKind(ContentKind::Project) << "\\n";
+    out << "models=" << CountByKind(ContentKind::Model) << "\\n";
+    out << "textures=" << CountByKind(ContentKind::Texture) << "\\n";
+    out << "audio=" << CountByKind(ContentKind::Audio) << "\\n";
+
     return FileSystem::WriteTextFile(filePath, out.str());
 }
 

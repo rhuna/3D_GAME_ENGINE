@@ -1,0 +1,10 @@
+V110 Compile and Toggle Checklist
+[OK] ContentRegistry diagnostics block rewritten with escaped newlines
+[OK] Builder toggle uses one authoritative SetVisible path
+[OK] Escape closes builder before app exit
+[OK] GameBuilderPanel array-size repair carried forward
+[TODO] Clean configure from repo root
+[TODO] Clean Release build
+[TODO] Launch executable
+[TODO] Verify builder visibility text changes
+[TODO] Verify builder opens/closes with F10, F9, Ctrl+B, and Esc

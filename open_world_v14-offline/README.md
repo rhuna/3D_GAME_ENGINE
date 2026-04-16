@@ -1,4 +1,4 @@
-# 3D_GAME_ENGINE V103 — Real Builder Toggle Fix
+# 3D_GAME_ENGINE V110 — ContentRegistry Compile Repair and Toggle Cleanup
 
 # 3D_GAME_ENGINE V99 — Real Repo Integration Repair Snapshot
 
@@ -34,3 +34,6 @@ Final status note:
 
 ## Builder access
 Use **F10**, **F9**, or **Ctrl+B** to toggle the builder.
+
+## V110 focus
+This snapshot fixes the current ContentRegistry compile blocker and simplifies the builder toggle path.

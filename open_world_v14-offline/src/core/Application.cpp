@@ -39,17 +39,17 @@ int Application::Run() {
         if (m_input.IsKeyPressed(KEY_F5)) ReloadStartScene();
         if (m_input.IsKeyPressed(KEY_F6)) WorldSerializer::SaveToFile(m_world, "assets/saves/open_world_snapshot.txt");
         if (m_input.IsKeyPressed(KEY_F7)) WorldSerializer::LoadFromFile(m_world, "assets/saves/open_world_snapshot.txt");
-// Support multiple builder shortcuts because some keyboards require Fn
-// for function keys, which can make the builder seem broken even when
-// the toggle code path exists.
+// Use one authoritative builder toggle path so the panel state is not being
+// changed by competing code paths in the same frame.
 const bool builderToggleRequested =
     m_input.IsKeyPressed(KEY_F10) ||
     m_input.IsKeyPressed(KEY_F9) ||
     ((IsKeyDown(KEY_LEFT_CONTROL) || IsKeyDown(KEY_RIGHT_CONTROL)) && m_input.IsKeyPressed(KEY_B));
 
 if (builderToggleRequested) {
-    m_gameBuilderPanel.ToggleVisible();
-    Logger::Info(std::string("Builder visibility toggled: ") + (m_gameBuilderPanel.IsVisible() ? "open" : "closed"));
+    const bool newState = !m_gameBuilderPanel.IsVisible();
+    m_gameBuilderPanel.SetVisible(newState);
+    Logger::Info(std::string("Builder visibility set to: ") + (newState ? "true" : "false"));
 }
 if (m_input.IsKeyPressed(KEY_TAB)) m_showInspector = !m_showInspector;
         if (m_input.IsKeyPressed(KEY_F11)) ToggleFullscreen();
