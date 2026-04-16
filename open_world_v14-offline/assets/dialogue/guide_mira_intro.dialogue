@@ -1,0 +1,5 @@
+dialogueId=guide_mira_intro
+npcId=guide_mira
+text=Welcome to the vale.
+choice=I need help.
+choice=Just passing through.

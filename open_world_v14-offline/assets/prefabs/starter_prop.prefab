@@ -1,0 +1,7 @@
+name=starter_prop
+tag=prop
+visible=true
+drawCube=true
+primitiveShape=cube
+scale=1,1,1
+color=180,180,180,255

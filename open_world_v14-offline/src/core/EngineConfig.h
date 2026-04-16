@@ -5,9 +5,9 @@
 namespace fw {
 
 struct EngineConfig {
-    int windowWidth = 1600;
-    int windowHeight = 900;
-    std::string windowTitle = "3D_GAME_ENGINE v8 Editor Ready Content Pipeline";
+    int windowWidth = 2200;
+    int windowHeight = 1280;
+    std::string windowTitle = "3D_GAME_ENGINE v119 Large Workspace";
     bool vsync = true;
     int targetFps = 144;
     float fixedTimestep = 1.0f / 60.0f;

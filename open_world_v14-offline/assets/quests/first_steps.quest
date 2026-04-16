@@ -1,0 +1,7 @@
+questId=first_steps
+title=First Steps
+objectiveType=collect
+objectiveTarget=forest_herb
+rewardItem=healing_potion
+rewardGold=75
+nextQuestId=wolf_watch

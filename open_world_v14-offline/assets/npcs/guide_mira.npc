@@ -1,0 +1,4 @@
+npcId=guide_mira
+name=guide_mira
+prefab=npc_villager
+dialogue=guide_mira_intro

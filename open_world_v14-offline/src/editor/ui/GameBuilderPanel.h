@@ -245,7 +245,7 @@ private:
     [[nodiscard]] static const char* TabToString(Tab tab);
     [[nodiscard]] static Tab TabFromString(const std::string& value);
 
-    Rectangle m_bounds {18.0f, 18.0f, 560.0f, 680.0f};
+    Rectangle m_bounds {12.0f, 12.0f, 1180.0f, 860.0f};
     bool m_visible = false;
     Tab m_activeTab = Tab::Create;
     int m_activeTextField = 0;

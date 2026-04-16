@@ -1,3 +1,5 @@
+V122 Builder Sidebar Layout + Readability Pass
+
 # 3D_GAME_ENGINE V114 — Export Pipeline Staging and Builder Toggle Hardening
 
 This snapshot advances the uploaded V113 repo into **V114**.
@@ -54,3 +56,10 @@ cmake -S . -B build -G "Visual Studio 17 2022" -DFW_OFFLINE_ONLY=OFF
 - Builder tab body rendering repaired
 - Builder now captures editor/world input while open
 - Windows export pipeline compile fix for `ExportPipeline.cpp`
+
+
+## V121 large-workspace polish
+
+- Larger builder workspace with more horizontal room for pane-based tabs
+- Wider field rows and a bigger second-column offset for clearer separation
+- Larger default startup window for easier builder use on desktop displays

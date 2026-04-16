@@ -31,6 +31,7 @@ entry=id=starter_companion;kind=prefab;path=assets/prefabs\starter_companion.pre
 entry=id=starter_crafting_bench;kind=prefab;path=assets/prefabs\starter_crafting_bench.prefab;category=prefabs
 entry=id=starter_herb_node;kind=prefab;path=assets/prefabs\starter_herb_node.prefab;category=prefabs
 entry=id=starter_merchant;kind=prefab;path=assets/prefabs\starter_merchant.prefab;category=prefabs
+entry=id=starter_prop;kind=prefab;path=assets/prefabs\starter_prop.prefab;category=prefabs
 entry=id=starter_save_point;kind=prefab;path=assets/prefabs\starter_save_point.prefab;category=prefabs
 entry=id=western_trail_broken_cart_lod;kind=prefab;path=assets/prefabs\western_trail_broken_cart_lod.prefab;category=prefabs
 entry=id=game;kind=project;path=assets/game\game.project;category=game
@@ -49,6 +50,7 @@ entry=id=sandbox;kind=scene;path=assets/scenes\sandbox.scene;category=scenes
 entry=id=sandbox_edited;kind=scene;path=assets/scenes\sandbox_edited.scene;category=scenes
 entry=id=starter_gameplay_slice;kind=scene;path=assets/scenes\starter_gameplay_slice.scene;category=scenes
 entry=id=starter_hut_interior;kind=scene;path=assets/scenes\starter_hut_interior.scene;category=scenes
+entry=id=starter_slice;kind=scene;path=assets/scenes\starter_slice.scene;category=scenes
 entry=id=starter_vale;kind=scene;path=assets/scenes\starter_vale.scene;category=scenes
 entry=id=village_region;kind=scene;path=assets/scenes\village_region.scene;category=scenes
 entry=id=arena_survival;kind=template;path=assets/templates\arena_survival.template;category=templates

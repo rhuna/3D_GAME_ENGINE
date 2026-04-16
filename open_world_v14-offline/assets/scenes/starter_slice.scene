@@ -1,0 +1,4 @@
+scene=starter_slice
+spawn=prefab=ground;position=0,0,0
+spawn=prefab=player;position=0,1,0
+spawn=prefab=starter_prop;position=2,0,2
