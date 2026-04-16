@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <array>
 #include <sstream>
+#include <unordered_map>
 
 #include "content/ContentRegistry.h"
 #include "core/Application.h"
@@ -57,12 +58,47 @@ void DrawBuilderVisibilityText(bool visible) {
 
 } // namespace
 
+const char* GameBuilderPanel::TabToString(Tab tab) {
+    switch (tab) {
+        case Tab::Create: return "Create";
+        case Tab::Story: return "Story";
+        case Tab::Quest: return "Quest";
+        case Tab::Fight: return "Fight";
+        case Tab::Trade: return "Trade";
+        case Tab::World: return "World";
+        case Tab::Interior: return "Interior";
+        case Tab::Persist: return "Persist";
+        case Tab::Start: return "Start";
+        case Tab::Audio: return "Audio";
+        case Tab::Review: return "Review";
+        case Tab::Release: return "Release";
+        case Tab::Templates: return "Templates";
+        case Tab::Ship: return "Ship";
+        case Tab::Complete: return "Complete";
+        case Tab::Registry: return "Registry";
+    }
+    return "Create";
+}
+
+GameBuilderPanel::Tab GameBuilderPanel::TabFromString(const std::string& value) {
+    static const std::unordered_map<std::string, Tab> kMap {
+        {"Create", Tab::Create}, {"Story", Tab::Story}, {"Quest", Tab::Quest}, {"Fight", Tab::Fight},
+        {"Trade", Tab::Trade}, {"World", Tab::World}, {"Interior", Tab::Interior}, {"Persist", Tab::Persist},
+        {"Start", Tab::Start}, {"Audio", Tab::Audio}, {"Review", Tab::Review}, {"Release", Tab::Release},
+        {"Templates", Tab::Templates}, {"Ship", Tab::Ship}, {"Complete", Tab::Complete}, {"Registry", Tab::Registry}
+    };
+    const auto it = kMap.find(value);
+    return it != kMap.end() ? it->second : Tab::Create;
+}
+
 void GameBuilderPanel::ToggleVisible() {
     m_visible = !m_visible;
+    SaveSessionState();
 }
 
 void GameBuilderPanel::SetVisible(bool visible) {
     m_visible = visible;
+    SaveSessionState();
 }
 
 bool GameBuilderPanel::IsVisible() const {
@@ -80,6 +116,40 @@ bool GameBuilderPanel::Button(const Rectangle& rect, const char* label) const {
 
 bool GameBuilderPanel::IsMouseOverUi() const {
     return m_visible && PointInRect(m_bounds, GetMousePosition());
+}
+
+void GameBuilderPanel::LoadSessionState() {
+    const std::string text = FileSystem::ReadTextFile("assets/saves/builder_session.cfg");
+    if (text.empty()) {
+        return;
+    }
+
+    std::istringstream input(text);
+    std::string line;
+    while (std::getline(input, line)) {
+        const std::size_t equals = line.find('=');
+        if (equals == std::string::npos) {
+            continue;
+        }
+
+        const std::string key = line.substr(0, equals);
+        const std::string value = line.substr(equals + 1);
+        if (key == "visible") {
+            m_visible = (value == "true");
+        } else if (key == "active_tab") {
+            m_activeTab = TabFromString(value);
+        } else if (key == "status") {
+            m_status = value.empty() ? "Ready" : value;
+        }
+    }
+}
+
+void GameBuilderPanel::SaveSessionState() const {
+    std::ostringstream out;
+    out << "visible=" << BoolText(m_visible) << "\n";
+    out << "active_tab=" << TabToString(m_activeTab) << "\n";
+    out << "status=" << (m_status.empty() ? "Ready" : m_status) << "\n";
+    FileSystem::WriteTextFile("assets/saves/builder_session.cfg", out.str());
 }
 
 void GameBuilderPanel::DrawHeaderTab(const Rectangle& rect, const char* label, Tab tab) const {
@@ -142,6 +212,7 @@ void GameBuilderPanel::UpdateTabClicks() {
         if (PointInRect(rect, mouse) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
             m_activeTab = tabs[i].first;
             m_activeTextField = 0;
+            SaveSessionState();
         }
     }
 }
@@ -158,9 +229,9 @@ bool GameBuilderPanel::RefreshRegistry(ContentRegistry& registry) {
 }
 
 void GameBuilderPanel::WriteVersionMetadata() const {
-    FileSystem::WriteTextFile("version_notes/VERSION.txt", "V103\n\nV103 Real Builder Toggle Fix\n");
+    FileSystem::WriteTextFile("version_notes/VERSION.txt", "V113\n\nV113 Offline Build Bootstrap and Builder Session Persistence\n");
 
-    const std::array<std::pair<const char*, const char*>, 16> notes {{
+    const std::array<std::pair<const char*, const char*>, 17> notes {{
         {"version_notes/V82_NOTES.md", "# V82 Notes\n\nIntegrated interior authoring in the real V90 builder.\n"},
         {"version_notes/V83_NOTES.md", "# V83 Notes\n\nIntegrated persistence/profile authoring in the real V90 builder.\n"},
         {"version_notes/V84_NOTES.md", "# V84 Notes\n\nIntegrated startup/menu/HUD authoring in the real V90 builder.\n"},
@@ -179,6 +250,7 @@ void GameBuilderPanel::WriteVersionMetadata() const {
         {"version_notes/V97_NOTES.md", "# V97 Notes\n\nReal repo integration baseline built from the uploaded full project tree.\n"}
     }};
     for (const auto& [path, text] : notes) FileSystem::WriteTextFile(path, text);
+    FileSystem::WriteTextFile("version_notes/V113_NOTES.md", "# V113 Notes\n\nOffline build bootstrap hardening plus builder session persistence.\n");
 }
 
 void GameBuilderPanel::Update(Application& app, ContentRegistry& registry) {

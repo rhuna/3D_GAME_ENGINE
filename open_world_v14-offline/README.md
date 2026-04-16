@@ -1,39 +1,31 @@
-# 3D_GAME_ENGINE V110 — ContentRegistry Compile Repair and Toggle Cleanup
+# 3D_GAME_ENGINE V113 — Offline Build Bootstrap and Builder Session Persistence
 
-# 3D_GAME_ENGINE V99 — Real Repo Integration Repair Snapshot
+This snapshot advances the uploaded V112 repo into **V113**.
 
-# 3D_GAME_ENGINE V97 — Real Repo Integration Baseline
+## Focus
+- Offline-friendly raylib bootstrap logic in CMake
+- Clear failure messaging when raylib is missing locally
+- Builder panel session persistence across launches
+- Version metadata refreshed to V113
 
-# 3D_GAME_ENGINE V90
-
-This snapshot represents V90: completion milestone baseline.
-
-Key focus:
-- 1.0-style completion scaffolding
-- creator workflow consolidation
-- foundation profile and milestone readiness outputs
-- final baseline for low-code game creation and release prep
-
-Note:
-This is a repo snapshot for your local compile/test cycle.
-
-## Completion status
-This snapshot is the **completion baseline** for the current repo line.
-
-It consolidates:
-- real repo integration
-- compile blocker repairs
-- builder/runtime wiring
-- content registry alignment
-- playable slice authored content
-- versioned documentation and diagnostics
-
-Final status note:
-- structurally complete as a repo snapshot
-- pending final local Windows compile, launch, runtime, and export verification
-
-## Builder access
+## Builder controls
 Use **F10**, **F9**, or **Ctrl+B** to toggle the builder.
+Press **Esc** to close the builder before exiting the application.
 
-## V110 focus
-This snapshot fixes the current ContentRegistry compile blocker and simplifies the builder toggle path.
+## Offline build behavior
+V113 now searches for raylib in this order:
+1. installed raylib package
+2. `third_party/raylib`
+3. FetchContent when `-DFW_OFFLINE_ONLY=OFF`
+
+## Recommended local Windows build
+```powershell
+Remove-Item -Recurse -Force build -ErrorAction SilentlyContinue
+cmake -S . -B build -G "Visual Studio 17 2022"
+cmake --build build --config Release
+```
+
+If raylib is not installed and you do not have `third_party/raylib`, configure with:
+```powershell
+cmake -S . -B build -G "Visual Studio 17 2022" -DFW_OFFLINE_ONLY=OFF
+```

@@ -17,6 +17,9 @@ public:
     [[nodiscard]] bool IsVisible() const;
     [[nodiscard]] bool IsMouseOverUi() const;
 
+    void LoadSessionState();
+    void SaveSessionState() const;
+
     void Update(Application& app, ContentRegistry& registry);
     void Draw(Application& app, const ContentRegistry& registry) const;
 
@@ -236,6 +239,8 @@ private:
 
     bool RefreshRegistry(ContentRegistry& registry);
     void WriteVersionMetadata() const;
+    [[nodiscard]] static const char* TabToString(Tab tab);
+    [[nodiscard]] static Tab TabFromString(const std::string& value);
 
     Rectangle m_bounds {18.0f, 18.0f, 560.0f, 680.0f};
     bool m_visible = false;

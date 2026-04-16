@@ -1,0 +1,10 @@
+V113 Build and Session Checklist
+================================
+[TODO] Clean configure from repo root
+[TODO] Confirm raylib detection path is printed clearly by CMake
+[TODO] Clean Release build on Windows/MSVC
+[TODO] Launch executable
+[TODO] Toggle builder open
+[TODO] Switch to a non-default builder tab
+[TODO] Close app and relaunch
+[TODO] Confirm builder session restores from assets/saves/builder_session.cfg

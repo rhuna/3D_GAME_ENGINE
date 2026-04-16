@@ -222,6 +222,7 @@ void Application::Initialize() {
     m_contentRegistry.RebuildFromProject();
     m_contentRegistry.SaveToFile("assets/registry/content_registry.txt");
     RunContentValidation();
+    m_gameBuilderPanel.LoadSessionState();
 
     ReloadStartScene();
     m_initialized = true;
@@ -230,6 +231,7 @@ void Application::Initialize() {
 
 void Application::Shutdown() {
     if (!m_initialized) return;
+    m_gameBuilderPanel.SaveSessionState();
     m_systemRegistry.Clear();
     m_assets.UnloadAll();
     CloseWindow();
