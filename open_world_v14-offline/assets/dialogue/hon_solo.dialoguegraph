@@ -1,0 +1,10 @@
+node=start
+text=Hello, help me with one or two things.
+choice=one;label=kill these monsters, clear the area.;next=choice_one
+choice=two;label=go talk to amira and help her.;next=choice_two
+
+node=choice_one
+text=Take this and head to the forest.
+
+node=choice_two
+text=Safe travels.

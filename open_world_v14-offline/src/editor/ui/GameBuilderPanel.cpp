@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <array>
 #include <sstream>
+#include <string>
 #include <unordered_map>
 
 #include "content/ContentRegistry.h"
@@ -63,6 +64,44 @@ bool WriteAndLog(const std::string& path, const std::string& text, std::string& 
     status = "Wrote: " + path;
     Logger::Info(status);
     return true;
+}
+
+
+// BuildSpawnLine translates the builder's placement fields into the line format
+// that SceneLibrary already understands. By reusing the existing scene-file spawn
+// syntax, V129 can place content into the current playable area without requiring
+// a new serialization format.
+std::string BuildSpawnLine(const std::string& prefabId,
+                          const std::string& tag,
+                          const std::string& positionX,
+                          const std::string& positionY,
+                          const std::string& positionZ,
+                          const std::string& rotationEuler,
+                          const std::string& scale) {
+    std::ostringstream out;
+    out << "spawn=prefab=" << prefabId;
+    if (!tag.empty()) out << ";tag=" << tag;
+    out << ";position=" << positionX << "," << positionY << "," << positionZ;
+    if (!rotationEuler.empty()) out << ";rotationEuler=" << rotationEuler;
+    if (!scale.empty()) out << ";scale=" << scale;
+    out << "
+";
+    return out.str();
+}
+
+// EnsureSceneHeader creates the minimal scene header when the user places content
+// into a scene that does not exist yet. That way the placement buttons work both
+// for existing playable areas and for brand-new test scenes.
+std::string EnsureSceneHeader(const std::string& existingText, const std::string& sceneId) {
+    if (!existingText.empty()) return existingText;
+    std::ostringstream out;
+    out << "scene=" << sceneId << "
+";
+    out << "display_name=" << sceneId << "
+";
+    out << "auto_spawn_player=true
+";
+    return out.str();
 }
 
 std::string JoinAssetList(const std::vector<ContentEntry>& entries) {
@@ -322,6 +361,98 @@ void GameBuilderPanel::WriteVersionMetadata() const {
     FileSystem::WriteTextFile("version_notes/V115_NOTES.md", "# V115 Notes\n\nBuilder render/input repair plus Windows export pipeline compile fix.\n");
 }
 
+
+void GameBuilderPanel::DrawPlacementSection(float sectionLeft, float sectionTop) const {
+    // The placement section makes the builder useful inside the current playable
+    // area by exposing the scene target and transform values right next to the
+    // authoring controls. The section deliberately stays generic so multiple tabs
+    // can reuse it.
+    const Rectangle panel {
+        sectionLeft,
+        sectionTop,
+        ContentRect().width - 40.0f,
+        248.0f
+    };
+    DrawRectangleRounded(panel, 0.06f, 8, Color{24, 28, 36, 220});
+    DrawRectangleLinesEx(panel, 1.0f, Fade(SKYBLUE, 0.55f));
+    DrawText("Placement Into Current Playable Area", static_cast<int>(panel.x + 14.0f), static_cast<int>(panel.y + 10.0f), 24, RAYWHITE);
+    DrawText("Use these fields to append a spawn entry into the target scene file that the runtime loads.",
+             static_cast<int>(panel.x + 14.0f), static_cast<int>(panel.y + 40.0f), 18, LIGHTGRAY);
+
+    const float left = panel.x + 14.0f;
+    const float right = left + kSecondColumnOffset;
+    const float row1 = panel.y + 78.0f;
+    const float row2 = row1 + kRowStride;
+    const float row3 = row2 + kRowStride;
+
+    DrawTextField(MakeRow(left, row1), "Target Scene", m_placement.targetScene, 901);
+    DrawTextField(MakeRow(right, row1), "Target Region", m_placement.targetRegion, 902);
+    DrawTextField(MakeRow(left, row2), "Prefab Override (optional)", m_placement.prefabOverride, 903);
+    DrawTextField(MakeRow(right, row2), "Spawn Tag", m_placement.tag, 904);
+    DrawTextField(MakeRow(left, row3, 130.0f, kFieldHeight), "Position X", m_placement.positionX, 905);
+    DrawTextField(MakeRow(left + 150.0f, row3, 130.0f, kFieldHeight), "Position Y", m_placement.positionY, 906);
+    DrawTextField(MakeRow(left + 300.0f, row3, 130.0f, kFieldHeight), "Position Z", m_placement.positionZ, 907);
+    DrawTextField(MakeRow(right, row3), "Rotation Euler", m_placement.rotationEuler, 908);
+    DrawTextField(MakeRow(right + 300.0f, row3, 130.0f, kFieldHeight), "Scale", m_placement.scale, 909);
+}
+
+void GameBuilderPanel::HandlePlacementInputs(float sectionLeft, float sectionTop) {
+    const Rectangle panel {sectionLeft, sectionTop, ContentRect().width - 40.0f, 248.0f};
+    const float left = panel.x + 14.0f;
+    const float right = left + kSecondColumnOffset;
+    const float row1 = panel.y + 78.0f;
+    const float row2 = row1 + kRowStride;
+    const float row3 = row2 + kRowStride;
+
+    const std::array<std::pair<Rectangle, std::pair<int, std::string*>>, 9> fields {{
+        {MakeRow(left, row1), {901, &m_placement.targetScene}},
+        {MakeRow(right, row1), {902, &m_placement.targetRegion}},
+        {MakeRow(left, row2), {903, &m_placement.prefabOverride}},
+        {MakeRow(right, row2), {904, &m_placement.tag}},
+        {MakeRow(left, row3, 130.0f, kFieldHeight), {905, &m_placement.positionX}},
+        {MakeRow(left + 150.0f, row3, 130.0f, kFieldHeight), {906, &m_placement.positionY}},
+        {MakeRow(left + 300.0f, row3, 130.0f, kFieldHeight), {907, &m_placement.positionZ}},
+        {MakeRow(right, row3), {908, &m_placement.rotationEuler}},
+        {MakeRow(right + 300.0f, row3, 130.0f, kFieldHeight), {909, &m_placement.scale}}
+    }};
+
+    for (const auto& [rect, data] : fields) {
+        if (PointInRect(rect, GetMousePosition()) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) m_activeTextField = data.first;
+        if (m_activeTextField == data.first) HandleTextInput(*data.second, 120);
+    }
+}
+
+bool GameBuilderPanel::AppendSpawnToSceneFile(const std::string& sceneId,
+                                              const std::string& prefabId,
+                                              const std::string& tag,
+                                              const std::string& positionX,
+                                              const std::string& positionY,
+                                              const std::string& positionZ,
+                                              const std::string& rotationEuler,
+                                              const std::string& scale,
+                                              const std::string& statusPrefix) {
+    if (sceneId.empty() || prefabId.empty()) {
+        m_status = statusPrefix + ": missing scene or prefab";
+        return false;
+    }
+
+    const std::string path = "assets/scenes/" + sceneId + ".scene";
+    std::string sceneText = EnsureSceneHeader(FileSystem::ReadTextFile(path), sceneId);
+    if (!sceneText.empty() && sceneText.back() != '
+') sceneText.push_back('
+');
+    sceneText += BuildSpawnLine(prefabId, tag, positionX, positionY, positionZ, rotationEuler, scale);
+
+    if (!FileSystem::WriteTextFile(path, sceneText)) {
+        m_status = statusPrefix + ": failed to update " + path;
+        return false;
+    }
+
+    m_status = statusPrefix + ": appended spawn to " + path;
+    Logger::Info(m_status);
+    return true;
+}
+
 void GameBuilderPanel::Update(Application& app, ContentRegistry& registry) {
     if (!m_visible) return;
 
@@ -397,6 +528,39 @@ void GameBuilderPanel::HandleCreateTab(ContentRegistry& registry) {
         WriteAndLog("assets/npcs/" + m_create.npcId + ".npc", out.str(), m_status);
         RefreshRegistry(registry);
     }
+
+    // V129 placement integration: these controls turn authored data into visible
+    // scene content by appending spawn entries into the target scene file.
+    const float placementTop = y + 276.0f;
+    HandlePlacementInputs(left, placementTop);
+    DrawPlacementSection(left, placementTop);
+
+    const std::string placementPrefab = m_placement.prefabOverride.empty() ? m_create.prefabId : m_placement.prefabOverride;
+    if (Button(MakeRow(left + kWideActionColumnOffset, placementTop + 170.0f, 240.0f, 38.0f), "Add Prefab To Scene")) {
+        AppendSpawnToSceneFile(m_placement.targetScene,
+                               placementPrefab,
+                               m_placement.tag.empty() ? std::string{"builder_prefab"} : m_placement.tag,
+                               m_placement.positionX,
+                               m_placement.positionY,
+                               m_placement.positionZ,
+                               m_placement.rotationEuler,
+                               m_placement.scale,
+                               "Placed prefab");
+        RefreshRegistry(registry);
+    }
+    if (Button(MakeRow(left + kWideActionColumnOffset + 250.0f, placementTop + 170.0f, 240.0f, 38.0f), "Add NPC To Scene")) {
+        AppendSpawnToSceneFile(m_placement.targetScene,
+                               m_placement.prefabOverride.empty() ? std::string{"npc_villager"} : m_placement.prefabOverride,
+                               m_placement.tag.empty() ? m_create.npcId : m_placement.tag,
+                               m_placement.positionX,
+                               m_placement.positionY,
+                               m_placement.positionZ,
+                               m_placement.rotationEuler,
+                               m_placement.scale,
+                               "Placed NPC shell");
+        RefreshRegistry(registry);
+    }
+
 }
 
 void GameBuilderPanel::HandleStoryTab(ContentRegistry& registry) {
@@ -538,6 +702,25 @@ void GameBuilderPanel::HandleFightTab(ContentRegistry& registry) {
         const bool ok3 = WriteAndLog("assets/links/" + m_fight.encounterId + "_encounter.links", links.str(), m_status);
         if (ok1 && ok2 && ok3) RefreshRegistry(registry);
     }
+
+    // V129 placement integration also covers authored enemy content so encounter
+    // work can be tested immediately in the current playable area.
+    const float placementTop = y + 286.0f;
+    HandlePlacementInputs(left, placementTop);
+    DrawPlacementSection(left, placementTop);
+    if (Button(MakeRow(left + kWideActionColumnOffset, placementTop + 170.0f, 260.0f, 38.0f), "Add Enemy Spawn To Scene")) {
+        AppendSpawnToSceneFile(m_placement.targetScene,
+                               m_placement.prefabOverride.empty() ? m_fight.prefabId : m_placement.prefabOverride,
+                               m_placement.tag.empty() ? m_fight.enemyId : m_placement.tag,
+                               m_placement.positionX,
+                               m_placement.positionY,
+                               m_placement.positionZ,
+                               m_placement.rotationEuler,
+                               m_placement.scale,
+                               "Placed enemy spawn");
+        RefreshRegistry(registry);
+    }
+
 }
 
 void GameBuilderPanel::HandleTradeTab(ContentRegistry& registry) {

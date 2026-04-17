@@ -1,0 +1,5 @@
+dialogueId=hon_solo
+npcId=Han_solo_
+text=Hello, help me with one or two things.
+choice=kill these monsters, clear the area.
+choice=go talk to amira and help her.

@@ -212,6 +212,33 @@ private:
         std::string creatorMode = "creator_first_coder_capable";
     };
 
+
+    // PlacementDraft stores the information needed to take content that the builder
+    // already authored and actually place it into a scene that the playable runtime
+    // can load. The earlier builder versions could write data files, but they did
+    // not provide a direct bridge into the currently playable area. V129 adds that
+    // bridge by letting the user target a scene file and append spawn entries.
+    struct PlacementDraft {
+        // targetScene is the scene file that will receive appended spawn lines.
+        std::string targetScene = "starter_village";
+        // targetRegion is currently informational. It gives the user a visible
+        // reminder of which region they believe this scene belongs to.
+        std::string targetRegion = "starter_village";
+        // prefabOverride allows the user to force a prefab id instead of using the
+        // default prefab implied by the current tab's authored data.
+        std::string prefabOverride;
+        // position fields are stored as strings because the builder already uses
+        // text-entry widgets rather than typed numeric spinners.
+        std::string positionX = "0";
+        std::string positionY = "1";
+        std::string positionZ = "0";
+        std::string rotationEuler = "0,0,0";
+        std::string scale = "1,1,1";
+        // tag is written into the spawn entry so the placed object can be easier to
+        // identify later in scene data and during debugging.
+        std::string tag = "builder_spawn";
+    };
+
     [[nodiscard]] bool Button(const Rectangle& rect, const char* label) const;
     [[nodiscard]] bool PointInRect(const Rectangle& rect, Vector2 point) const;
     [[nodiscard]] Rectangle ContentRect() const;
@@ -222,6 +249,19 @@ private:
     void UpdateTabClicks();
     void DrawStatusBar() const;
     [[nodiscard]] Rectangle CloseButtonRect() const;
+
+    // Scene placement helpers added in V129.
+    void DrawPlacementSection(float sectionLeft, float sectionTop) const;
+    void HandlePlacementInputs(float sectionLeft, float sectionTop);
+    [[nodiscard]] bool AppendSpawnToSceneFile(const std::string& sceneId,
+                                              const std::string& prefabId,
+                                              const std::string& tag,
+                                              const std::string& positionX,
+                                              const std::string& positionY,
+                                              const std::string& positionZ,
+                                              const std::string& rotationEuler,
+                                              const std::string& scale,
+                                              const std::string& statusPrefix);
 
     void HandleCreateTab(ContentRegistry& registry);
     void HandleStoryTab(ContentRegistry& registry);
@@ -267,6 +307,7 @@ private:
     TemplateDraft m_template {};
     ShipDraft m_ship {};
     CompleteDraft m_complete {};
+    PlacementDraft m_placement {};
 };
 
 } // namespace fw

@@ -1,0 +1,4 @@
+quest=second_quest
+start=start
+node=start;objective=clear_area;target=wolf;next=turn_in
+node=turn_in;rewardItem=healing_potion;rewardGold=60;next=third_quest

@@ -1,0 +1,4 @@
+questLinkId=second_quest_quest
+quest=second_quest
+dialogue=hon_solo
+nextQuest=third_quest

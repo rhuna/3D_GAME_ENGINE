@@ -1,0 +1,7 @@
+questId=second_quest
+title=kill_the_monsters
+objectiveType=clear_area
+objectiveTarget=wolf
+rewardItem=healing_potion
+rewardGold=60
+nextQuestId=third_quest
